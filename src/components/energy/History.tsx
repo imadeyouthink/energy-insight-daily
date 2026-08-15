@@ -7,11 +7,8 @@ export function History({ entries }: { entries: DailyEntry[] }) {
   const today = todayKey();
 
   return (
-    <section className="mt-10">
-      <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-        Last 14 days
-      </h2>
-      <div className="mt-3">
+    <section>
+      <div>
         {entries.map((e) => (
           <div
             key={e.entry_date}
