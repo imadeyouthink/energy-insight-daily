@@ -50,6 +50,10 @@ const DEFAULT_STATE: CheckInState = {
 function EnergyCoach() {
   const queryClient = useQueryClient();
   const today = todayKey();
+  const dateLabel = (() => {
+    const [y, m, d] = today.split("-");
+    return `${d}/${m}/${y?.slice(2)}`;
+  })();
   const [state, setState] = useState<CheckInState>(DEFAULT_STATE);
   const [editing, setEditing] = useState(false);
 
@@ -125,10 +129,10 @@ function EnergyCoach() {
       <div className="mx-auto w-full max-w-md">
         <div className="aurora -mx-5 safe-top mb-5 pb-5 pt-5">
           <header className="px-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary/70">
-              {today}
-            </p>
-            <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+            <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
+              {dateLabel}
+            </span>
+            <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               {parsedPlan ? parsedPlan.headline : showPlan ? "Today's plan" : "Morning check-in"}
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
