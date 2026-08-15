@@ -121,19 +121,21 @@ function EnergyCoach() {
     <main className="safe-top min-h-screen bg-background px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <header className="aurora mb-7 rounded-[2rem] p-4">
-          <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-            {showPlan ? "Today's plan" : "Morning check-in"}
-          </h1>
-          <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-            {showPlan
-              ? "Made just for how you feel today."
-              : "Fifteen seconds. No typing, no streaks."}
-          </p>
-        </header>
-
-
-
+        <div className="aurora -mx-5 safe-top mb-5 pb-5 pt-5">
+          <header className="px-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary/70">
+              {today}
+            </p>
+            <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+              {showPlan ? "Today's plan" : "Morning check-in"}
+            </h1>
+            <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+              {showPlan
+                ? "Made just for how you feel today."
+                : "Fifteen seconds. No typing, no streaks."}
+            </p>
+          </header>
+        </div>
 
         {showPlan ? (
           <PlanView plan={todayEntry.plan!} onEdit={() => setEditing(true)} />
@@ -152,3 +154,4 @@ function EnergyCoach() {
     </main>
   );
 }
+
