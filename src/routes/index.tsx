@@ -3,9 +3,18 @@ import { ArrowUpRight } from "lucide-react";
 
 import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
+import { TrendSparklines } from "@/components/energy/TrendSparklines";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { computeCycle } from "@/lib/cycle";
+import {
+  STATUS_BG,
+  dayStatus,
+  energyStatus,
+  sleepStatus,
+  stressStatus,
+  type MetricStatus,
+} from "@/lib/status";
 import { dateLabel, useToday } from "@/hooks/useToday";
 
 
