@@ -134,6 +134,24 @@ type Props = {
   submitting: boolean;
 };
 
+export function SleepCheckIn({
+  value,
+  onChange,
+}: {
+  value: number | null;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <Section title="How did you sleep?">
+      <ScaleButtons
+        labels={SLEEP_LABELS}
+        value={value}
+        onChange={onChange}
+      />
+    </Section>
+  );
+}
+
 export function CheckIn({
   state,
   setState,
@@ -145,14 +163,6 @@ export function CheckIn({
   return (
     <div>
       <div className="divide-y divide-border">
-        <Section title="How did you sleep?">
-          <ScaleButtons
-            labels={SLEEP_LABELS}
-            value={state.sleep}
-            onChange={(sleep) => setState((s) => ({ ...s, sleep }))}
-          />
-        </Section>
-
         <Section title="Energy">
           <ScaleSlider
             value={state.energy}
