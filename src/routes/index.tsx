@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 import { CheckIn, type CheckInState } from "@/components/energy/CheckIn";
 import { PlanView } from "@/components/energy/PlanView";
-import { History } from "@/components/energy/History";
+import { TabBar } from "@/components/energy/TabBar";
 import { Toaster } from "@/components/ui/sonner";
 import { computeCycle, todayKey, type CycleSettings } from "@/lib/cycle";
 import {
@@ -118,7 +118,7 @@ function EnergyCoach() {
   const showPlan = !!todayEntry?.plan && !editing;
 
   return (
-    <main className="safe-top safe-bottom min-h-screen bg-background px-5">
+    <main className="safe-top min-h-screen bg-background px-5 pb-32">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
         <header className="mb-8">
@@ -144,9 +144,8 @@ function EnergyCoach() {
             submitting={planMutation.isPending}
           />
         )}
-
-        <History entries={entries} />
       </div>
+      <TabBar />
     </main>
   );
 }
