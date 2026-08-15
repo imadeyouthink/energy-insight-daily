@@ -71,7 +71,7 @@ function Row({
       <span className="w-14 shrink-0 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
         {label}
       </span>
-      <div className="relative h-8 flex-1">
+      <div className="relative h-5 flex-1">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           preserveAspectRatio="none"
