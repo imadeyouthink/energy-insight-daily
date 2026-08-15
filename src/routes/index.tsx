@@ -125,8 +125,6 @@ function EnergyCoach() {
           <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
             {showPlan ? "Today's plan" : "Morning check-in"}
           </h1>
-            {showPlan ? "Today's plan" : "Morning check-in"}
-          </h1>
           <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
             {showPlan
               ? "Made just for how you feel today."
