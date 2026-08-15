@@ -32,12 +32,12 @@ function HistoryPage() {
   return (
     <main className="min-h-screen bg-background px-5 pb-32">
       <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 safe-top mb-5 pb-5 pt-5">
-          <header className="px-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary/70">
+        <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
+          <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
+            <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               History
-            </p>
-            <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+            </span>
+            <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               Last 14 days
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
