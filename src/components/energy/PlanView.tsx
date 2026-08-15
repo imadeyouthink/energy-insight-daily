@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { ArrowUpRight, Moon, Utensils, Coffee } from "lucide-react";
 
 const CATEGORIES = [
-  { label: "Movement", icon: "↗" },
-  { label: "Food", icon: "◍" },
-  { label: "Caffeine", icon: "☕" },
-  { label: "Bedtime", icon: "☾" },
-];
+  { label: "Movement", Icon: ArrowUpRight },
+  { label: "Food", Icon: Utensils },
+  { label: "Caffeine", Icon: Coffee },
+  { label: "Bedtime", Icon: Moon },
+] as const;
+
 
 export function PlanView({ bullets, onEdit }: { bullets: string[]; onEdit: () => void }) {
   return (
