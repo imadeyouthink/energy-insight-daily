@@ -16,12 +16,13 @@ const STATUS_TEXT: Record<MetricStatus, string> = {
   caution: "text-status-caution-foreground",
 };
 
-const STATUS_BY_LABEL: Record<string, (value: number) => MetricStatus> = {
+const STATUS_BY_LABEL = {
   S: sleepStatus,
   E: energyStatus,
   St: stressStatus,
   D: dayStatus,
-};
+} satisfies Record<string, (value: number) => MetricStatus>;
+
 
 export function History({ entries }: { entries: DailyEntry[] }) {
   if (entries.length === 0) return null;
