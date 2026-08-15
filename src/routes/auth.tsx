@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
 
+import { BrandLockup } from "@/components/energy/BrandLockup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -74,6 +75,9 @@ function AuthPage() {
     <main className="aurora min-h-screen px-5 pb-16">
       <Toaster position="top-center" />
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center py-12">
+        <div className="mb-6 flex justify-center">
+          <BrandLockup />
+        </div>
         <div className="glass rounded-[2rem] p-6 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
           <header>
             <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
