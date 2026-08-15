@@ -172,14 +172,6 @@ export function CheckIn({
 
       <CycleSetup value={cycleSettings} onSave={onSaveCycle} />
 
-      <Section title="How packed is today?">
-        <ScaleButtons
-          labels={DAY_LABELS}
-          value={state.dayIntensity}
-          onChange={(dayIntensity) => setState((s) => ({ ...s, dayIntensity }))}
-        />
-      </Section>
-
       <Section title="Caffeine after 2pm yesterday?">
         <YesNo
           value={state.caffeine}
@@ -189,6 +181,14 @@ export function CheckIn({
 
       <Section title="Alcohol last night?">
         <YesNo value={state.alcohol} onChange={(alcohol) => setState((s) => ({ ...s, alcohol }))} />
+      </Section>
+
+      <Section title="How packed is today?">
+        <ScaleButtons
+          labels={DAY_LABELS}
+          value={state.dayIntensity}
+          onChange={(dayIntensity) => setState((s) => ({ ...s, dayIntensity }))}
+        />
       </Section>
 
       <Button
