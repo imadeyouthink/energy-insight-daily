@@ -8,8 +8,8 @@ import {
 } from "@/lib/status";
 
 const W = 100;
-const H = 26;
-const PAD = 2;
+const H = 14;
+const PAD = 1.5;
 
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
 
