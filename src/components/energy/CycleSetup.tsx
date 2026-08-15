@@ -49,22 +49,18 @@ export function CycleSetup({ value, onSave, saving }: Props) {
               {current.phase} · day {current.day}
             </p>
           ) : (
-            <p className="mt-1 text-[15px] font-medium tracking-tight text-muted-foreground">
-              Not tracking
+            <p className="mt-1 text-[15px] font-medium tracking-tight text-foreground">
+              Track my cycle
             </p>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <Label htmlFor="cycle-enabled" className="text-sm font-medium tracking-tight">
-            Track my cycle
-          </Label>
-          <Switch
-            id="cycle-enabled"
-            checked={draft.enabled}
-            onCheckedChange={toggle}
-          />
-        </div>
+        <Switch
+          id="cycle-enabled"
+          checked={draft.enabled}
+          onCheckedChange={toggle}
+          aria-label="Track my cycle"
+        />
       </div>
 
       {draft.enabled && (
