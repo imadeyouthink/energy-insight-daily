@@ -77,7 +77,12 @@ export function parsePlan(text: string): ParsedPlan {
   const rest: string[] = [];
   for (const line of lines) {
     if (/^([-*•]|\d+\.)\s+/.test(line)) {
-      bullets.push(line.replace(/^([-*•]|\d+\.)\s+/, "").replace(/\*\*/g, ""));
+      bullets.push(
+        line
+          .replace(/^([-*•]|\d+\.)\s+/, "")
+          .replace(/\*\*/g, "")
+          .replace(/^(Movement|Food|Caffeine|Bedtime)\s*[:\-]\s*/i, ""),
+      );
     } else {
       rest.push(line.replace(/^#+\s*/, "").replace(/\*\*/g, ""));
     }
