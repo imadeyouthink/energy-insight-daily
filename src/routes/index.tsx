@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
+import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
 import { Toaster } from "@/components/ui/sonner";
 import { computeCycle } from "@/lib/cycle";
 import { dateLabel, useToday } from "@/hooks/useToday";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -165,10 +167,11 @@ function HomePage() {
                 />
               </div>
               {cycle && (
-                <span className="mt-2.5 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[12px] font-medium tracking-tight text-turquoise-foreground">
-                  {cycle.phase} · day {cycle.day}
-                </span>
+                <div className="mt-3">
+                  <CycleBanner phase={cycle.phase} day={cycle.day} />
+                </div>
               )}
+
             </section>
 
             {parsedPlan && (
