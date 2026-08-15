@@ -109,7 +109,7 @@ function HomePage() {
                 />
               </div>
               {cycle && (
-                <span className="mt-2 inline-flex items-center rounded-full bg-accent px-3 py-1 text-[12px] font-medium tracking-tight text-accent-foreground">
+                <span className="mt-2 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[13px] font-medium tracking-tight text-turquoise-foreground">
                   {cycle.phase} · day {cycle.day}
                 </span>
               )}
@@ -143,7 +143,7 @@ function HomePage() {
             <div className="mt-3 flex items-end gap-2">
               {week.map((e) => (
                 <div key={e.entry_date} className="flex flex-1 flex-col items-center gap-1.5">
-                  <div className="flex h-16 w-full items-end">
+                  <div className="flex h-16 w-full max-w-8 items-end">
                     <div
                       className="w-full rounded-full bg-primary/80"
                       style={{ height: `${(e.energy / 5) * 100}%` }}
