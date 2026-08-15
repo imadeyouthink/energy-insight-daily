@@ -1,23 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { toast } from "sonner";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 
-import { CheckIn, type CheckInState } from "@/components/energy/CheckIn";
-import { PlanView } from "@/components/energy/PlanView";
 import { TabBar } from "@/components/energy/TabBar";
 import { Toaster } from "@/components/ui/sonner";
-import { computeCycle, todayKey, type CycleSettings } from "@/lib/cycle";
-import {
-  fetchCycleSettings,
-  fetchEntries,
-  saveCycleSettings,
-  saveEntry,
-  type DailyEntry,
-} from "@/lib/data";
-import { generatePlan, parsePlan } from "@/lib/plan.functions";
-
+import { computeCycle } from "@/lib/cycle";
+import { dateLabel, useToday } from "@/hooks/useToday";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,135 +20,154 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Turn how you feel today into a short, practical plan for movement, food and rest.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: EnergyCoach,
+  component: HomePage,
 });
 
-const DEFAULT_STATE: CheckInState = {
-  sleep: null,
-  energy: 3,
-  stress: 3,
-  dayIntensity: 3,
-  caffeine: false,
-  alcohol: false,
-};
+function greeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning";
+  if (h < 18) return "Good afternoon";
+  return "Good evening";
+}
 
-function EnergyCoach() {
-  const queryClient = useQueryClient();
-  const today = todayKey();
-  const dateLabel = (() => {
-    const [y, m, d] = today.split("-");
-    return `${d}-${m}-${y?.slice(2)}`;
-  })();
-  const [state, setState] = useState<CheckInState>(DEFAULT_STATE);
-  const [editing, setEditing] = useState(false);
+function Chip({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl bg-secondary px-3 py-2">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+        {label}
+      </p>
+      <p className="mt-0.5 text-[15px] font-semibold tracking-tight text-foreground">{value}</p>
+    </div>
+  );
+}
 
-  const entriesQuery = useQuery({ queryKey: ["entries"], queryFn: () => fetchEntries(14) });
-  const settingsQuery = useQuery({ queryKey: ["cycle-settings"], queryFn: fetchCycleSettings });
+const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
+const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
 
-  const entries = entriesQuery.data ?? [];
-  const todayEntry = entries.find((e) => e.entry_date === today) ?? null;
-  const cycleSettings = settingsQuery.data ?? null;
+function HomePage() {
+  const { today, entries, todayEntry, cycleSettings, parsedPlan } = useToday();
+  const checkedIn = !!todayEntry;
+  const cycle = computeCycle(cycleSettings);
 
-  useEffect(() => {
-    if (!todayEntry) return;
-    setState({
-      sleep: todayEntry.sleep,
-      energy: todayEntry.energy,
-      stress: todayEntry.stress,
-      dayIntensity: todayEntry.day_intensity,
-      caffeine: todayEntry.caffeine,
-      alcohol: todayEntry.alcohol,
-    });
-  }, [todayEntry]);
-
-  const cycleMutation = useMutation({
-    mutationFn: (value: CycleSettings) => saveCycleSettings(value),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cycle-settings"] }),
-    onError: () => toast.error("Couldn't save cycle settings."),
-  });
-
-  const generate = useServerFn(generatePlan);
-
-  const planMutation = useMutation({
-    mutationFn: async () => {
-      const cycle = computeCycle(cycleSettings);
-      const { plan } = await generate({
-        data: {
-          sleep: state.sleep ?? 3,
-          energy: state.energy,
-          stress: state.stress,
-          dayIntensity: state.dayIntensity ?? 3,
-          caffeine: state.caffeine,
-          alcohol: state.alcohol,
-          cyclePhase: cycle?.phase ?? null,
-          cycleDay: cycle?.day ?? null,
-        },
-      });
-      const entry: DailyEntry = {
-        entry_date: today,
-        sleep: state.sleep ?? 3,
-        energy: state.energy,
-        stress: state.stress,
-        day_intensity: state.dayIntensity ?? 3,
-        caffeine: state.caffeine,
-        alcohol: state.alcohol,
-        cycle_phase: cycle?.phase ?? null,
-        cycle_day: cycle?.day ?? null,
-        plan,
-      };
-      return saveEntry(entry);
-    },
-    onSuccess: () => {
-      setEditing(false);
-      queryClient.invalidateQueries({ queryKey: ["entries"] });
-    },
-    onError: (error: Error) => toast.error(error.message || "Couldn't build your plan."),
-  });
-
-  const showPlan = !!todayEntry?.plan && !editing;
-  const parsedPlan = showPlan && todayEntry?.plan ? parsePlan(todayEntry.plan) : null;
+  const week = [...entries]
+    .filter((e) => e.entry_date <= today)
+    .slice(0, 7)
+    .reverse();
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-60">
+    <main className="min-h-screen bg-background px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 safe-top mb-5 px-5 pb-6 pt-5">
+        <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
           <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
             <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
-              {dateLabel}
+              {dateLabel(today)}
             </span>
             <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-              {parsedPlan ? parsedPlan.headline : showPlan ? "Today's plan" : "Morning check-in"}
+              {greeting()}
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-              {parsedPlan
-                ? parsedPlan.recap
-                : showPlan
-                  ? "Made just for how you feel today."
-                  : "Fifteen seconds. No typing, no streaks."}
+              {checkedIn
+                ? "Here's where today stands."
+                : "Start with a fifteen-second check-in."}
             </p>
           </header>
         </div>
 
-
-        {showPlan ? (
-          <PlanView bullets={parsedPlan?.bullets ?? []} onEdit={() => setEditing(true)} />
+        {!checkedIn ? (
+          <Link
+            to="/check-in"
+            className="glass flex items-center justify-between rounded-[1.75rem] px-5 py-5 shadow-[0_8px_24px_-16px_oklch(0_0_0/0.35)]"
+          >
+            <span>
+              <span className="block text-[17px] font-semibold tracking-tight text-foreground">
+                Start today's check-in
+              </span>
+              <span className="mt-0.5 block text-[13px] tracking-tight text-muted-foreground">
+                15 seconds · no typing
+              </span>
+            </span>
+            <ArrowUpRight className="h-5 w-5 text-foreground" />
+          </Link>
         ) : (
-          <CheckIn
-            state={state}
-            setState={setState}
-            cycleSettings={cycleSettings}
-            onSaveCycle={(v) => cycleMutation.mutate(v)}
-            onSubmit={() => planMutation.mutate()}
-            submitting={planMutation.isPending}
-          />
+          <div className="space-y-6">
+            <section>
+              <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                Today at a glance
+              </h2>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <Chip label="Sleep" value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"} />
+                <Chip label="Energy" value={`${todayEntry.energy} / 5`} />
+                <Chip label="Stress" value={`${todayEntry.stress} / 5`} />
+                <Chip
+                  label="Day"
+                  value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
+                />
+              </div>
+              {cycle && (
+                <span className="mt-2 inline-flex items-center rounded-full bg-accent px-3 py-1 text-[12px] font-medium tracking-tight text-accent-foreground">
+                  {cycle.phase} · day {cycle.day}
+                </span>
+              )}
+            </section>
+
+            {parsedPlan && (
+              <section>
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                  Today's plan
+                </h2>
+                <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-foreground">
+                  {parsedPlan.bullets[0]}
+                </p>
+                <Link
+                  to="/plan"
+                  className="mt-2 inline-flex items-center gap-1 text-[13px] font-medium tracking-tight text-foreground underline underline-offset-4"
+                >
+                  See full plan
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              </section>
+            )}
+          </div>
+        )}
+
+        {week.length > 0 && (
+          <section className="mt-8">
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              Last 7 days · energy
+            </h2>
+            <div className="mt-3 flex items-end gap-2">
+              {week.map((e) => (
+                <div key={e.entry_date} className="flex flex-1 flex-col items-center gap-1.5">
+                  <div className="flex h-16 w-full items-end">
+                    <div
+                      className="w-full rounded-full bg-primary/80"
+                      style={{ height: `${(e.energy / 5) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-[10px] tracking-tight text-muted-foreground">
+                    {e.entry_date.slice(8)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {checkedIn && (
+          <Link
+            to="/check-in"
+            className="mt-6 block text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
+          >
+            Edit today's check-in
+          </Link>
         )}
       </div>
       <TabBar />
     </main>
   );
 }
-
-
