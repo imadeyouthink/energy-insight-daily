@@ -122,10 +122,7 @@ function EnergyCoach() {
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
         <header className="mb-6 px-1">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-primary">
-            Energy Coach
-          </p>
-          <h1 className="mt-1 text-3xl font-semibold text-foreground">
+          <h1 className="text-3xl font-semibold text-foreground">
             {showPlan ? "Today's plan" : "Morning check-in"}
           </h1>
           <p className="mt-1.5 text-sm text-muted-foreground">
