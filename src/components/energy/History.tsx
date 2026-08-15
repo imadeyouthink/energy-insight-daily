@@ -8,7 +8,7 @@ export function History({ entries }: { entries: DailyEntry[] }) {
 
   return (
     <section className="mt-10">
-      <h2 className="px-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
         Last 14 days
       </h2>
       <div className="mt-3">
@@ -16,12 +16,12 @@ export function History({ entries }: { entries: DailyEntry[] }) {
           <div
             key={e.entry_date}
             className={cn(
-              "flex items-center justify-between gap-3 border-b border-border px-1 py-3",
-              e.entry_date === today && "bg-accent/40 -mx-1 rounded-2xl px-3",
+              "flex items-center justify-between gap-3 border-b border-border py-3.5",
+              e.entry_date === today && "-mx-3 rounded-2xl border-transparent bg-secondary px-3",
             )}
           >
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-foreground">
+              <p className="truncate text-sm font-medium tracking-tight text-foreground">
                 {formatDay(e.entry_date)}
                 {e.entry_date === today && (
                   <span className="ml-2 rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold uppercase text-primary-foreground">

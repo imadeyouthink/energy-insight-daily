@@ -6,21 +6,26 @@ export function PlanView({ plan, onEdit }: { plan: string; onEdit: () => void })
 
   return (
     <div className="space-y-5">
-      <div className="border-b border-border pb-6">
-        <h2 className="text-2xl font-semibold leading-snug text-foreground">{headline}</h2>
-        {recap && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{recap}</p>}
-
-        <ul className="mt-6 space-y-3">
-          {bullets.map((b, i) => (
-            <li key={i} className="flex gap-3 text-sm leading-relaxed text-foreground">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-              <span>{b}</span>
-            </li>
-          ))}
-        </ul>
+      <div className="aurora overflow-hidden rounded-[2rem] p-6">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          Today
+        </p>
+        <h2 className="mt-2 text-[28px] font-semibold leading-[1.12] tracking-[-0.03em] text-foreground">
+          {headline}
+        </h2>
+        {recap && <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{recap}</p>}
       </div>
 
-      <Button variant="outline" className="h-12 w-full rounded-3xl" onClick={onEdit}>
+      <ul className="divide-y divide-border">
+        {bullets.map((b, i) => (
+          <li key={i} className="flex gap-3 py-4 text-[15px] leading-relaxed tracking-tight text-foreground">
+            <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+
+      <Button variant="outline" className="h-12 w-full rounded-full text-[15px] tracking-tight" onClick={onEdit}>
         Edit today's check-in
       </Button>
     </div>
