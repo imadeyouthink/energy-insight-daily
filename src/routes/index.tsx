@@ -8,6 +8,7 @@ import { CheckIn, type CheckInState } from "@/components/energy/CheckIn";
 import { PlanView } from "@/components/energy/PlanView";
 import { TabBar } from "@/components/energy/TabBar";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
 import { computeCycle, todayKey, type CycleSettings } from "@/lib/cycle";
 import {
   fetchCycleSettings,
@@ -118,10 +119,15 @@ function EnergyCoach() {
   const showPlan = !!todayEntry?.plan && !editing;
 
   return (
-    <main className="safe-top min-h-screen bg-background px-5 pb-32">
+    <main
+      className={cn(
+        "safe-top min-h-screen px-5 pb-32",
+        showPlan ? "bg-background" : "checkin-gradient",
+      )}
+    >
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <header className="mb-8">
+        <header className="mb-8 pt-4">
           <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
             {showPlan ? "Today's plan" : "Morning check-in"}
           </h1>
