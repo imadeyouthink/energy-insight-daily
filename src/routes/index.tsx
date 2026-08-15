@@ -85,6 +85,17 @@ function HomePage() {
   const { today, entries, todayEntry, cycleSettings, parsedPlan } = useToday();
   const checkedIn = !!todayEntry;
   const cycle = computeCycle(cycleSettings);
+  const greeting = useGreeting();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
 
 
   return (
