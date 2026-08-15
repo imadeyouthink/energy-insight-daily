@@ -6,7 +6,7 @@ export function PlanView({ plan, onEdit }: { plan: string; onEdit: () => void })
 
   return (
     <div className="space-y-5">
-      <div className="rounded-3xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
+      <div className="border-b border-border pb-6">
         <h2 className="text-2xl font-semibold leading-snug text-foreground">{headline}</h2>
         {recap && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{recap}</p>}
 
