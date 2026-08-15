@@ -21,6 +21,7 @@ const EMPTY: CycleSettings = {
 export function CycleSetup({ value, onSave, saving }: Props) {
   const [draft, setDraft] = useState<CycleSettings>(value ?? EMPTY);
   const [isEditing, setIsEditing] = useState(() => !(value?.enabled && value?.last_period_start));
+  const current = computeCycle(value);
 
   useEffect(() => {
     setDraft(value ?? EMPTY);
