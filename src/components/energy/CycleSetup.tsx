@@ -35,10 +35,13 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             Cycle phase
           </p>
-          <p className="mt-1 text-[15px] font-medium tracking-tight text-foreground">
-            {current ? `${current.phase} · day ${current.day}` : "Not set up"}
-          </p>
+          {current && (
+            <p className="mt-1 text-[15px] font-medium tracking-tight text-foreground">
+              {current.phase} · day {current.day}
+            </p>
+          )}
         </div>
+
 
         {!open && (
           <button
