@@ -45,18 +45,12 @@ function Chip({
 }: {
   label: string;
   value: string;
-  status?: "ok" | "attention" | "caution";
+  status?: MetricStatus;
 }) {
-  const statusBg = {
-    ok: "bg-status-ok",
-    attention: "bg-status-attention",
-    caution: "bg-status-caution",
-  };
-
   return (
     <div className="flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl bg-secondary px-3.5 py-3 text-center">
       <p className="flex items-center gap-1 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
-        {status && <span className={`h-2 w-2 rounded-full ${statusBg[status]}`} />}
+        {status && <span className={`h-2 w-2 rounded-full ${STATUS_BG[status]}`} />}
         {label}
       </p>
       <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
@@ -66,29 +60,6 @@ function Chip({
   );
 }
 
-function sleepStatus(sleep: number): "ok" | "attention" | "caution" {
-  if (sleep >= 4) return "ok";
-  if (sleep === 3) return "attention";
-  return "caution";
-}
-
-function energyStatus(energy: number): "ok" | "attention" | "caution" {
-  if (energy >= 4) return "ok";
-  if (energy === 3) return "attention";
-  return "caution";
-}
-
-function stressStatus(stress: number): "ok" | "attention" | "caution" {
-  if (stress <= 2) return "ok";
-  if (stress === 3) return "attention";
-  return "caution";
-}
-
-function dayStatus(day: number): "ok" | "attention" | "caution" {
-  if (day <= 2) return "ok";
-  if (day === 3) return "attention";
-  return "caution";
-}
 
 
 
@@ -191,28 +162,15 @@ function HomePage() {
           </div>
         )}
 
-        {week.length > 0 && (
+        {entries.length > 0 && (
           <section className="mt-8">
             <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-              Last 7 days · energy
+              Last 7 days
             </h2>
-            <div className="mt-3 flex items-end gap-2">
-              {week.map((e) => (
-                <div key={e.entry_date} className="flex flex-1 flex-col items-center gap-1.5">
-                  <div className="flex h-16 w-full max-w-8 items-end">
-                    <div
-                      className="w-full rounded-full bg-primary/80"
-                      style={{ height: `${(e.energy / 5) * 100}%` }}
-                    />
-                  </div>
-                  <span className="text-[10px] tracking-tight text-muted-foreground">
-                    {e.entry_date.slice(8)}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <TrendSparklines entries={entries} today={today} />
           </section>
         )}
+
 
         {checkedIn && (
           <Link
