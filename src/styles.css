@@ -122,6 +122,9 @@
   --popover-foreground: oklch(0.984 0.003 247.858);
   --primary: oklch(0.929 0.013 255.508);
   --primary-foreground: oklch(0.208 0.042 265.755);
+  --primary-soft: oklch(0.94 0 0);
+  --turquoise: oklch(0.93 0.05 180);
+  --turquoise-foreground: oklch(0.32 0.08 175);
   --secondary: oklch(0.279 0.041 260.031);
   --secondary-foreground: oklch(0.984 0.003 247.858);
   --muted: oklch(0.279 0.041 260.031);
