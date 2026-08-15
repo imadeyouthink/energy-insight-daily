@@ -22,15 +22,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         {title}
       </h2>
-      <div className="mt-0">{children}</div>
+      <div>{children}</div>
     </div>
   );
 }
-
-
-
-
-
 
 function ScaleButtons({
   labels,
@@ -58,9 +53,6 @@ function ScaleButtons({
                 ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
                 : "text-muted-foreground hover:text-foreground",
             )}
-
-
-
           >
             {label}
           </button>
@@ -119,15 +111,12 @@ function YesNo({
           type="button"
           onClick={() => onChange(option)}
           aria-pressed={value === option}
-            className={cn(
-              "rounded-full px-4 py-1 text-sm font-medium tracking-tight transition-all duration-200",
-              value === option
-                ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-
-
-
+          className={cn(
+            "rounded-full px-4 py-1 text-sm font-medium tracking-tight transition-all duration-200",
+            value === option
+              ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
+              : "text-muted-foreground hover:text-foreground",
+          )}
         >
           {option ? "Yes" : "No"}
         </button>
@@ -164,50 +153,45 @@ export function CheckIn({
           />
         </Section>
 
+        <Section title="Energy">
+          <ScaleSlider
+            value={state.energy}
+            onChange={(energy) => setState((s) => ({ ...s, energy }))}
+            low="Empty"
+            high="Great"
+          />
+        </Section>
 
-      <Section title="Energy">
-        <ScaleSlider
-          value={state.energy}
-          onChange={(energy) => setState((s) => ({ ...s, energy }))}
-          low="Empty"
-          high="Great"
-        />
-      </Section>
+        <Section title="Stress">
+          <ScaleSlider
+            value={state.stress}
+            onChange={(stress) => setState((s) => ({ ...s, stress }))}
+            low="Calm"
+            high="Overwhelmed"
+          />
+        </Section>
 
-      <Section title="Stress">
-        <ScaleSlider
-          value={state.stress}
-          onChange={(stress) => setState((s) => ({ ...s, stress }))}
-          low="Calm"
-          high="Overwhelmed"
-        />
-      </Section>
+        <Section title="Caffeine after 2pm yesterday?">
+          <YesNo
+            value={state.caffeine}
+            onChange={(caffeine) => setState((s) => ({ ...s, caffeine }))}
+          />
+        </Section>
 
-      <Section title="Caffeine after 2pm yesterday?">
-        <YesNo
-          value={state.caffeine}
-          onChange={(caffeine) => setState((s) => ({ ...s, caffeine }))}
-        />
-      </Section>
+        <Section title="Alcohol last night?">
+          <YesNo value={state.alcohol} onChange={(alcohol) => setState((s) => ({ ...s, alcohol }))} />
+        </Section>
 
-      <Section title="Alcohol last night?">
-        <YesNo value={state.alcohol} onChange={(alcohol) => setState((s) => ({ ...s, alcohol }))} />
-      </Section>
+        <CycleSetup value={cycleSettings} onSave={onSaveCycle} />
 
-      <CycleSetup value={cycleSettings} onSave={onSaveCycle} />
-
-      <Section title="How packed is today?">
-        <ScaleButtons
-          labels={DAY_LABELS}
-          value={state.dayIntensity}
-          onChange={(dayIntensity) => setState((s) => ({ ...s, dayIntensity }))}
-        />
-      </Section>
-    </div>
-
-
-
-
+        <Section title="How packed is today?">
+          <ScaleButtons
+            labels={DAY_LABELS}
+            value={state.dayIntensity}
+            onChange={(dayIntensity) => setState((s) => ({ ...s, dayIntensity }))}
+          />
+        </Section>
+      </div>
 
       <Button
         variant="outline"
@@ -220,10 +204,6 @@ export function CheckIn({
       {state.sleep === null && (
         <p className="pt-2 text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
       )}
-
-
-
-
     </div>
   );
 }
