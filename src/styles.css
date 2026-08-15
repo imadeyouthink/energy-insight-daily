@@ -29,6 +29,8 @@
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --color-primary-soft: var(--primary-soft);
+  --color-turquoise: var(--turquoise);
+  --color-turquoise-foreground: var(--turquoise-foreground);
   --shadow-soft: var(--shadow-soft);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
