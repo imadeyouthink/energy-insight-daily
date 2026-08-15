@@ -91,24 +91,22 @@ function Row({
               className="text-foreground/25"
             />
           ))}
+          {points.map((v, i) =>
+            v == null ? null : (
+              <circle
+                key={i}
+                cx={x(i)}
+                cy={y(v)}
+                r={i === lastIndex && lastValue != null ? 2 : 1.5}
+                className={
+                  i === lastIndex && lastValue != null
+                    ? STATUS_DOT[status(lastValue)]
+                    : "fill-foreground/30"
+                }
+              />
+            ),
+          )}
         </svg>
-        {points.map((v, i) =>
-          v == null ? null : (
-            <span
-              key={i}
-              className={`absolute rounded-full ${
-                i === lastIndex && lastValue != null
-                  ? `${STATUS_DOT[status(lastValue)]} h-2 w-2`
-                  : "h-1.5 w-1.5 bg-foreground/30"
-              }`}
-              style={{
-                left: `${(x(i) / W) * 100}%`,
-                top: `${(y(v) / H) * 100}%`,
-                transform: "translate(-50%, -50%)",
-              }}
-            />
-          ),
-        )}
       </div>
       <span className="w-4 shrink-0 text-right text-[13px] font-semibold tabular-nums tracking-tight text-foreground">
         {lastValue ?? "—"}
