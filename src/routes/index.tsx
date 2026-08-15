@@ -36,11 +36,13 @@ function greeting(): string {
 
 function Chip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-secondary px-3 py-2">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+    <div className="flex min-h-[62px] flex-col justify-between rounded-2xl bg-secondary px-3.5 py-3">
+      <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
         {label}
       </p>
-      <p className="mt-0.5 text-[15px] font-semibold tracking-tight text-foreground">{value}</p>
+      <p className="text-[16px] font-semibold leading-none tracking-tight text-foreground">
+        {value}
+      </p>
     </div>
   );
 }
@@ -99,17 +101,14 @@ function HomePage() {
               <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 Today at a glance
               </h2>
-              <div className="mt-2 grid grid-cols-2 gap-2">
+              <div className="mt-3 grid grid-cols-2 gap-2.5">
                 <Chip label="Sleep" value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"} />
-                <Chip label="Energy" value={`${todayEntry.energy} / 5`} />
-                <Chip label="Stress" value={`${todayEntry.stress} / 5`} />
-                <Chip
-                  label="Day"
-                  value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
-                />
+                <Chip label="Energy" value={`${todayEntry.energy}/5`} />
+                <Chip label="Stress" value={`${todayEntry.stress}/5`} />
+                <Chip label="Day" value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"} />
               </div>
               {cycle && (
-                <span className="mt-2 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[13px] font-medium tracking-tight text-turquoise-foreground">
+                <span className="mt-2.5 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[12px] font-medium tracking-tight text-turquoise-foreground">
                   {cycle.phase} · day {cycle.day}
                 </span>
               )}
