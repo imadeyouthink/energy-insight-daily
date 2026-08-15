@@ -3,9 +3,11 @@ import { ArrowUpRight } from "lucide-react";
 
 import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
+import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { computeCycle } from "@/lib/cycle";
 import { dateLabel, useToday } from "@/hooks/useToday";
+
 
 
 export const Route = createFileRoute("/")({
@@ -176,21 +178,16 @@ function HomePage() {
 
             {parsedPlan && (
               <section>
-                <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                  Today's plan
-                </h2>
-                <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-foreground">
-                  {parsedPlan.bullets[0]}
-                </p>
-                <Link
-                  to="/plan"
-                  className="mt-2 inline-flex items-center gap-1 text-[13px] font-medium tracking-tight text-foreground underline underline-offset-4"
+                <Button
+                  asChild
+                  variant="outline"
+                  className="glass h-12 w-full rounded-full text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
                 >
-                  See full plan
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </Link>
+                  <Link to="/plan">See today's plan</Link>
+                </Button>
               </section>
             )}
+
           </div>
         )}
 
