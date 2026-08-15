@@ -31,6 +31,12 @@
   --color-primary-soft: var(--primary-soft);
   --color-turquoise: var(--turquoise);
   --color-turquoise-foreground: var(--turquoise-foreground);
+  --color-status-ok: var(--status-ok);
+  --color-status-ok-foreground: var(--status-ok-foreground);
+  --color-status-attention: var(--status-attention);
+  --color-status-attention-foreground: var(--status-attention-foreground);
+  --color-status-caution: var(--status-caution);
+  --color-status-caution-foreground: var(--status-caution-foreground);
   --shadow-soft: var(--shadow-soft);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
