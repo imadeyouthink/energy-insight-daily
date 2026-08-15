@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,20 +12,29 @@ type Props = {
 };
 
 const EMPTY: CycleSettings = {
-  enabled: true,
+  enabled: false,
   last_period_start: null,
   cycle_length: 28,
   period_length: 5,
 };
 
 export function CycleSetup({ value, onSave, saving }: Props) {
-  const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<CycleSettings>(value ?? EMPTY);
   const current = computeCycle(value);
 
-  function startEdit() {
+  useEffect(() => {
     setDraft(value ?? EMPTY);
-    setOpen(true);
+  }, [value]);
+
+  function toggle(enabled: boolean) {
+    if (enabled) {
+      setDraft((d) => ({ ...(value ?? EMPTY), enabled: true }));
+    } else {
+      if (value) {
+        onSave({ ...value, enabled: false });
+      }
+      setDraft(EMPTY);
+    }
   }
 
   return (
@@ -35,39 +44,31 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             Cycle phase
           </p>
-          {current && (
+          {current ? (
             <p className="mt-1 text-[15px] font-medium tracking-tight text-foreground">
               {current.phase} · day {current.day}
+            </p>
+          ) : (
+            <p className="mt-1 text-[15px] font-medium tracking-tight text-muted-foreground">
+              Not tracking
             </p>
           )}
         </div>
 
-        {!open && (
-          <button
-
-            type="button"
-            onClick={startEdit}
-            className="rounded-full bg-secondary px-4 py-2 text-[13px] font-medium tracking-tight text-primary transition-colors hover:bg-accent"
-          >
-            {value?.last_period_start ? "Edit" : "Set up"}
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          <Label htmlFor="cycle-enabled" className="text-sm font-medium tracking-tight">
+            Track my cycle
+          </Label>
+          <Switch
+            id="cycle-enabled"
+            checked={draft.enabled}
+            onCheckedChange={toggle}
+          />
+        </div>
       </div>
 
-      {open && (
+      {draft.enabled && (
         <div className="mt-3 space-y-3">
-
-          <div className="flex items-center justify-between">
-            <Label htmlFor="cycle-enabled" className="text-sm">
-              Track my cycle
-            </Label>
-            <Switch
-              id="cycle-enabled"
-              checked={draft.enabled}
-              onCheckedChange={(enabled) => setDraft((d) => ({ ...d, enabled }))}
-            />
-          </div>
-
           <div className="space-y-1.5">
             <Label htmlFor="last-period" className="text-sm">
               First day of last period
@@ -122,11 +123,8 @@ export function CycleSetup({ value, onSave, saving }: Props) {
             <Button
               type="button"
               className="rounded-xl"
-              disabled={saving}
-              onClick={() => {
-                onSave(draft);
-                setOpen(false);
-              }}
+              disabled={saving || !draft.last_period_start}
+              onClick={() => onSave(draft)}
             >
               Save
             </Button>
@@ -134,7 +132,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
               type="button"
               variant="ghost"
               className="rounded-xl"
-              onClick={() => setOpen(false)}
+              onClick={() => toggle(false)}
             >
               Cancel
             </Button>
