@@ -39,7 +39,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
 
   return (
     <div className="pb-1 pt-1">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-end justify-between gap-3">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             Cycle phase
