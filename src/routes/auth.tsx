@@ -71,11 +71,11 @@ function AuthPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-16">
+    <main className="aurora min-h-screen px-5 pb-16">
       <Toaster position="top-center" />
-      <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 mb-6 px-5 pb-6 pt-5">
-          <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
+      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center py-12">
+        <div className="glass rounded-[2rem] p-6 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
+          <header>
             <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               {mode === "sign-in" ? "Welcome back" : "Create your account"}
             </h1>
@@ -83,66 +83,66 @@ function AuthPage() {
               Your check-ins and cycle data stay private to you.
             </p>
           </header>
-        </div>
 
-        <form onSubmit={onSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <Label htmlFor="email" className="text-[12px] font-medium text-muted-foreground">
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              autoComplete="email"
-              required
-              className="rounded-xl text-[13px]"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="password" className="text-[12px] font-medium text-muted-foreground">
-              Password
-            </Label>
-            <Input
-              id="password"
-              type="password"
-              autoComplete={mode === "sign-in" ? "current-password" : "new-password"}
-              required
-              minLength={6}
-              className="rounded-xl text-[13px]"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+          <form onSubmit={onSubmit} className="mt-6 space-y-4">
+            <div className="space-y-1">
+              <Label htmlFor="email" className="text-[12px] font-medium text-muted-foreground">
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="rounded-xl text-[13px]"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="password" className="text-[12px] font-medium text-muted-foreground">
+                Password
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                autoComplete={mode === "sign-in" ? "current-password" : "new-password"}
+                required
+                minLength={6}
+                className="rounded-xl text-[13px]"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              variant="outline"
+              disabled={busy}
+              className="h-12 w-full rounded-full border-foreground/10 bg-foreground text-[15px] font-medium tracking-tight text-background shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)] hover:bg-foreground/90 hover:text-background"
+            >
+              {mode === "sign-in" ? "Sign in" : "Sign up"}
+            </Button>
+          </form>
 
           <Button
-            type="submit"
+            type="button"
             variant="outline"
             disabled={busy}
-            className="glass h-12 w-full rounded-full text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
+            onClick={onGoogle}
+            className="glass mt-3 h-12 w-full rounded-full border-white/60 text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
           >
-            {mode === "sign-in" ? "Sign in" : "Sign up"}
+            Continue with Google
           </Button>
-        </form>
 
-        <Button
-          type="button"
-          variant="outline"
-          disabled={busy}
-          onClick={onGoogle}
-          className="glass mt-3 h-12 w-full rounded-full text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
-        >
-          Continue with Google
-        </Button>
-
-        <button
-          type="button"
-          className="mt-6 block w-full text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
-          onClick={() => setMode(mode === "sign-in" ? "sign-up" : "sign-in")}
-        >
-          {mode === "sign-in" ? "New here? Create an account" : "Already have an account? Sign in"}
-        </button>
+          <button
+            type="button"
+            className="mt-6 block w-full text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
+            onClick={() => setMode(mode === "sign-in" ? "sign-up" : "sign-in")}
+          >
+            {mode === "sign-in" ? "New here? Create an account" : "Already have an account? Sign in"}
+          </button>
+        </div>
       </div>
     </main>
   );
