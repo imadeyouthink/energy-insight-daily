@@ -22,7 +22,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         {title}
       </h2>
-      <div>{children}</div>
+      <div className="mt-2">{children}</div>
     </div>
   );
 }
@@ -144,7 +144,7 @@ export function CheckIn({
 }: Props) {
   return (
     <div>
-      <div className="space-y-2">
+      <div className="space-y-5">
         <Section title="How did you sleep?">
           <ScaleButtons
             labels={SLEEP_LABELS}
