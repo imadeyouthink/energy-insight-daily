@@ -49,7 +49,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
               {current.phase} · day {current.day}
             </p>
           ) : (
-            <p className="mt-1 text-[15px] font-medium tracking-tight text-foreground">
+            <p className="mt-1 text-[13px] font-medium tracking-tight text-foreground">
               Track my cycle
             </p>
           )}
