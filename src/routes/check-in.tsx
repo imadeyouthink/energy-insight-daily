@@ -51,7 +51,7 @@ function CheckInPage() {
         <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
           <button
             type="button"
-            onClick={() => navigate({ to: -1 })}
+            onClick={() => window.history.back()}
             className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-white/60 bg-white/40 px-3 py-1.5 text-[13px] font-medium tracking-tight text-foreground shadow-[0_8px_20px_rgb(0_0_0_/_0.05)] backdrop-blur-[20px] transition-colors active:scale-95"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
