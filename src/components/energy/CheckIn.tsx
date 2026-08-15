@@ -52,11 +52,12 @@ function ScaleButtons({
             onClick={() => onChange(v)}
             aria-pressed={active}
             className={cn(
-              "rounded-full px-1 py-1.5 text-[11px] font-medium tracking-tight transition-all duration-200",
+              "rounded-full px-1 py-1 text-[11px] font-medium tracking-tight transition-all duration-200",
               active
                 ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
                 : "text-muted-foreground hover:text-foreground",
             )}
+
 
 
           >
@@ -118,11 +119,12 @@ function YesNo({
           onClick={() => onChange(option)}
           aria-pressed={value === option}
             className={cn(
-              "rounded-full px-4 py-1.5 text-sm font-medium tracking-tight transition-all duration-200",
+              "rounded-full px-4 py-1 text-sm font-medium tracking-tight transition-all duration-200",
               value === option
                 ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
                 : "text-muted-foreground hover:text-foreground",
             )}
+
 
 
         >
@@ -207,7 +209,7 @@ export function CheckIn({
 
       <Button
         variant="outline"
-        className="mt-2 h-11 w-full rounded-full text-[15px] tracking-tight"
+        className="mt-1 h-11 w-full rounded-full text-[15px] tracking-tight"
         disabled={state.sleep === null || submitting}
         onClick={onSubmit}
       >
@@ -216,6 +218,7 @@ export function CheckIn({
       {state.sleep === null && (
         <p className="pt-2 text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
       )}
+
 
 
 
