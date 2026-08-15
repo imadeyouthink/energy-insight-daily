@@ -66,30 +66,33 @@
 }
 
 :root {
-  --radius: 1.5rem;
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+  --radius: 1.25rem;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter Tight", system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter Tight", system-ui, sans-serif;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.28 0.022 55);
-  --card: oklch(0.995 0.008 85);
-  --card-foreground: oklch(0.28 0.022 55);
-  --popover: oklch(0.995 0.008 85);
-  --popover-foreground: oklch(0.28 0.022 55);
-  --primary: oklch(0.55 0.16 250);
-  --primary-foreground: oklch(0.99 0.01 250);
-  --primary-soft: oklch(0.92 0.06 245);
-  --secondary: oklch(0.95 0.02 250);
-  --secondary-foreground: oklch(0.34 0.026 250);
-  --muted: oklch(0.95 0.02 250);
-  --muted-foreground: oklch(0.53 0.026 250);
-  --accent: oklch(0.93 0.05 245);
-  --accent-foreground: oklch(0.35 0.12 245);
+  --foreground: oklch(0.18 0.008 260);
+  --card: oklch(0.985 0.003 260);
+  --card-foreground: oklch(0.18 0.008 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.008 260);
+  --primary: oklch(0.58 0.19 256);
+  --primary-foreground: oklch(0.99 0.005 256);
+  --primary-soft: oklch(0.94 0.035 256);
+  --secondary: oklch(0.968 0.004 260);
+  --secondary-foreground: oklch(0.28 0.01 260);
+  --muted: oklch(0.968 0.004 260);
+  --muted-foreground: oklch(0.56 0.012 260);
+  --accent: oklch(0.955 0.015 256);
+  --accent-foreground: oklch(0.35 0.09 256);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.9 0.02 250);
-  --input: oklch(0.9 0.02 250);
-  --ring: oklch(0.55 0.16 250);
-  --shadow-soft: 0 1px 2px oklch(0.5 0.05 60 / 0.04), 0 10px 30px -18px oklch(0.5 0.08 50 / 0.35);
+  --border: oklch(0.925 0.004 260);
+  --input: oklch(0.925 0.004 260);
+  --ring: oklch(0.58 0.19 256);
+  --shadow-soft: 0 1px 1px oklch(0.2 0.02 260 / 0.04), 0 12px 34px -20px oklch(0.3 0.06 260 / 0.35);
+  --gradient-aurora: radial-gradient(120% 90% at 8% 0%, oklch(0.92 0.07 250 / 0.85) 0%, transparent 55%),
+    radial-gradient(100% 80% at 95% 8%, oklch(0.93 0.06 200 / 0.8) 0%, transparent 60%),
+    radial-gradient(110% 100% at 60% 100%, oklch(0.95 0.05 300 / 0.7) 0%, transparent 60%);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -155,6 +158,16 @@
 
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.03em;
+    font-weight: 600;
   }
+}
+
+@utility aurora {
+  background-image: var(--gradient-aurora);
+}
+
+@utility glass {
+  background-color: color-mix(in oklab, var(--color-background) 70%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
 }
