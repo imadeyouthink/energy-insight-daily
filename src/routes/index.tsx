@@ -1,24 +1,155 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { CheckIn, type CheckInState } from "@/components/energy/CheckIn";
+import { PlanView } from "@/components/energy/PlanView";
+import { History } from "@/components/energy/History";
+import { Toaster } from "@/components/ui/sonner";
+import { computeCycle, todayKey, type CycleSettings } from "@/lib/cycle";
+import {
+  fetchCycleSettings,
+  fetchEntries,
+  saveCycleSettings,
+  saveEntry,
+  type DailyEntry,
+} from "@/lib/data";
+import { generatePlan } from "@/lib/plan.functions";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Energy Coach — your 15-second daily check-in" },
+      {
+        name: "description",
+        content:
+          "Log sleep, energy, stress and how packed your day is, and get a personalized daily energy plan in seconds.",
+      },
+      { property: "og:title", content: "Energy Coach — your 15-second daily check-in" },
+      {
+        property: "og:description",
+        content: "Turn how you feel today into a short, practical plan for movement, food and rest.",
+      },
+    ],
+  }),
+  component: EnergyCoach,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const DEFAULT_STATE: CheckInState = {
+  sleep: null,
+  energy: 3,
+  stress: 3,
+  dayIntensity: 3,
+  caffeine: false,
+  alcohol: false,
+};
+
+function EnergyCoach() {
+  const queryClient = useQueryClient();
+  const today = todayKey();
+  const [state, setState] = useState<CheckInState>(DEFAULT_STATE);
+  const [editing, setEditing] = useState(false);
+
+  const entriesQuery = useQuery({ queryKey: ["entries"], queryFn: () => fetchEntries(14) });
+  const settingsQuery = useQuery({ queryKey: ["cycle-settings"], queryFn: fetchCycleSettings });
+
+  const entries = entriesQuery.data ?? [];
+  const todayEntry = entries.find((e) => e.entry_date === today) ?? null;
+  const cycleSettings = settingsQuery.data ?? null;
+
+  useEffect(() => {
+    if (!todayEntry) return;
+    setState({
+      sleep: todayEntry.sleep,
+      energy: todayEntry.energy,
+      stress: todayEntry.stress,
+      dayIntensity: todayEntry.day_intensity,
+      caffeine: todayEntry.caffeine,
+      alcohol: todayEntry.alcohol,
+    });
+  }, [todayEntry]);
+
+  const cycleMutation = useMutation({
+    mutationFn: (value: CycleSettings) => saveCycleSettings(value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cycle-settings"] }),
+    onError: () => toast.error("Couldn't save cycle settings."),
+  });
+
+  const generate = useServerFn(generatePlan);
+
+  const planMutation = useMutation({
+    mutationFn: async () => {
+      const cycle = computeCycle(cycleSettings);
+      const { plan } = await generate({
+        data: {
+          sleep: state.sleep ?? 3,
+          energy: state.energy,
+          stress: state.stress,
+          dayIntensity: state.dayIntensity ?? 3,
+          caffeine: state.caffeine,
+          alcohol: state.alcohol,
+          cyclePhase: cycle?.phase ?? null,
+          cycleDay: cycle?.day ?? null,
+        },
+      });
+      const entry: DailyEntry = {
+        entry_date: today,
+        sleep: state.sleep ?? 3,
+        energy: state.energy,
+        stress: state.stress,
+        day_intensity: state.dayIntensity ?? 3,
+        caffeine: state.caffeine,
+        alcohol: state.alcohol,
+        cycle_phase: cycle?.phase ?? null,
+        cycle_day: cycle?.day ?? null,
+        plan,
+      };
+      return saveEntry(entry);
+    },
+    onSuccess: () => {
+      setEditing(false);
+      queryClient.invalidateQueries({ queryKey: ["entries"] });
+    },
+    onError: (error: Error) => toast.error(error.message || "Couldn't build your plan."),
+  });
+
+  const showPlan = !!todayEntry?.plan && !editing;
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="min-h-screen bg-background px-5 pb-16 pt-10">
+      <Toaster position="top-center" />
+      <div className="mx-auto w-full max-w-md">
+        <header className="mb-6 px-1">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-primary">
+            Energy Coach
+          </p>
+          <h1 className="mt-1 text-3xl font-semibold text-foreground">
+            {showPlan ? "Today's plan" : "Morning check-in"}
+          </h1>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            {showPlan
+              ? "Made just for how you feel today."
+              : "Fifteen seconds. No typing, no streaks."}
+          </p>
+        </header>
+
+        {showPlan ? (
+          <PlanView plan={todayEntry.plan!} onEdit={() => setEditing(true)} />
+        ) : (
+          <CheckIn
+            state={state}
+            setState={setState}
+            cycleSettings={cycleSettings}
+            onSaveCycle={(v) => cycleMutation.mutate(v)}
+            onSubmit={() => planMutation.mutate()}
+            submitting={planMutation.isPending}
+          />
+        )}
+
+        <History entries={entries} />
+      </div>
+    </main>
   );
 }
