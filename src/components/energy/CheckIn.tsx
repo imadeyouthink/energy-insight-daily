@@ -37,7 +37,7 @@ function ScaleButtons({
   onChange: (v: number) => void;
 }) {
   return (
-    <div className="grid grid-cols-5 gap-1.5 rounded-full bg-secondary p-1">
+    <div className="grid grid-cols-5 gap-2 rounded-full bg-secondary p-1.5">
       {labels.map((label, i) => {
         const v = i + 1;
         const active = value === v;
@@ -48,7 +48,7 @@ function ScaleButtons({
             onClick={() => onChange(v)}
             aria-pressed={active}
             className={cn(
-              "rounded-full px-1 py-1 text-[11px] font-medium tracking-tight transition-all duration-200",
+              "rounded-full px-1 py-1.5 text-[12px] font-medium tracking-tight transition-all duration-200",
               active
                 ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
                 : "text-muted-foreground hover:text-foreground",
@@ -84,7 +84,7 @@ function ScaleSlider({
           onValueChange={([v]) => onChange(v ?? 3)}
           className="flex-1"
         />
-        <span className="w-10 shrink-0 text-right text-3xl font-semibold tabular-nums tracking-tight text-foreground">
+        <span className="w-10 shrink-0 text-right text-[22px] font-semibold tabular-nums tracking-tight text-foreground">
           {value}
         </span>
       </div>
@@ -204,6 +204,7 @@ export function CheckIn({
       {state.sleep === null && (
         <p className="pt-2 text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
       )}
+      <div className="h-6" />
     </div>
   );
 }

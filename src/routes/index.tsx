@@ -124,7 +124,7 @@ function EnergyCoach() {
   const parsedPlan = showPlan && todayEntry?.plan ? parsePlan(todayEntry.plan) : null;
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-48">
+    <main className="min-h-screen bg-background px-5 pb-60">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
         <div className="aurora -mx-5 safe-top mb-5 px-5 pb-6 pt-5">
