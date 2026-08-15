@@ -1,6 +1,27 @@
 import { formatDay, todayKey } from "@/lib/cycle";
 import type { DailyEntry } from "@/lib/data";
+import {
+  STATUS_BG,
+  dayStatus,
+  energyStatus,
+  sleepStatus,
+  stressStatus,
+  type MetricStatus,
+} from "@/lib/status";
 import { cn } from "@/lib/utils";
+
+const STATUS_TEXT: Record<MetricStatus, string> = {
+  ok: "text-status-ok-foreground",
+  attention: "text-status-attention-foreground",
+  caution: "text-status-caution-foreground",
+};
+
+const STATUS_BY_LABEL: Record<string, (value: number) => MetricStatus> = {
+  S: sleepStatus,
+  E: energyStatus,
+  St: stressStatus,
+  D: dayStatus,
+};
 
 export function History({ entries }: { entries: DailyEntry[] }) {
   if (entries.length === 0) return null;
@@ -32,7 +53,7 @@ export function History({ entries }: { entries: DailyEntry[] }) {
                 </p>
               )}
             </div>
-            <div className="flex shrink-0 gap-3 text-xs text-muted-foreground">
+            <div className="flex shrink-0 gap-3">
               <Stat label="S" value={e.sleep} />
               <Stat label="E" value={e.energy} />
               <Stat label="St" value={e.stress} />
@@ -45,11 +66,22 @@ export function History({ entries }: { entries: DailyEntry[] }) {
   );
 }
 
-function Stat({ label, value }: { label: string; value: number }) {
+function Stat({ label, value }: { label: keyof typeof STATUS_BY_LABEL; value: number }) {
+  const status = STATUS_BY_LABEL[label](value);
   return (
-    <span className="tabular-nums">
-      {label}
-      <span className="ml-1 font-semibold text-foreground">{value}</span>
-    </span>
+    <div className="flex flex-col items-center gap-1">
+      <span
+        className={cn(
+          "flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-semibold",
+          STATUS_BG[status],
+          STATUS_TEXT[status],
+        )}
+      >
+        {value}
+      </span>
+      <span className="text-[10px] font-medium tracking-tight text-muted-foreground">
+        {label}
+      </span>
+    </div>
   );
 }
