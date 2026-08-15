@@ -20,21 +20,35 @@ const EMPTY: CycleSettings = {
 
 export function CycleSetup({ value, onSave, saving }: Props) {
   const [draft, setDraft] = useState<CycleSettings>(value ?? EMPTY);
+  const [isEditing, setIsEditing] = useState(() => !(value?.enabled && value?.last_period_start));
   const current = computeCycle(value);
 
   useEffect(() => {
     setDraft(value ?? EMPTY);
+    setIsEditing(!(value?.enabled && value?.last_period_start));
   }, [value]);
+
+  const canSave = Boolean(
+    draft.enabled && draft.last_period_start && draft.cycle_length > 0 && draft.period_length > 0,
+  );
 
   function toggle(enabled: boolean) {
     if (enabled) {
       setDraft((d) => ({ ...(value ?? EMPTY), enabled: true }));
+      setIsEditing(true);
     } else {
       if (value) {
         onSave({ ...value, enabled: false });
       }
       setDraft(EMPTY);
+      setIsEditing(false);
     }
+  }
+
+  function handleSave() {
+    if (!canSave) return;
+    onSave(draft);
+    setIsEditing(false);
   }
 
   return (
@@ -63,7 +77,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
         />
       </div>
 
-      {draft.enabled && (
+      {isEditing && draft.enabled && (
         <div className="mt-3 space-y-3">
           <div className="space-y-1.5">
             <Label htmlFor="last-period" className="text-sm">
@@ -119,8 +133,8 @@ export function CycleSetup({ value, onSave, saving }: Props) {
             <Button
               type="button"
               className="rounded-xl"
-              disabled={saving || !draft.last_period_start}
-              onClick={() => onSave(draft)}
+              disabled={saving || !canSave}
+              onClick={handleSave}
             >
               Save
             </Button>
