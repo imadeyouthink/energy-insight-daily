@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CheckInRouteImport } from './routes/check-in'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as PlanRouteImport } from './routes/plan'
@@ -17,6 +18,11 @@ import { Route as PlanRouteImport } from './routes/plan'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckInRoute = CheckInRouteImport.update({
@@ -37,12 +43,14 @@ const PlanRoute = PlanRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/check-in': typeof CheckInRoute
   '/history': typeof HistoryRoute
   '/plan': typeof PlanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/check-in': typeof CheckInRoute
   '/history': typeof HistoryRoute
   '/plan': typeof PlanRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/check-in': typeof CheckInRoute
   '/history': typeof HistoryRoute
   '/plan': typeof PlanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/check-in' | '/history' | '/plan'
+  fullPaths: '/' | '/auth' | '/check-in' | '/history' | '/plan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/check-in' | '/history' | '/plan'
-  id: '__root__' | '/' | '/check-in' | '/history' | '/plan'
+  to: '/' | '/auth' | '/check-in' | '/history' | '/plan'
+  id: '__root__' | '/' | '/auth' | '/check-in' | '/history' | '/plan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   CheckInRoute: typeof CheckInRoute
   HistoryRoute: typeof HistoryRoute
   PlanRoute: typeof PlanRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/check-in': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   CheckInRoute: CheckInRoute,
   HistoryRoute: HistoryRoute,
   PlanRoute: PlanRoute,

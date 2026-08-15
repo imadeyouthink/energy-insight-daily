@@ -17,6 +17,12 @@ export type DailyEntry = {
 const entries = () => supabase.from("daily_entries" as never);
 const settings = () => supabase.from("cycle_settings" as never);
 
+async function requireUserId(): Promise<string> {
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) throw new Error("You need to be signed in.");
+  return data.user.id;
+}
+
 export async function fetchEntries(limit = 14): Promise<DailyEntry[]> {
   const { data, error } = await entries()
     .select("*")
@@ -27,8 +33,9 @@ export async function fetchEntries(limit = 14): Promise<DailyEntry[]> {
 }
 
 export async function saveEntry(entry: DailyEntry): Promise<DailyEntry> {
+  const user_id = await requireUserId();
   const { data, error } = await entries()
-    .upsert(entry as never, { onConflict: "entry_date" })
+    .upsert({ ...entry, user_id } as never, { onConflict: "user_id,entry_date" })
     .select()
     .single();
   if (error) throw error;
@@ -36,15 +43,16 @@ export async function saveEntry(entry: DailyEntry): Promise<DailyEntry> {
 }
 
 export async function fetchCycleSettings(): Promise<CycleSettings | null> {
-  const { data, error } = await settings().select("*").eq("id", "default").maybeSingle();
+  const { data, error } = await settings().select("*").maybeSingle();
   if (error) throw error;
   return (data as unknown as CycleSettings) ?? null;
 }
 
 export async function saveCycleSettings(value: CycleSettings): Promise<CycleSettings> {
+  const user_id = await requireUserId();
   const { data, error } = await settings()
-    .upsert({ id: "default", ...value, updated_at: new Date().toISOString() } as never, {
-      onConflict: "id",
+    .upsert({ ...value, user_id, updated_at: new Date().toISOString() } as never, {
+      onConflict: "user_id",
     })
     .select()
     .single();
