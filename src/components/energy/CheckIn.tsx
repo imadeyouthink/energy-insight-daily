@@ -18,7 +18,7 @@ const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="pb-3 pt-1">
+    <div className="pb-2 pt-1">
       <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         {title}
       </h2>
@@ -26,6 +26,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </div>
   );
 }
+
 
 
 function ScaleButtons({
@@ -145,7 +146,7 @@ export function CheckIn({
 }: Props) {
   return (
     <div>
-      <div className="space-y-5">
+      <div className="space-y-4">
       <Section title="How did you sleep?">
         <ScaleButtons
           labels={SLEEP_LABELS}
@@ -196,17 +197,19 @@ export function CheckIn({
 
 
 
+
       <Button
         variant="outline"
-        className="mt-6 h-12 w-full rounded-full text-[15px] tracking-tight"
+        className="mt-4 h-12 w-full rounded-full text-[15px] tracking-tight"
         disabled={state.sleep === null || submitting}
         onClick={onSubmit}
       >
         {submitting ? "Building your plan…" : "Get today's plan"}
       </Button>
       {state.sleep === null && (
-        <p className="pt-3 text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
+        <p className="pt-2 text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
       )}
+
     </div>
   );
 }
