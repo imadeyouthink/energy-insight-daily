@@ -124,11 +124,11 @@ function EnergyCoach() {
   const parsedPlan = showPlan && todayEntry?.plan ? parsePlan(todayEntry.plan) : null;
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-40">
+    <main className="min-h-screen bg-background px-5 pb-48">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 safe-top mb-5 pb-5 pt-5">
-          <header className="px-5">
+        <div className="aurora -mx-5 safe-top mb-5 px-5 pb-6 pt-5">
+          <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
             <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel}
             </span>
@@ -144,6 +144,7 @@ function EnergyCoach() {
             </p>
           </header>
         </div>
+
 
         {showPlan ? (
           <PlanView bullets={parsedPlan?.bullets ?? []} onEdit={() => setEditing(true)} />
