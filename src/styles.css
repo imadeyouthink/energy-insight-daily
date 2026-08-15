@@ -197,8 +197,8 @@
 @utility checkin-gradient {
   background-image: linear-gradient(
     to bottom left,
-    oklch(0.93 0.06 200) 0%,
-    oklch(0.97 0.02 210) 45%,
+    oklch(0.95 0.04 200) 0%,
+    oklch(0.98 0.015 205) 45%,
     oklch(1 0 0) 75%
   );
 }
