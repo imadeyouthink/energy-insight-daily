@@ -10,7 +10,7 @@ const tabs = [
 export function TabBar() {
   return (
     <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center pb-[calc(env(safe-area-inset-bottom)+16px)]">
-      <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/75 bg-gradient-to-b from-white/55 via-white/30 to-white/10 p-1.5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45),0_8px_20px_-10px_oklch(0_0_0/0.1),inset_0_1px_0_0_oklch(1_0_0/0.6)] backdrop-blur-[30px] saturate-[200%]">
+      <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/75 bg-gradient-to-b from-white/55 via-white/30 to-white/10 p-1.5 shadow-[0_24px_60px_-24px_oklch(0_0_0/0.55),0_12px_28px_-12px_oklch(0_0_0/0.2),inset_0_1px_0_0_oklch(1_0_0/0.6)] backdrop-blur-[30px] saturate-[200%]">
         {tabs.map(({ to, label, icon: Icon }) => (
           <Link
             key={to}
