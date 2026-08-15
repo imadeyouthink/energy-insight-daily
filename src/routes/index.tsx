@@ -143,10 +143,26 @@ function HomePage() {
                 Today at a glance
               </h2>
               <div className="mt-3 grid grid-cols-2 gap-2.5">
-                <Chip label="Sleep" value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"} />
-                <Chip label="Energy" value={`${todayEntry.energy}/5`} />
-                <Chip label="Stress" value={`${todayEntry.stress}/5`} />
-                <Chip label="Day" value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"} />
+                <Chip
+                  label="Sleep"
+                  value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
+                  status={sleepStatus(todayEntry.sleep)}
+                />
+                <Chip
+                  label="Energy"
+                  value={`${todayEntry.energy}/5`}
+                  status={energyStatus(todayEntry.energy)}
+                />
+                <Chip
+                  label="Stress"
+                  value={`${todayEntry.stress}/5`}
+                  status={stressStatus(todayEntry.stress)}
+                />
+                <Chip
+                  label="Day"
+                  value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
+                  status={dayStatus(todayEntry.day_intensity)}
+                />
               </div>
               {cycle && (
                 <span className="mt-2.5 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[12px] font-medium tracking-tight text-turquoise-foreground">
