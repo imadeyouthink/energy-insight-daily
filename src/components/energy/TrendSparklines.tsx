@@ -1,6 +1,6 @@
 import type { DailyEntry } from "@/lib/data";
 import {
-  STATUS_FILL,
+  STATUS_BG as STATUS_DOT,
   energyStatus,
   sleepStatus,
   stressStatus,
@@ -69,48 +69,52 @@ function Row({
       <span className="w-14 shrink-0 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
         {label}
       </span>
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="none"
-        className="h-8 flex-1 overflow-visible"
-        aria-hidden="true"
-      >
-        {segments(points).map((pts, i) => (
-          <polyline
-            key={i}
-            points={pts}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.25}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            vectorEffect="non-scaling-stroke"
-            className="text-foreground/25"
-          />
-        ))}
+      <div className="relative h-8 flex-1">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full"
+          aria-hidden="true"
+        >
+          {segments(points).map((pts, i) => (
+            <polyline
+              key={i}
+              points={pts}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.25}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+              className="text-foreground/25"
+            />
+          ))}
+        </svg>
         {points.map((v, i) =>
           v == null ? null : (
-            <circle
+            <span
               key={i}
-              cx={x(i)}
-              cy={y(v)}
-              r={i === lastIndex ? 2.4 : 1.3}
-              vectorEffect="non-scaling-stroke"
-              className={
+              className={`absolute rounded-full ${
                 i === lastIndex && lastValue != null
-                  ? STATUS_FILL[status(lastValue)]
-                  : "fill-foreground/30"
-              }
+                  ? `${STATUS_DOT[status(lastValue)]} h-2 w-2`
+                  : "h-1.5 w-1.5 bg-foreground/30"
+              }`}
+              style={{
+                left: `${(x(i) / W) * 100}%`,
+                top: `${(y(v) / H) * 100}%`,
+                transform: "translate(-50%, -50%)",
+              }}
             />
           ),
         )}
-      </svg>
+      </div>
       <span className="w-4 shrink-0 text-right text-[13px] font-semibold tabular-nums tracking-tight text-foreground">
         {lastValue ?? "—"}
       </span>
     </div>
   );
 }
+
 
 export function TrendSparklines({
   entries,
