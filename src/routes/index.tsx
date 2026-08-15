@@ -36,11 +36,13 @@ function greeting(): string {
 
 function Chip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-secondary px-3 py-2">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+    <div className="flex min-h-[62px] flex-col justify-between rounded-2xl bg-secondary px-3.5 py-3">
+      <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
         {label}
       </p>
-      <p className="mt-0.5 text-[15px] font-semibold tracking-tight text-foreground">{value}</p>
+      <p className="text-[16px] font-semibold leading-none tracking-tight text-foreground">
+        {value}
+      </p>
     </div>
   );
 }
