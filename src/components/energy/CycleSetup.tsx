@@ -42,10 +42,9 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           )}
         </div>
 
-
         {!open && (
-
           <button
+
             type="button"
             onClick={startEdit}
             className="rounded-full bg-secondary px-4 py-2 text-[13px] font-medium tracking-tight text-primary transition-colors hover:bg-accent"
