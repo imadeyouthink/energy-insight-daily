@@ -8,8 +8,8 @@ import {
 } from "@/lib/status";
 
 const W = 100;
-const H = 26;
-const PAD = 2;
+const H = 14;
+const PAD = 1.5;
 
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -71,7 +71,7 @@ function Row({
       <span className="w-14 shrink-0 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
         {label}
       </span>
-      <div className="relative h-8 flex-1">
+      <div className="relative h-5 flex-1">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           preserveAspectRatio="none"
