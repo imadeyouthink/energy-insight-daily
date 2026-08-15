@@ -52,7 +52,7 @@ function EnergyCoach() {
   const today = todayKey();
   const dateLabel = (() => {
     const [y, m, d] = today.split("-");
-    return `${d}/${m}/${y?.slice(2)}`;
+    return `${d}-${m}-${y?.slice(2)}`;
   })();
   const [state, setState] = useState<CheckInState>(DEFAULT_STATE);
   const [editing, setEditing] = useState(false);
