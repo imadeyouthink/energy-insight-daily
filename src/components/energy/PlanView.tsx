@@ -15,12 +15,11 @@ export function PlanView({ bullets, onEdit }: { bullets: string[]; onEdit: () =>
       <ul className="space-y-3">
         {bullets.map((b, i) => {
           const cat = CATEGORIES[i % CATEGORIES.length]!;
+          const Icon = cat.Icon;
           return (
             <li key={i} className="space-y-1.5">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
-                <span aria-hidden className="text-[11px] leading-none">
-                  {cat.icon}
-                </span>
+                <Icon aria-hidden className="h-3 w-3" strokeWidth={2.5} />
                 {cat.label}
               </span>
               <p className="text-[15px] leading-relaxed tracking-tight text-foreground">{b}</p>
