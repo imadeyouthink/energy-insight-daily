@@ -29,7 +29,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
   }
 
   return (
-    <div className="pb-6 pt-1">
+    <div className="pb-3 pt-1">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
@@ -39,6 +39,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
             {current ? `${current.phase} · day ${current.day}` : "Not set up"}
           </p>
         </div>
+
         {!open && (
           <button
             type="button"
@@ -51,7 +52,8 @@ export function CycleSetup({ value, onSave, saving }: Props) {
       </div>
 
       {open && (
-        <div className="mt-4 space-y-4">
+        <div className="mt-3 space-y-3">
+
           <div className="flex items-center justify-between">
             <Label htmlFor="cycle-enabled" className="text-sm">
               Track my cycle

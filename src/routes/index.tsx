@@ -121,16 +121,17 @@ function EnergyCoach() {
     <main className="safe-top min-h-screen bg-background px-5 pb-32">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <header className="mb-8">
+        <header className="mb-5">
           <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
             {showPlan ? "Today's plan" : "Morning check-in"}
           </h1>
-          <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+          <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
             {showPlan
               ? "Made just for how you feel today."
               : "Fifteen seconds. No typing, no streaks."}
           </p>
         </header>
+
 
         {showPlan ? (
           <PlanView plan={todayEntry.plan!} onEdit={() => setEditing(true)} />
