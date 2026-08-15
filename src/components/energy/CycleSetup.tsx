@@ -29,13 +29,13 @@ export function CycleSetup({ value, onSave, saving }: Props) {
   }
 
   return (
-    <div className="border-b border-border pb-5 pt-1">
+    <div className="pb-6 pt-1">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             Cycle phase
           </p>
-          <p className="mt-0.5 text-sm font-medium text-foreground">
+          <p className="mt-1 text-[15px] font-medium tracking-tight text-foreground">
             {current ? `${current.phase} · day ${current.day}` : "Not set up"}
           </p>
         </div>
@@ -43,7 +43,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           <button
             type="button"
             onClick={startEdit}
-            className="text-sm font-medium text-primary underline underline-offset-4"
+            className="rounded-full bg-secondary px-4 py-2 text-[13px] font-medium tracking-tight text-primary transition-colors hover:bg-accent"
           >
             {value?.last_period_start ? "Edit" : "Set up"}
           </button>
@@ -70,7 +70,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
             <Input
               id="last-period"
               type="date"
-              className="rounded-2xl"
+              className="rounded-xl"
               value={draft.last_period_start ?? ""}
               onChange={(e) =>
                 setDraft((d) => ({ ...d, last_period_start: e.target.value || null }))
@@ -88,7 +88,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
                 type="number"
                 min={15}
                 max={60}
-                className="rounded-2xl"
+                className="rounded-xl"
                 value={draft.cycle_length}
                 onChange={(e) =>
                   setDraft((d) => ({ ...d, cycle_length: Number(e.target.value) || 28 }))
@@ -104,7 +104,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
                 type="number"
                 min={1}
                 max={14}
-                className="rounded-2xl"
+                className="rounded-xl"
                 value={draft.period_length}
                 onChange={(e) =>
                   setDraft((d) => ({ ...d, period_length: Number(e.target.value) || 5 }))
@@ -116,7 +116,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           <div className="flex gap-2">
             <Button
               type="button"
-              className="rounded-2xl"
+              className="rounded-xl"
               disabled={saving}
               onClick={() => {
                 onSave(draft);
@@ -128,7 +128,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
             <Button
               type="button"
               variant="ghost"
-              className="rounded-2xl"
+              className="rounded-xl"
               onClick={() => setOpen(false)}
             >
               Cancel

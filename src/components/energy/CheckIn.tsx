@@ -18,9 +18,11 @@ const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border-b border-border pb-5 pt-1">
-      <h2 className="text-base font-semibold text-foreground">{title}</h2>
-      <div className="mt-4">{children}</div>
+    <div className="pb-6 pt-1">
+      <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+        {title}
+      </h2>
+      <div className="mt-3">{children}</div>
     </div>
   );
 }
@@ -35,7 +37,7 @@ function ScaleButtons({
   onChange: (v: number) => void;
 }) {
   return (
-    <div className="grid grid-cols-5 gap-2">
+    <div className="grid grid-cols-5 gap-1.5 rounded-full bg-secondary p-1">
       {labels.map((label, i) => {
         const v = i + 1;
         const active = value === v;
@@ -46,10 +48,10 @@ function ScaleButtons({
             onClick={() => onChange(v)}
             aria-pressed={active}
             className={cn(
-              "rounded-2xl border px-1 py-3 text-xs font-medium transition-colors",
+              "rounded-full px-1 py-2.5 text-[11px] font-medium tracking-tight transition-all duration-200",
               active
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-secondary text-secondary-foreground hover:bg-accent",
+                ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.58_0.19_256/0.5)]"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
             {label}
@@ -82,11 +84,11 @@ function ScaleSlider({
           onValueChange={([v]) => onChange(v ?? 3)}
           className="flex-1"
         />
-        <span className="w-10 shrink-0 text-right text-2xl font-semibold text-primary">
+        <span className="w-10 shrink-0 text-right text-3xl font-semibold tabular-nums tracking-tight text-foreground">
           {value}
         </span>
       </div>
-      <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+      <div className="mt-2 flex justify-between text-[11px] tracking-tight text-muted-foreground">
         <span>{low}</span>
         <span>{high}</span>
       </div>
@@ -102,7 +104,7 @@ function YesNo({
   onChange: (v: boolean) => void;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-1.5 rounded-full bg-secondary p-1">
       {[false, true].map((option) => (
         <button
           key={String(option)}
@@ -110,10 +112,10 @@ function YesNo({
           onClick={() => onChange(option)}
           aria-pressed={value === option}
           className={cn(
-            "rounded-2xl border px-4 py-3 text-sm font-medium transition-colors",
+            "rounded-full px-4 py-2.5 text-sm font-medium tracking-tight transition-all duration-200",
             value === option
-              ? "border-primary bg-primary text-primary-foreground"
-              : "border-border bg-secondary text-secondary-foreground hover:bg-accent",
+              ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.58_0.19_256/0.5)]"
+              : "text-muted-foreground hover:text-foreground",
           )}
         >
           {option ? "Yes" : "No"}
@@ -141,7 +143,7 @@ export function CheckIn({
   submitting,
 }: Props) {
   return (
-    <div className="space-y-4">
+    <div className="divide-y divide-border">
       <Section title="How did you sleep?">
         <ScaleButtons
           labels={SLEEP_LABELS}
@@ -191,14 +193,14 @@ export function CheckIn({
 
       <Button
         size="lg"
-        className="h-14 w-full rounded-3xl text-base"
+        className="mt-6 h-14 w-full rounded-full text-[15px] font-semibold tracking-tight shadow-[0_10px_30px_-12px_oklch(0.58_0.19_256/0.7)] transition-transform active:scale-[0.98]"
         disabled={state.sleep === null || submitting}
         onClick={onSubmit}
       >
         {submitting ? "Building your plan…" : "Get today's plan"}
       </Button>
       {state.sleep === null && (
-        <p className="text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
+        <p className="pt-3 text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
       )}
     </div>
   );
