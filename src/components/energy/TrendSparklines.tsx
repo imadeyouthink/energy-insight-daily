@@ -1,6 +1,6 @@
 import type { DailyEntry } from "@/lib/data";
 import {
-  STATUS_FILL,
+  STATUS_STROKE,
   energyStatus,
   sleepStatus,
   stressStatus,
@@ -91,21 +91,27 @@ function Row({
               className="text-foreground/25"
             />
           ))}
-          {points.map((v, i) =>
-            v == null ? null : (
-              <circle
+          {points.map((v, i) => {
+            if (v == null) return null;
+            const isLast = i === lastIndex && lastValue != null;
+            return (
+              <line
                 key={i}
-                cx={x(i)}
-                cy={y(v)}
-                r={i === lastIndex && lastValue != null ? 2 : 1.5}
+                x1={x(i)}
+                y1={y(v)}
+                x2={x(i)}
+                y2={y(v)}
+                strokeWidth={isLast ? 7 : 4}
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
                 className={
-                  i === lastIndex && lastValue != null
-                    ? STATUS_FILL[status(lastValue)]
-                    : "fill-foreground/30"
+                  isLast
+                    ? STATUS_STROKE[status(lastValue)]
+                    : "stroke-foreground/30"
                 }
               />
-            ),
-          )}
+            );
+          })}
         </svg>
       </div>
       <span className="w-4 shrink-0 text-right text-[13px] font-semibold tabular-nums tracking-tight text-foreground">
