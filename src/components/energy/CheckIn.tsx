@@ -143,57 +143,59 @@ export function CheckIn({
   submitting,
 }: Props) {
   return (
-    <div className="divide-y divide-border">
-      <Section title="How did you sleep?">
-        <ScaleButtons
-          labels={SLEEP_LABELS}
-          value={state.sleep}
-          onChange={(sleep) => setState((s) => ({ ...s, sleep }))}
-        />
-      </Section>
+    <div>
+      <div className="divide-y divide-border">
+        <Section title="How did you sleep?">
+          <ScaleButtons
+            labels={SLEEP_LABELS}
+            value={state.sleep}
+            onChange={(sleep) => setState((s) => ({ ...s, sleep }))}
+          />
+        </Section>
 
-      <Section title="Energy">
-        <ScaleSlider
-          value={state.energy}
-          onChange={(energy) => setState((s) => ({ ...s, energy }))}
-          low="Empty"
-          high="Great"
-        />
-      </Section>
+        <Section title="Energy">
+          <ScaleSlider
+            value={state.energy}
+            onChange={(energy) => setState((s) => ({ ...s, energy }))}
+            low="Empty"
+            high="Great"
+          />
+        </Section>
 
-      <Section title="Stress">
-        <ScaleSlider
-          value={state.stress}
-          onChange={(stress) => setState((s) => ({ ...s, stress }))}
-          low="Calm"
-          high="Overwhelmed"
-        />
-      </Section>
+        <Section title="Stress">
+          <ScaleSlider
+            value={state.stress}
+            onChange={(stress) => setState((s) => ({ ...s, stress }))}
+            low="Calm"
+            high="Overwhelmed"
+          />
+        </Section>
 
-      <CycleSetup value={cycleSettings} onSave={onSaveCycle} />
+        <CycleSetup value={cycleSettings} onSave={onSaveCycle} />
 
-      <Section title="Caffeine after 2pm yesterday?">
-        <YesNo
-          value={state.caffeine}
-          onChange={(caffeine) => setState((s) => ({ ...s, caffeine }))}
-        />
-      </Section>
+        <Section title="Caffeine after 2pm yesterday?">
+          <YesNo
+            value={state.caffeine}
+            onChange={(caffeine) => setState((s) => ({ ...s, caffeine }))}
+          />
+        </Section>
 
-      <Section title="Alcohol last night?">
-        <YesNo value={state.alcohol} onChange={(alcohol) => setState((s) => ({ ...s, alcohol }))} />
-      </Section>
+        <Section title="Alcohol last night?">
+          <YesNo value={state.alcohol} onChange={(alcohol) => setState((s) => ({ ...s, alcohol }))} />
+        </Section>
 
-      <Section title="How packed is today?">
-        <ScaleButtons
-          labels={DAY_LABELS}
-          value={state.dayIntensity}
-          onChange={(dayIntensity) => setState((s) => ({ ...s, dayIntensity }))}
-        />
-      </Section>
+        <Section title="How packed is today?">
+          <ScaleButtons
+            labels={DAY_LABELS}
+            value={state.dayIntensity}
+            onChange={(dayIntensity) => setState((s) => ({ ...s, dayIntensity }))}
+          />
+        </Section>
+      </div>
 
       <Button
         variant="outline"
-        className="h-12 w-full rounded-full text-[15px] tracking-tight"
+        className="mt-6 h-12 w-full rounded-full text-[15px] tracking-tight"
         disabled={state.sleep === null || submitting}
         onClick={onSubmit}
       >
