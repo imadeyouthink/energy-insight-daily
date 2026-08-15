@@ -118,7 +118,7 @@ function EnergyCoach() {
   const showPlan = !!todayEntry?.plan && !editing;
 
   return (
-    <main className="safe-top min-h-screen bg-background px-5 pb-32">
+    <main className="safe-top min-h-screen bg-background px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
         <header className="aurora mb-7 rounded-[2rem] p-5">
