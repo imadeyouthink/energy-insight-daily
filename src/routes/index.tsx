@@ -167,10 +167,11 @@ function HomePage() {
                 />
               </div>
               {cycle && (
-                <span className="mt-2.5 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[12px] font-medium tracking-tight text-turquoise-foreground">
-                  {cycle.phase} · day {cycle.day}
-                </span>
+                <div className="mt-3">
+                  <CycleBanner phase={cycle.phase} day={cycle.day} />
+                </div>
               )}
+
             </section>
 
             {parsedPlan && (
