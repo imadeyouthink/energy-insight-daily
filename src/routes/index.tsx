@@ -16,7 +16,8 @@ import {
   saveEntry,
   type DailyEntry,
 } from "@/lib/data";
-import { generatePlan } from "@/lib/plan.functions";
+import { generatePlan, parsePlan } from "@/lib/plan.functions";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -116,6 +117,7 @@ function EnergyCoach() {
   });
 
   const showPlan = !!todayEntry?.plan && !editing;
+  const parsedPlan = showPlan && todayEntry?.plan ? parsePlan(todayEntry.plan) : null;
 
   return (
     <main className="safe-top min-h-screen bg-background px-5 pb-40">
@@ -127,18 +129,20 @@ function EnergyCoach() {
               {today}
             </p>
             <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-              {showPlan ? "Today's plan" : "Morning check-in"}
+              {parsedPlan ? parsedPlan.headline : showPlan ? "Today's plan" : "Morning check-in"}
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-              {showPlan
-                ? "Made just for how you feel today."
-                : "Fifteen seconds. No typing, no streaks."}
+              {parsedPlan
+                ? parsedPlan.recap
+                : showPlan
+                  ? "Made just for how you feel today."
+                  : "Fifteen seconds. No typing, no streaks."}
             </p>
           </header>
         </div>
 
         {showPlan ? (
-          <PlanView plan={todayEntry.plan!} onEdit={() => setEditing(true)} />
+          <PlanView bullets={parsedPlan?.bullets ?? []} onEdit={() => setEditing(true)} />
         ) : (
           <CheckIn
             state={state}
@@ -154,4 +158,5 @@ function EnergyCoach() {
     </main>
   );
 }
+
 
