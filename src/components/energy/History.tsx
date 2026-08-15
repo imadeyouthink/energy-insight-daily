@@ -11,13 +11,13 @@ export function History({ entries }: { entries: DailyEntry[] }) {
       <h2 className="px-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
         Last 14 days
       </h2>
-      <div className="mt-3 overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-soft)]">
+      <div className="mt-3">
         {entries.map((e) => (
           <div
             key={e.entry_date}
             className={cn(
-              "flex items-center justify-between gap-3 border-b border-border px-4 py-3 last:border-b-0",
-              e.entry_date === today && "bg-accent",
+              "flex items-center justify-between gap-3 border-b border-border px-1 py-3",
+              e.entry_date === today && "bg-accent/40 -mx-1 rounded-2xl px-3",
             )}
           >
             <div className="min-w-0">

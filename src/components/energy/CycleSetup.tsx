@@ -29,7 +29,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
   }
 
   return (
-    <div className="rounded-3xl border border-border bg-card p-4 shadow-[var(--shadow-soft)]">
+    <div className="border-b border-border pb-5 pt-1">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
