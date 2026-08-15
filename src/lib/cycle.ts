@@ -1,5 +1,35 @@
 export type CyclePhase = "Menstrual" | "Follicular" | "Ovulation" | "Luteal";
 
+export const PHASE_COPY: Record<
+  CyclePhase,
+  { title: string; shortTitle: string; description: string }
+> = {
+  Menstrual: {
+    title: "Menstrual phase",
+    shortTitle: "Menstrual",
+    description:
+      "Energy is at its lowest. Rest, warmth and comfort are priorities. Cramps and heightened sensitivity are common right now.",
+  },
+  Follicular: {
+    title: "Follicular phase",
+    shortTitle: "Follicular",
+    description:
+      "Energy is rising. You often feel clearer, more social and ready to start something new.",
+  },
+  Ovulation: {
+    title: "Ovulation phase",
+    shortTitle: "Ovulation",
+    description:
+      "Energy and mood often peak. You may feel confident, expressive and strong today.",
+  },
+  Luteal: {
+    title: "Luteal phase",
+    shortTitle: "Luteal",
+    description:
+      "Energy dips and PMS can appear. Gentle movement, steady routines and self-care help most.",
+  },
+};
+
 export type CycleSettings = {
   enabled: boolean;
   last_period_start: string | null;
@@ -50,3 +80,4 @@ export function computeCycle(
 
   return { phase, day };
 }
+
