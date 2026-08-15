@@ -40,12 +40,13 @@ function Chip({ label, value }: { label: string; value: string }) {
       <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
         {label}
       </p>
-      <p className="text-[16px] font-semibold leading-none tracking-tight text-foreground">
+      <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
         {value}
       </p>
     </div>
   );
 }
+
 
 
 const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
