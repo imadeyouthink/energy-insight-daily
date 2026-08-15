@@ -31,6 +31,12 @@
   --color-primary-soft: var(--primary-soft);
   --color-turquoise: var(--turquoise);
   --color-turquoise-foreground: var(--turquoise-foreground);
+  --color-status-ok: var(--status-ok);
+  --color-status-ok-foreground: var(--status-ok-foreground);
+  --color-status-attention: var(--status-attention);
+  --color-status-attention-foreground: var(--status-attention-foreground);
+  --color-status-caution: var(--status-caution);
+  --color-status-caution-foreground: var(--status-caution-foreground);
   --shadow-soft: var(--shadow-soft);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -82,6 +88,12 @@
   --primary-soft: oklch(0.94 0 0);
   --turquoise: oklch(0.93 0.05 180);
   --turquoise-foreground: oklch(0.32 0.08 175);
+  --status-ok: oklch(0.92 0.08 145);
+  --status-ok-foreground: oklch(0.32 0.1 145);
+  --status-attention: oklch(0.94 0.08 85);
+  --status-attention-foreground: oklch(0.36 0.1 75);
+  --status-caution: oklch(0.92 0.08 25);
+  --status-caution-foreground: oklch(0.36 0.1 25);
   --secondary: oklch(0.968 0.004 260);
   --secondary-foreground: oklch(0.28 0.01 260);
   --muted: oklch(0.968 0.004 260);
@@ -125,6 +137,12 @@
   --primary-soft: oklch(0.94 0 0);
   --turquoise: oklch(0.93 0.05 180);
   --turquoise-foreground: oklch(0.32 0.08 175);
+  --status-ok: oklch(0.92 0.08 145);
+  --status-ok-foreground: oklch(0.32 0.1 145);
+  --status-attention: oklch(0.94 0.08 85);
+  --status-attention-foreground: oklch(0.36 0.1 75);
+  --status-caution: oklch(0.92 0.08 25);
+  --status-caution-foreground: oklch(0.36 0.1 25);
   --secondary: oklch(0.279 0.041 260.031);
   --secondary-foreground: oklch(0.984 0.003 247.858);
   --muted: oklch(0.279 0.041 260.031);

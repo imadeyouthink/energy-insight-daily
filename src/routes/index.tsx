@@ -34,10 +34,25 @@ function greeting(): string {
   return "Good evening";
 }
 
-function Chip({ label, value }: { label: string; value: string }) {
+function Chip({
+  label,
+  value,
+  status,
+}: {
+  label: string;
+  value: string;
+  status?: "ok" | "attention" | "caution";
+}) {
+  const statusBg = {
+    ok: "bg-status-ok",
+    attention: "bg-status-attention",
+    caution: "bg-status-caution",
+  };
+
   return (
     <div className="flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl bg-secondary px-3.5 py-3 text-center">
-      <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
+      <p className="flex items-center gap-1 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
+        {status && <span className={`h-2 w-2 rounded-full ${statusBg[status]}`} />}
         {label}
       </p>
       <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
@@ -45,6 +60,30 @@ function Chip({ label, value }: { label: string; value: string }) {
       </p>
     </div>
   );
+}
+
+function sleepStatus(sleep: number): "ok" | "attention" | "caution" {
+  if (sleep >= 4) return "ok";
+  if (sleep === 3) return "attention";
+  return "caution";
+}
+
+function energyStatus(energy: number): "ok" | "attention" | "caution" {
+  if (energy >= 4) return "ok";
+  if (energy === 3) return "attention";
+  return "caution";
+}
+
+function stressStatus(stress: number): "ok" | "attention" | "caution" {
+  if (stress <= 2) return "ok";
+  if (stress === 3) return "attention";
+  return "caution";
+}
+
+function dayStatus(day: number): "ok" | "attention" | "caution" {
+  if (day <= 2) return "ok";
+  if (day === 3) return "attention";
+  return "caution";
 }
 
 
@@ -104,10 +143,26 @@ function HomePage() {
                 Today at a glance
               </h2>
               <div className="mt-3 grid grid-cols-2 gap-2.5">
-                <Chip label="Sleep" value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"} />
-                <Chip label="Energy" value={`${todayEntry.energy}/5`} />
-                <Chip label="Stress" value={`${todayEntry.stress}/5`} />
-                <Chip label="Day" value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"} />
+                <Chip
+                  label="Sleep"
+                  value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
+                  status={sleepStatus(todayEntry.sleep)}
+                />
+                <Chip
+                  label="Energy"
+                  value={`${todayEntry.energy}/5`}
+                  status={energyStatus(todayEntry.energy)}
+                />
+                <Chip
+                  label="Stress"
+                  value={`${todayEntry.stress}/5`}
+                  status={stressStatus(todayEntry.stress)}
+                />
+                <Chip
+                  label="Day"
+                  value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
+                  status={dayStatus(todayEntry.day_intensity)}
+                />
               </div>
               {cycle && (
                 <span className="mt-2.5 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[12px] font-medium tracking-tight text-turquoise-foreground">
