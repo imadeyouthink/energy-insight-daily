@@ -18,26 +18,26 @@ export type Database = {
         Row: {
           cycle_length: number
           enabled: boolean
-          id: string
           last_period_start: string | null
           period_length: number
           updated_at: string
+          user_id: string
         }
         Insert: {
           cycle_length?: number
           enabled?: boolean
-          id?: string
           last_period_start?: string | null
           period_length?: number
           updated_at?: string
+          user_id?: string
         }
         Update: {
           cycle_length?: number
           enabled?: boolean
-          id?: string
           last_period_start?: string | null
           period_length?: number
           updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -55,6 +55,7 @@ export type Database = {
           sleep: number
           stress: number
           updated_at: string
+          user_id: string
         }
         Insert: {
           alcohol?: boolean
@@ -69,6 +70,7 @@ export type Database = {
           sleep: number
           stress: number
           updated_at?: string
+          user_id?: string
         }
         Update: {
           alcohol?: boolean
@@ -83,6 +85,7 @@ export type Database = {
           sleep?: number
           stress?: number
           updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
