@@ -121,7 +121,7 @@ function EnergyCoach() {
     <main className="safe-top min-h-screen bg-background px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <header className="aurora mb-7 rounded-[2rem] p-5">
+        <header className="aurora mb-7 rounded-[2rem] p-4">
           <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
             {showPlan ? "Today's plan" : "Morning check-in"}
           </h1>
@@ -131,6 +131,7 @@ function EnergyCoach() {
               : "Fifteen seconds. No typing, no streaks."}
           </p>
         </header>
+
 
 
 

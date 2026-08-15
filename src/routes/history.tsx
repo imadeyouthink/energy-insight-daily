@@ -32,7 +32,7 @@ function HistoryPage() {
   return (
     <main className="safe-top min-h-screen bg-background px-5 pb-32">
       <div className="mx-auto w-full max-w-md">
-        <header className="aurora mb-7 rounded-[2rem] p-5">
+        <header className="aurora mb-7 rounded-[2rem] p-4">
           <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
             History
           </h1>
@@ -40,6 +40,7 @@ function HistoryPage() {
             Your last 14 days.
           </p>
         </header>
+
 
 
         {entries.length === 0 ? (
