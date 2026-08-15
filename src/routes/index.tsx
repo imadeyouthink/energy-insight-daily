@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
-import { CheckIn, type CheckInState } from "@/components/energy/CheckIn";
+import { CheckIn, SleepCheckIn, type CheckInState } from "@/components/energy/CheckIn";
 import { PlanView } from "@/components/energy/PlanView";
 import { TabBar } from "@/components/energy/TabBar";
 import { Toaster } from "@/components/ui/sonner";
