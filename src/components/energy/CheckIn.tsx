@@ -195,7 +195,7 @@ export function CheckIn({
 
       <Button
         variant="outline"
-        className="mt-6 h-11 w-full rounded-full text-[15px] tracking-tight"
+        className="glass mt-6 h-12 w-full rounded-full text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
         disabled={state.sleep === null || submitting}
         onClick={onSubmit}
       >
