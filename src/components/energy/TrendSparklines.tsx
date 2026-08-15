@@ -1,6 +1,6 @@
 import type { DailyEntry } from "@/lib/data";
 import {
-  STATUS_FILL,
+  STATUS_STROKE,
   energyStatus,
   sleepStatus,
   stressStatus,
