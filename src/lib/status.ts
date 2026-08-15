@@ -12,6 +12,12 @@ export const STATUS_FILL: Record<MetricStatus, string> = {
   caution: "fill-status-caution",
 };
 
+export const STATUS_STROKE: Record<MetricStatus, string> = {
+  ok: "stroke-status-ok",
+  attention: "stroke-status-attention",
+  caution: "stroke-status-caution",
+};
+
 function higherIsBetter(value: number): MetricStatus {
   if (value >= 4) return "ok";
   if (value === 3) return "attention";
