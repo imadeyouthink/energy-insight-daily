@@ -58,9 +58,9 @@ export function CycleSetup({ value, onSave, saving }: Props) {
             Cycle phase
           </p>
           {current ? (
-            <p className="mt-1 text-[15px] font-medium tracking-tight text-foreground">
+            <span className="mt-2 inline-flex items-center rounded-full bg-turquoise px-3 py-1.5 text-[13px] font-medium tracking-tight text-turquoise-foreground">
               {current.phase} · day {current.day}
-            </p>
+            </span>
           ) : (
             <p className="mt-1 text-[13px] font-medium tracking-tight text-foreground">
               Track my cycle
@@ -78,14 +78,14 @@ export function CycleSetup({ value, onSave, saving }: Props) {
 
       {isEditing && draft.enabled && (
         <div className="mt-3 space-y-3">
-          <div className="space-y-1.5">
-            <Label htmlFor="last-period" className="text-sm">
+          <div className="space-y-1">
+            <Label htmlFor="last-period" className="text-[12px] font-medium text-muted-foreground">
               First day of last period
             </Label>
             <Input
               id="last-period"
               type="date"
-              className="rounded-xl"
+              className="rounded-xl text-[13px]"
               value={draft.last_period_start ?? ""}
               onChange={(e) =>
                 setDraft((d) => ({ ...d, last_period_start: e.target.value || null }))
@@ -94,8 +94,8 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <Label htmlFor="cycle-length" className="text-sm">
+            <div className="space-y-1">
+              <Label htmlFor="cycle-length" className="text-[12px] font-medium text-muted-foreground">
                 Cycle length
               </Label>
               <Input
@@ -103,15 +103,15 @@ export function CycleSetup({ value, onSave, saving }: Props) {
                 type="number"
                 min={15}
                 max={60}
-                className="rounded-xl"
+                className="rounded-xl text-[13px]"
                 value={draft.cycle_length}
                 onChange={(e) =>
                   setDraft((d) => ({ ...d, cycle_length: Number(e.target.value) || 28 }))
                 }
               />
             </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="period-length" className="text-sm">
+            <div className="space-y-1">
+              <Label htmlFor="period-length" className="text-[12px] font-medium text-muted-foreground">
                 Period length
               </Label>
               <Input
@@ -119,7 +119,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
                 type="number"
                 min={1}
                 max={14}
-                className="rounded-xl"
+                className="rounded-xl text-[13px]"
                 value={draft.period_length}
                 onChange={(e) =>
                   setDraft((d) => ({ ...d, period_length: Number(e.target.value) || 5 }))
@@ -131,7 +131,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           <div className="flex gap-2">
             <Button
               type="button"
-              className="rounded-xl"
+              className="rounded-xl text-[13px]"
               disabled={saving || !canSave}
               onClick={handleSave}
             >
@@ -140,7 +140,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
             <Button
               type="button"
               variant="ghost"
-              className="rounded-xl"
+              className="rounded-xl text-[13px]"
               onClick={() => toggle(false)}
             >
               Cancel
