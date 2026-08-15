@@ -192,8 +192,8 @@ export function CheckIn({
       </Section>
 
       <Button
-        size="lg"
-        className="mt-6 h-14 w-full rounded-full text-[15px] font-semibold tracking-tight shadow-[0_10px_30px_-12px_oklch(0.58_0.19_256/0.7)] transition-transform active:scale-[0.98]"
+        variant="outline"
+        className="h-12 w-full rounded-full text-[15px] tracking-tight"
         disabled={state.sleep === null || submitting}
         onClick={onSubmit}
       >
