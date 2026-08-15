@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { CalendarDays, Sun } from "lucide-react";
+import { CalendarDays, Home, Sparkles } from "lucide-react";
 
 const tabs = [
-  { to: "/", label: "Today", icon: Sun },
+  { to: "/", label: "Home", icon: Home },
+  { to: "/plan", label: "Plan", icon: Sparkles },
   { to: "/history", label: "History", icon: CalendarDays },
 ] as const;
 
@@ -17,7 +18,7 @@ export function TabBar() {
             activeOptions={{ exact: true }}
             activeProps={{ className: "bg-primary text-primary-foreground" }}
             inactiveProps={{ className: "text-muted-foreground" }}
-            className="flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium tracking-tight transition-colors"
+            className="flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-medium tracking-tight transition-colors"
           >
             <Icon className="h-4 w-4" />
             {label}
