@@ -4,12 +4,15 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
+  useNavigate,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { useAuth } from "../hooks/useAuth";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -129,13 +132,32 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function AuthGate({ children }: { children: ReactNode }) {
+  const { session, ready } = useAuth();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const isAuthRoute = pathname === "/auth";
+
+  useEffect(() => {
+    if (!ready) return;
+    if (!session && !isAuthRoute) navigate({ to: "/auth", replace: true });
+    if (session && isAuthRoute) navigate({ to: "/", replace: true });
+  }, [ready, session, isAuthRoute, navigate]);
+
+  if (!ready) return <div className="min-h-screen bg-background" />;
+  if (!session && !isAuthRoute) return <div className="min-h-screen bg-background" />;
+  return <>{children}</>;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <AuthGate>
+        <Outlet />
+      </AuthGate>
     </QueryClientProvider>
   );
 }

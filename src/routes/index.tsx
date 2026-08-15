@@ -1,5 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+
+import { supabase } from "@/integrations/supabase/client";
 
 import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
@@ -40,11 +44,13 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-function greeting(): string {
-  const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 18) return "Good afternoon";
-  return "Good evening";
+function useGreeting(): string {
+  const [text, setText] = useState("Hello");
+  useEffect(() => {
+    const h = new Date().getHours();
+    setText(h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening");
+  }, []);
+  return text;
 }
 
 function Chip({
@@ -79,6 +85,17 @@ function HomePage() {
   const { today, entries, todayEntry, cycleSettings, parsedPlan } = useToday();
   const checkedIn = !!todayEntry;
   const cycle = computeCycle(cycleSettings);
+  const greeting = useGreeting();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
 
 
   return (
@@ -91,7 +108,7 @@ function HomePage() {
               {dateLabel(today)}
             </span>
             <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-              {greeting()}
+              {greeting}
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
               {checkedIn
@@ -185,6 +202,14 @@ function HomePage() {
             Edit today's check-in
           </Link>
         )}
+
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="mt-4 block w-full text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
+        >
+          Sign out
+        </button>
       </div>
       <TabBar />
     </main>
