@@ -100,7 +100,7 @@ function Row({
                 r={i === lastIndex && lastValue != null ? 2 : 1.5}
                 className={
                   i === lastIndex && lastValue != null
-                    ? STATUS_DOT[status(lastValue)]
+                    ? STATUS_FILL[status(lastValue)]
                     : "fill-foreground/30"
                 }
               />
