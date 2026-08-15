@@ -52,7 +52,7 @@ function Chip({
   return (
     <div className="flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl bg-secondary px-3.5 py-3 text-center">
       <p className="flex items-center gap-1 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
-        {status && <span className={`h-1.5 w-1.5 rounded-full ${statusBg[status]}`} />}
+        {status && <span className={`h-2 w-2 rounded-full ${statusBg[status]}`} />}
         {label}
       </p>
       <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
