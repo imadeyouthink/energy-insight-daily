@@ -108,7 +108,7 @@ function HomePage() {
               {dateLabel(today)}
             </span>
             <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-              {greeting()}
+              {greeting}
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
               {checkedIn
