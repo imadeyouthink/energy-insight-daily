@@ -42,9 +42,8 @@ export function CycleSetup({ value, onSave, saving }: Props) {
           )}
         </div>
 
-
-
         {!open && (
+
           <button
             type="button"
             onClick={startEdit}
