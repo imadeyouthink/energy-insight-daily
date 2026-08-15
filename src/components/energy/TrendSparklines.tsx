@@ -18,7 +18,9 @@ function lastSevenDays(today: string): string[] {
   return Array.from({ length: 7 }, (_, i) => {
     const d = new Date(base);
     d.setDate(base.getDate() - (6 - i));
-    return d.toISOString().slice(0, 10);
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${d.getFullYear()}-${mm}-${dd}`;
   });
 }
 
