@@ -4,11 +4,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
-import { CheckIn, SleepCheckIn, type CheckInState } from "@/components/energy/CheckIn";
+import { CheckIn, type CheckInState } from "@/components/energy/CheckIn";
 import { PlanView } from "@/components/energy/PlanView";
 import { TabBar } from "@/components/energy/TabBar";
 import { Toaster } from "@/components/ui/sonner";
-import { cn } from "@/lib/utils";
 import { computeCycle, todayKey, type CycleSettings } from "@/lib/cycle";
 import {
   fetchCycleSettings,
@@ -119,54 +118,31 @@ function EnergyCoach() {
   const showPlan = !!todayEntry?.plan && !editing;
 
   return (
-    <main
-      className={cn(
-        "safe-top min-h-screen bg-background px-5 pb-32",
-      )}
-    >
+    <main className="safe-top min-h-screen bg-background px-5 pb-32">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
+        <header className="mb-8">
+          <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+            {showPlan ? "Today's plan" : "Morning check-in"}
+          </h1>
+          <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+            {showPlan
+              ? "Made just for how you feel today."
+              : "Fifteen seconds. No typing, no streaks."}
+          </p>
+        </header>
+
         {showPlan ? (
-          <>
-            <header className="mb-8 pt-4">
-              <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-                Today's plan
-              </h1>
-              <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-                Made just for how you feel today.
-              </p>
-            </header>
-            <PlanView plan={todayEntry.plan!} onEdit={() => setEditing(true)} />
-          </>
+          <PlanView plan={todayEntry.plan!} onEdit={() => setEditing(true)} />
         ) : (
-          <>
-            <div className="-mx-5 px-5 checkin-gradient">
-              <header className="pt-4">
-                <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-                  Morning check-in
-                </h1>
-                <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-                  Fifteen seconds. No typing, no streaks.
-                </p>
-              </header>
-              <div className="pb-6">
-                <SleepCheckIn
-                  value={state.sleep}
-                  onChange={(sleep) => setState((s) => ({ ...s, sleep }))}
-                />
-              </div>
-            </div>
-            <div className="pt-6">
-              <CheckIn
-                state={state}
-                setState={setState}
-                cycleSettings={cycleSettings}
-                onSaveCycle={(v) => cycleMutation.mutate(v)}
-                onSubmit={() => planMutation.mutate()}
-                submitting={planMutation.isPending}
-              />
-            </div>
-          </>
+          <CheckIn
+            state={state}
+            setState={setState}
+            cycleSettings={cycleSettings}
+            onSaveCycle={(v) => cycleMutation.mutate(v)}
+            onSubmit={() => planMutation.mutate()}
+            submitting={planMutation.isPending}
+          />
         )}
       </div>
       <TabBar />
