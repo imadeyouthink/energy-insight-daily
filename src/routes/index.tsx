@@ -80,10 +80,6 @@ function HomePage() {
   const checkedIn = !!todayEntry;
   const cycle = computeCycle(cycleSettings);
 
-  const week = [...entries]
-    .filter((e) => e.entry_date <= today)
-    .slice(0, 7)
-    .reverse();
 
   return (
     <main className="min-h-screen bg-background px-5 pb-40">
