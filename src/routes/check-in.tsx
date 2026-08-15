@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 import { CheckIn, type CheckInState } from "@/components/energy/CheckIn";
 import { Toaster } from "@/components/ui/sonner";
