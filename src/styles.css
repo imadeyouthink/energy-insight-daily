@@ -80,6 +80,8 @@
   --primary: oklch(0.18 0 0);
   --primary-foreground: oklch(1 0 0);
   --primary-soft: oklch(0.94 0 0);
+  --turquoise: oklch(0.93 0.05 180);
+  --turquoise-foreground: oklch(0.32 0.08 175);
   --secondary: oklch(0.968 0.004 260);
   --secondary-foreground: oklch(0.28 0.01 260);
   --muted: oklch(0.968 0.004 260);
