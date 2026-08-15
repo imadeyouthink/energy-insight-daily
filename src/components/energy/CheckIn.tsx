@@ -18,14 +18,15 @@ const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="pb-1 pt-1">
+    <div>
       <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         {title}
       </h2>
-      <div className="mt-1">{children}</div>
+      <div className="mt-0">{children}</div>
     </div>
   );
 }
+
 
 
 
@@ -154,14 +155,15 @@ export function CheckIn({
 }: Props) {
   return (
     <div>
-      <div className="space-y-3">
-      <Section title="How did you sleep?">
-        <ScaleButtons
-          labels={SLEEP_LABELS}
-          value={state.sleep}
-          onChange={(sleep) => setState((s) => ({ ...s, sleep }))}
-        />
-      </Section>
+      <div className="space-y-2">
+        <Section title="How did you sleep?">
+          <ScaleButtons
+            labels={SLEEP_LABELS}
+            value={state.sleep}
+            onChange={(sleep) => setState((s) => ({ ...s, sleep }))}
+          />
+        </Section>
+
 
       <Section title="Energy">
         <ScaleSlider
