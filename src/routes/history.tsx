@@ -30,16 +30,21 @@ function HistoryPage() {
   const entries = entriesQuery.data ?? [];
 
   return (
-    <main className="safe-top min-h-screen bg-background px-5 pb-32">
+    <main className="min-h-screen bg-background px-5 pb-32">
       <div className="mx-auto w-full max-w-md">
-        <header className="mb-8">
-          <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-            History
-          </h1>
-          <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-            Your last 14 days.
-          </p>
-        </header>
+        <div className="aurora -mx-5 safe-top mb-5 pb-5 pt-5">
+          <header className="px-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary/70">
+              History
+            </p>
+            <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+              Last 14 days
+            </h1>
+            <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+              Your recent check-ins at a glance.
+            </p>
+          </header>
+        </div>
 
         {entries.length === 0 ? (
           <p className="text-[15px] text-muted-foreground">No check-ins yet.</p>
@@ -51,3 +56,4 @@ function HistoryPage() {
     </main>
   );
 }
+

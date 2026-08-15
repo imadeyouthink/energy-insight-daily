@@ -16,7 +16,8 @@ import {
   saveEntry,
   type DailyEntry,
 } from "@/lib/data";
-import { generatePlan } from "@/lib/plan.functions";
+import { generatePlan, parsePlan } from "@/lib/plan.functions";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,6 +50,10 @@ const DEFAULT_STATE: CheckInState = {
 function EnergyCoach() {
   const queryClient = useQueryClient();
   const today = todayKey();
+  const dateLabel = (() => {
+    const [y, m, d] = today.split("-");
+    return `${d}/${m}/${y?.slice(2)}`;
+  })();
   const [state, setState] = useState<CheckInState>(DEFAULT_STATE);
   const [editing, setEditing] = useState(false);
 
@@ -116,24 +121,32 @@ function EnergyCoach() {
   });
 
   const showPlan = !!todayEntry?.plan && !editing;
+  const parsedPlan = showPlan && todayEntry?.plan ? parsePlan(todayEntry.plan) : null;
 
   return (
-    <main className="safe-top min-h-screen bg-background px-5 pb-32">
+    <main className="min-h-screen bg-background px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <header className="mb-8">
-          <h1 className="text-[34px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-            {showPlan ? "Today's plan" : "Morning check-in"}
-          </h1>
-          <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-            {showPlan
-              ? "Made just for how you feel today."
-              : "Fifteen seconds. No typing, no streaks."}
-          </p>
-        </header>
+        <div className="aurora -mx-5 safe-top mb-5 pb-5 pt-5">
+          <header className="px-5">
+            <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
+              {dateLabel}
+            </span>
+            <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+              {parsedPlan ? parsedPlan.headline : showPlan ? "Today's plan" : "Morning check-in"}
+            </h1>
+            <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+              {parsedPlan
+                ? parsedPlan.recap
+                : showPlan
+                  ? "Made just for how you feel today."
+                  : "Fifteen seconds. No typing, no streaks."}
+            </p>
+          </header>
+        </div>
 
         {showPlan ? (
-          <PlanView plan={todayEntry.plan!} onEdit={() => setEditing(true)} />
+          <PlanView bullets={parsedPlan?.bullets ?? []} onEdit={() => setEditing(true)} />
         ) : (
           <CheckIn
             state={state}
@@ -149,3 +162,5 @@ function EnergyCoach() {
     </main>
   );
 }
+
+
