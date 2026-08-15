@@ -36,7 +36,7 @@ function greeting(): string {
 
 function Chip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex min-h-[62px] flex-col justify-between rounded-2xl bg-secondary px-3.5 py-3">
+    <div className="flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl bg-secondary px-3.5 py-3 text-center">
       <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
         {label}
       </p>
@@ -46,6 +46,7 @@ function Chip({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
 
 const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
 const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
