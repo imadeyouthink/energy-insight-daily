@@ -50,7 +50,7 @@ function ScaleButtons({
             className={cn(
               "rounded-full px-1 py-2.5 text-[11px] font-medium tracking-tight transition-all duration-200",
               active
-                ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.58_0.19_256/0.5)]"
+                ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
                 : "text-muted-foreground hover:text-foreground",
             )}
           >
@@ -111,12 +111,12 @@ function YesNo({
           type="button"
           onClick={() => onChange(option)}
           aria-pressed={value === option}
-          className={cn(
-            "rounded-full px-4 py-2.5 text-sm font-medium tracking-tight transition-all duration-200",
-            value === option
-              ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.58_0.19_256/0.5)]"
-              : "text-muted-foreground hover:text-foreground",
-          )}
+            className={cn(
+              "rounded-full px-4 py-2.5 text-sm font-medium tracking-tight transition-all duration-200",
+              value === option
+                ? "bg-primary text-primary-foreground shadow-[0_2px_10px_-2px_oklch(0.18_0_0/0.35)]"
+                : "text-muted-foreground hover:text-foreground",
+            )}
         >
           {option ? "Yes" : "No"}
         </button>
