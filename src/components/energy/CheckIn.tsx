@@ -144,7 +144,7 @@ export function CheckIn({
 }: Props) {
   return (
     <div>
-      <div className="divide-y divide-border">
+      <div className="space-y-8">
       <Section title="How did you sleep?">
         <ScaleButtons
           labels={SLEEP_LABELS}
