@@ -40,6 +40,8 @@ export const generatePlan = createServerFn({ method: "POST" })
       },
       body: JSON.stringify({
         model: "google/gemini-3.5-flash",
+        temperature: 0.9,
+
         messages: [
           {
             role: "system",
