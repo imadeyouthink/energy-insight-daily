@@ -51,7 +51,7 @@ export function CycleSetup({ value, onSave, saving }: Props) {
       </div>
 
       {open && (
-        <div className="mt-4 space-y-4 border-t border-border pt-4">
+        <div className="mt-4 space-y-4">
           <div className="flex items-center justify-between">
             <Label htmlFor="cycle-enabled" className="text-sm">
               Track my cycle

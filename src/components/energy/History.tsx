@@ -13,8 +13,8 @@ export function History({ entries }: { entries: DailyEntry[] }) {
           <div
             key={e.entry_date}
             className={cn(
-              "flex items-center justify-between gap-3 border-b border-border py-3.5",
-              e.entry_date === today && "-mx-3 rounded-2xl border-transparent bg-secondary px-3",
+              "flex items-center justify-between gap-3 py-3.5",
+              e.entry_date === today && "-mx-3 rounded-2xl bg-secondary px-3",
             )}
           >
             <div className="min-w-0">

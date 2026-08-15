@@ -9,7 +9,7 @@ const tabs = [
 export function TabBar() {
   return (
     <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center pb-[calc(env(safe-area-inset-bottom)+16px)]">
-      <div className="glass pointer-events-auto flex items-center gap-1 rounded-full border border-border/60 p-1.5 shadow-lg shadow-black/5">
+      <div className="glass pointer-events-auto flex items-center gap-1 rounded-full p-1.5 shadow-lg shadow-black/5">
         {tabs.map(({ to, label, icon: Icon }) => (
           <Link
             key={to}

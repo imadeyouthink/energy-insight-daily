@@ -16,7 +16,7 @@ export function PlanView({ plan, onEdit }: { plan: string; onEdit: () => void })
         {recap && <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{recap}</p>}
       </div>
 
-      <ul className="divide-y divide-border">
+      <ul className="space-y-3">
         {bullets.map((b, i) => (
           <li key={i} className="flex gap-3 py-4 text-[15px] leading-relaxed tracking-tight text-foreground">
             <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
