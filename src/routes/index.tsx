@@ -1,5 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+
+import { supabase } from "@/integrations/supabase/client";
 
 import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
@@ -40,11 +44,13 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-function greeting(): string {
-  const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 18) return "Good afternoon";
-  return "Good evening";
+function useGreeting(): string {
+  const [text, setText] = useState("Hello");
+  useEffect(() => {
+    const h = new Date().getHours();
+    setText(h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening");
+  }, []);
+  return text;
 }
 
 function Chip({
