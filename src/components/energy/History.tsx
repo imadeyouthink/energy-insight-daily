@@ -66,7 +66,7 @@ export function History({ entries }: { entries: DailyEntry[] }) {
   );
 }
 
-function Stat({ label, value }: { label: string; value: number }) {
+function Stat({ label, value }: { label: keyof typeof STATUS_BY_LABEL; value: number }) {
   const status = STATUS_BY_LABEL[label](value);
   return (
     <div className="flex flex-col items-center gap-1">
