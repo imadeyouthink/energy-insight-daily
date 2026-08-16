@@ -26,13 +26,13 @@ import { dateLabel, useToday } from "@/hooks/useToday";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Energy Coach — your 15-second daily check-in" },
+      { title: "Dunami — your 15-second daily check-in" },
       {
         name: "description",
         content:
           "Log sleep, energy, stress and how packed your day is, and get a personalized daily energy plan in seconds.",
       },
-      { property: "og:title", content: "Energy Coach — your 15-second daily check-in" },
+      { property: "og:title", content: "Dunami — your 15-second daily check-in" },
       {
         property: "og:description",
         content: "Turn how you feel today into a short, practical plan for movement, food and rest.",
