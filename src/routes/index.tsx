@@ -109,15 +109,24 @@ function HomePage() {
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
             </span>
-            <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-              {displayName ? `${greeting}, ${displayName}` : greeting}
-            </h1>
-            <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-              {checkedIn
-                ? "Here's where today stands."
-                : "Start with a fifteen-second check-in."}
-            </p>
+            {needsName ? (
+              <div className="mt-2">
+                <NamePrompt onSkip={() => setSkippedName(true)} />
+              </div>
+            ) : (
+              <>
+                <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+                  {displayName ? `${greeting}, ${displayName}` : greeting}
+                </h1>
+                <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+                  {checkedIn
+                    ? "Here's where today stands."
+                    : "Start with a fifteen-second check-in."}
+                </p>
+              </>
+            )}
           </header>
+
         </div>
 
         {!checkedIn ? (
