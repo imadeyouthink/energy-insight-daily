@@ -111,6 +111,24 @@ function AuthPage() {
           </header>
 
           <form onSubmit={onSubmit} className="mt-6 space-y-4">
+            {mode === "sign-up" && (
+              <div className="space-y-1">
+                <Label htmlFor="name" className="text-[12px] font-medium text-muted-foreground">
+                  Your name
+                </Label>
+                <Input
+                  id="name"
+                  type="text"
+                  autoComplete="given-name"
+                  required
+                  maxLength={40}
+                  placeholder="Diri"
+                  className="rounded-xl text-[13px]"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+            )}
             <div className="space-y-1">
               <Label htmlFor="email" className="text-[12px] font-medium text-muted-foreground">
                 Email
