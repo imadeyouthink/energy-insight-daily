@@ -33,6 +33,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const [mode, setMode] = useState<"sign-in" | "sign-up">("sign-in");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -42,10 +43,19 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "sign-up") {
+        const displayName = name.trim().slice(0, 40);
+        if (!displayName) {
+          toast.error("Please enter your name.");
+          setBusy(false);
+          return;
+        }
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: {
+            emailRedirectTo: window.location.origin,
+            data: { display_name: displayName },
+          },
         });
         if (error) throw error;
         if (!data.session) toast.success("Check your email to confirm your account.");
