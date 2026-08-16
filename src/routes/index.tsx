@@ -9,6 +9,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
 import { NamePrompt } from "@/components/energy/NamePrompt";
+import { AvatarBubble } from "@/components/energy/AvatarBubble";
 
 import { TrendSparklines } from "@/components/energy/TrendSparklines";
 import { Button } from "@/components/ui/button";
