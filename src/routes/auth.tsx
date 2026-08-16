@@ -31,7 +31,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const [mode, setMode] ="sign-in" | "sign-up">("sign-in");
+  const [mode, setMode] = useState<"sign-in" | "sign-up">("sign-in");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
