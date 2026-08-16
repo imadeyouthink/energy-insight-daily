@@ -70,16 +70,17 @@ function AuthPage() {
     }
   }
 
-  async function onGoogle() {
+  async function onApple() {
     setBusy(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
+    const result = await lovable.auth.signInWithOAuth("apple", {
       redirect_uri: window.location.origin,
     });
     if (result.error) {
-      toast.error(result.error.message || "Google sign-in failed.");
+      toast.error(result.error.message || "Apple sign-in failed.");
     }
     setBusy(false);
   }
+
 
   async function onGuest() {
     setBusy(true);
