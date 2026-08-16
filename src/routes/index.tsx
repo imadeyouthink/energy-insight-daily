@@ -123,7 +123,7 @@ function HomePage() {
             </span>
             {needsName ? (
               <div className="mt-2">
-                <NamePrompt onSkip={() => setSkippedName(true)} />
+                <NamePrompt onSkip={skipName} />
               </div>
             ) : (
               <>
