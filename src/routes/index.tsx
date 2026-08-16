@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
+import { useProfile } from "@/hooks/useProfile";
 
 import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
