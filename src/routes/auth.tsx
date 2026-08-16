@@ -33,6 +33,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const [mode, setMode] = useState<"sign-in" | "sign-up">("sign-in");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -42,10 +43,19 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "sign-up") {
+        const displayName = name.trim().slice(0, 40);
+        if (!displayName) {
+          toast.error("Please enter your name.");
+          setBusy(false);
+          return;
+        }
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: {
+            emailRedirectTo: window.location.origin,
+            data: { display_name: displayName },
+          },
         });
         if (error) throw error;
         if (!data.session) toast.success("Check your email to confirm your account.");
@@ -101,6 +111,24 @@ function AuthPage() {
           </header>
 
           <form onSubmit={onSubmit} className="mt-6 space-y-4">
+            {mode === "sign-up" && (
+              <div className="space-y-1">
+                <Label htmlFor="name" className="text-[12px] font-medium text-muted-foreground">
+                  Your name
+                </Label>
+                <Input
+                  id="name"
+                  type="text"
+                  autoComplete="given-name"
+                  required
+                  maxLength={40}
+                  placeholder="Diri"
+                  className="rounded-xl text-[13px]"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+            )}
             <div className="space-y-1">
               <Label htmlFor="email" className="text-[12px] font-medium text-muted-foreground">
                 Email

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
+import { useProfile } from "@/hooks/useProfile";
 
 import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
@@ -86,6 +87,7 @@ function HomePage() {
   const checkedIn = !!todayEntry;
   const cycle = computeCycle(cycleSettings);
   const greeting = useGreeting();
+  const { displayName } = useProfile();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -108,7 +110,7 @@ function HomePage() {
               {dateLabel(today)}
             </span>
             <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-              {greeting}
+              {displayName ? `${greeting}, ${displayName}` : greeting}
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
               {checkedIn
