@@ -71,6 +71,18 @@ function AuthPage() {
     setBusy(false);
   }
 
+  async function onGuest() {
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.signInAnonymously();
+      if (error) throw error;
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Guest sign-in failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <main className="aurora min-h-screen px-5 pb-16">
       <Toaster position="top-center" />
@@ -138,6 +150,17 @@ function AuthPage() {
           >
             Continue with Google
           </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            disabled={busy}
+            onClick={onGuest}
+            className="glass mt-3 h-12 w-full rounded-full border-white/60 text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
+          >
+            Continue as guest
+          </Button>
+
 
           <button
             type="button"
