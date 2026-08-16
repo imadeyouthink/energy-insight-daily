@@ -88,8 +88,18 @@ function HomePage() {
   const cycle = computeCycle(cycleSettings);
   const greeting = useGreeting();
   const { displayName } = useProfile();
+  const [skippedName, setSkippedName] = useState(
+    () => typeof window !== "undefined" && sessionStorage.getItem("dunami:skip-name") === "1",
+  );
+  const needsName = !displayName && !skippedName;
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  function skipName() {
+    sessionStorage.setItem("dunami:skip-name", "1");
+    setSkippedName(true);
+  }
+
 
   async function handleSignOut() {
     await queryClient.cancelQueries();
