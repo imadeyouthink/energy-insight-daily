@@ -8,12 +8,12 @@ import { fetchEntries } from "@/lib/data";
 export const Route = createFileRoute("/history")({
   head: () => ({
     meta: [
-      { title: "History — Energy Coach" },
+      { title: "History — Dunami" },
       {
         name: "description",
         content: "Look back at your last 14 days of sleep, energy, stress and day intensity.",
       },
-      { property: "og:title", content: "History — Energy Coach" },
+      { property: "og:title", content: "History — Dunami" },
       {
         property: "og:description",
         content: "Your last 14 daily check-ins at a glance.",

@@ -7,7 +7,7 @@ export function BrandLockup() {
         <Zap className="h-5 w-5 fill-foreground text-foreground" />
       </div>
       <span className="text-[22px] font-semibold tracking-[-0.02em] text-foreground">
-        Energy Coach
+        Dunami
       </span>
     </div>
   );

@@ -9,13 +9,13 @@ import { DEFAULT_CHECKIN, dateLabel, useToday } from "@/hooks/useToday";
 export const Route = createFileRoute("/check-in")({
   head: () => ({
     meta: [
-      { title: "Morning check-in — Energy Coach" },
+      { title: "Morning check-in — Dunami" },
       {
         name: "description",
         content:
           "Log sleep, energy, stress and how packed today is in fifteen seconds, then get your plan.",
       },
-      { property: "og:title", content: "Morning check-in — Energy Coach" },
+      { property: "og:title", content: "Morning check-in — Dunami" },
       {
         property: "og:description",
         content: "Fifteen seconds of tapping turns into a practical plan for your day.",

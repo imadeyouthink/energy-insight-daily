@@ -1,6 +1,6 @@
 {
-  "name": "Energy Coach",
-  "short_name": "Energy",
+  "name": "Dunami",
+  "short_name": "Dunami",
   "description": "A 15-second daily check-in that turns how you feel into a plan.",
   "start_url": "/",
   "scope": "/",

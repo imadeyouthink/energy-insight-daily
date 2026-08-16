@@ -13,13 +13,13 @@ import { lovable } from "@/integrations/lovable";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Energy Coach" },
+      { title: "Sign in — Dunami" },
       {
         name: "description",
         content:
-          "Sign in to Energy Coach to keep your daily check-ins, cycle settings and plans private to you.",
+          "Sign in to Dunami to keep your daily check-ins, cycle settings and plans private to you.",
       },
-      { property: "og:title", content: "Sign in — Energy Coach" },
+      { property: "og:title", content: "Sign in — Dunami" },
       {
         property: "og:description",
         content: "Your check-ins stay private to your account.",
