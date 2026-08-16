@@ -25,7 +25,9 @@ export function CycleSetup({ value, onSave, saving }: Props) {
 
   useEffect(() => {
     setDraft(value ?? EMPTY);
+    if (value?.enabled && value?.last_period_start) setIsEditing(false);
   }, [value]);
+
 
   const canSave = Boolean(
     draft.enabled && draft.last_period_start && draft.cycle_length > 0 && draft.period_length > 0,
