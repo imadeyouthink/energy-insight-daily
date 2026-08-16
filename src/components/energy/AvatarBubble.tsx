@@ -8,7 +8,7 @@ function initials(name: string | null, email: string | null): string {
   if (!source) return "?";
   const parts = source.replace(/@.*/, "").split(/[\s._-]+/).filter(Boolean);
   const letters = parts.slice(0, 2).map((p) => p.charAt(0)).join("");
-  return (letters || source[0]).toUpperCase();
+  return (letters || source.charAt(0)).toUpperCase();
 }
 
 export function AvatarBubble() {

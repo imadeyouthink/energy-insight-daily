@@ -118,9 +118,12 @@ function HomePage() {
       <div className="mx-auto w-full max-w-md">
         <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
           <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
-            <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
-              {dateLabel(today)}
-            </span>
+            <div className="flex items-start justify-between gap-3">
+              <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
+                {dateLabel(today)}
+              </span>
+              <AvatarBubble />
+            </div>
             {needsName ? (
               <div className="mt-2">
                 <NamePrompt onSkip={skipName} />
