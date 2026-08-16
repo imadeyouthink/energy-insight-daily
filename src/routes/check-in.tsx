@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
@@ -49,14 +49,13 @@ function CheckInPage() {
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
         <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
-          <button
-            type="button"
-            onClick={() => window.history.back()}
-            className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-white/60 bg-white/40 px-3 py-1.5 text-[13px] font-medium tracking-tight text-foreground shadow-[0_8px_20px_rgb(0_0_0_/_0.05)] backdrop-blur-[20px] transition-colors active:scale-95"
+          <Link
+            to="/"
+            aria-label="Back to home"
+            className="glass mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70"
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back
-          </button>
+            <ArrowLeft className="h-4 w-4 text-foreground" />
+          </Link>
           <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
             <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
