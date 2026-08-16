@@ -15,7 +15,6 @@ const SLEEP = ["", "Terrible", "Poor", "Okay", "Good", "Great"];
 const INTENSITY = ["", "Light", "Easy", "Normal", "Busy", "Packed"];
 
 export const generatePlan = createServerFn({ method: "POST" })
-  .validator((data: PlanInput) => data)
   .handler(async ({ data }) => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) throw new Error("AI is not configured.");
