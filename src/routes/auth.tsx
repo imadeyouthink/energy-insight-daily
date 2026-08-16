@@ -190,15 +190,7 @@ function AuthPage() {
             </Button>
           </form>
 
-          <Button
-            type="button"
-            variant="outline"
-            disabled={busy}
-            onClick={onGoogle}
-            className="glass mt-3 h-12 w-full rounded-full border-white/60 text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
-          >
-            Continue with Google
-          </Button>
+
 
           <Button
             type="button"
