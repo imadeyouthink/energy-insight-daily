@@ -34,12 +34,12 @@ function HistoryPage() {
   return (
     <main className="flex min-h-screen flex-col aurora px-5">
       <div className="mx-auto flex w-full max-w-md flex-grow flex-col">
-        <div className="relative z-0 aurora -mx-5 px-5 pb-32 pt-12">
-          <header className="py-6">
+        <div className="relative z-0 aurora -mx-5 px-5 pb-24 pt-10">
+          <header className="py-3">
             <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               Last 14 days
             </h1>
-            <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+            <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
               Your recent check-ins at a glance.
             </p>
           </header>
