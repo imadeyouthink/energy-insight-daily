@@ -11,7 +11,8 @@ import {
   saveEntry,
   type DailyEntry,
 } from "@/lib/data";
-import { generatePlan, parsePlan } from "@/lib/plan.functions";
+import { parsePlan } from "@/lib/plan";
+import { generatePlan } from "@/lib/plan.functions";
 import { readLocalPrefs, skipTodaysReminder } from "@/lib/reminders";
 
 export const DEFAULT_CHECKIN: CheckInState = {
