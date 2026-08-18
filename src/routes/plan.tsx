@@ -52,10 +52,10 @@ function PlanPage() {
         </div>
 
         <div className="relative z-10 -mx-5 -mt-14 flex-grow rounded-t-[28px] bg-plan-sheet px-5 pt-16 pb-32 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.12)]">
-          <div className="absolute -top-20 left-1/2 z-20 -translate-x-1/2">
+          <div className="absolute -top-16 left-1/2 z-20 -translate-x-1/2">
             <FireflyCompanion
               state={fireflyState}
-              className="h-40 w-40 drop-shadow-[0_12px_28px_rgba(0,0,0,0.15)]"
+              className="h-32 w-32 drop-shadow-[0_12px_28px_rgba(0,0,0,0.15)]"
             />
           </div>
           {hasPlan ? (
