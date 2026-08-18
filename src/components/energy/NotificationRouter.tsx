@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { LocalNotifications } from "@capacitor/local-notifications";
 
-import { remindersSupported } from "@/lib/reminders";
+import { readLocalPrefs, remindersSupported, syncReminder } from "@/lib/reminders";
 
 /**
  * Opens the check-in screen when the app is launched from the morning reminder.
@@ -10,6 +10,12 @@ import { remindersSupported } from "@/lib/reminders";
  */
 export function NotificationRouter() {
   const navigate = useNavigate();
+
+  // Ask for permission and arm the daily nudge on first native launch.
+  useEffect(() => {
+    if (!remindersSupported()) return;
+    void syncReminder(readLocalPrefs());
+  }, []);
 
   useEffect(() => {
     if (!remindersSupported()) return;
