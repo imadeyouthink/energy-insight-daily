@@ -186,7 +186,7 @@ function HomePage() {
               <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 Today at a glance
               </h2>
-              <div className="mt-3 grid grid-cols-3 gap-2 rounded-[1.5rem] bg-card-neutral px-3 py-5 shadow-card-neutral backdrop-blur-sm">
+              <div className="mt-3 grid grid-cols-3 gap-2 rounded-[1.5rem] bg-white px-3 py-5 shadow-card-neutral">
                 <ScoreRing
                   label="Sleep"
                   value={todayEntry.sleep}
@@ -234,7 +234,7 @@ function HomePage() {
             <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               Last 7 days
             </h2>
-            <div className="mt-3 rounded-[1.5rem] bg-white/70 p-4 shadow-[0_8px_28px_-14px_oklch(0.35_0.02_260/0.25)] backdrop-blur-sm">
+            <div className="mt-3 rounded-[1.5rem] bg-white p-4 shadow-[0_8px_28px_-14px_oklch(0.35_0.02_260/0.25)]">
               <TrendSparklines entries={entries} today={today} />
             </div>
           </section>
