@@ -109,7 +109,14 @@ function ProfilePage() {
       setConfirm("");
       toast.success("Password updated.");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not update your password.");
+      const message =
+        error instanceof Error
+          ? error.message.replace(
+              "Updating password of an anonymous user without an email or phone is not allowed",
+              "Updating password of an anonymous user without an email is not allowed",
+            )
+          : "Could not update your password.";
+      toast.error(message);
     } finally {
       setBusy(false);
     }
