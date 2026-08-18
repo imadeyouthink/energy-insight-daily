@@ -40,7 +40,7 @@ function HistoryPage() {
               Last 14 days
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-              Your recent check-ins at a glance.
+              Your recent check-ins.
             </p>
           </header>
         </div>
