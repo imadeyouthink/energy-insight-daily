@@ -29,7 +29,7 @@ export const Route = createFileRoute("/plan")({
 });
 
 function PlanPage() {
-  const navigate = useNavigate();
+  
   const { today, todayEntry, parsedPlan } = useToday();
   const hasPlan = !!todayEntry?.plan && !!parsedPlan;
   const fireflyState = fireflyStateFor(todayEntry);
