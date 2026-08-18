@@ -3,14 +3,15 @@ import { Link } from "@tanstack/react-router";
 
 import { formatDay, todayKey } from "@/lib/cycle";
 import type { DailyEntry } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
 const CHIPS = [
-  { key: "sleep", label: "Bed", bg: "bg-plan-bedtime", text: "text-plan-bedtime-foreground" },
-  { key: "energy", label: "Move", bg: "bg-plan-movement", text: "text-plan-movement-foreground" },
-  { key: "stress", label: "Caff", bg: "bg-plan-caffeine", text: "text-plan-caffeine-foreground" },
-  { key: "day_intensity", label: "Food", bg: "bg-plan-food", text: "text-plan-food-foreground" },
+  { key: "sleep", label: "Slp" },
+  { key: "energy", label: "Enrg" },
+  { key: "stress", label: "Strs" },
+  { key: "caffeine", label: "Coff" },
+  { key: "alcohol", label: "Alc" },
 ] as const;
+
 
 export function History({ entries }: { entries: DailyEntry[] }) {
   if (entries.length === 0) return null;
@@ -40,23 +41,21 @@ export function History({ entries }: { entries: DailyEntry[] }) {
                 </p>
               )}
             </div>
-            <div className="flex shrink-0 items-center gap-2.5">
-              {CHIPS.map((c) => (
-                <div key={c.key} className="flex flex-col items-center gap-1">
-                  <span
-                    className={cn(
-                      "flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-semibold",
-                      c.bg,
-                      c.text,
-                    )}
-                  >
-                    {e[c.key]}
-                  </span>
-                  <span className="text-[10px] font-medium tracking-tight text-muted-foreground">
-                    {c.label}
-                  </span>
-                </div>
-              ))}
+            <div className="flex shrink-0 items-center gap-2">
+              {CHIPS.map((c) => {
+                const value = e[c.key];
+                return (
+                  <div key={c.key} className="flex flex-col items-center gap-1">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-turquoise text-[12px] font-semibold text-turquoise-foreground">
+                      {typeof value === "boolean" ? (value ? "Y" : "N") : value}
+                    </span>
+                    <span className="text-[10px] font-medium tracking-tight text-muted-foreground">
+                      {c.label}
+                    </span>
+                  </div>
+                );
+              })}
+
               <ChevronRight
                 aria-hidden
                 className="h-4 w-4 shrink-0 text-muted-foreground"
