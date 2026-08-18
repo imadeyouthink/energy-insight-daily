@@ -188,7 +188,7 @@ function HomePage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="glass h-12 w-full rounded-full border-foreground text-[15px] tracking-tight"
+                  className="glass h-12 w-full rounded-full border-foreground text-[15px] tracking-tight shadow-none"
                 >
                   <Link to="/plan">See today's plan</Link>
                 </Button>
