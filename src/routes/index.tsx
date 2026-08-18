@@ -191,19 +191,19 @@ function HomePage() {
                   label="Sleep"
                   value={todayEntry.sleep}
                   caption={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
-                  color="var(--dot-sleep)"
+                  color="var(--turquoise)"
                 />
                 <ScoreRing
                   label="Energy"
                   value={todayEntry.energy}
                   caption={ENERGY_LABELS[todayEntry.energy - 1] ?? "—"}
-                  color="var(--dot-energy)"
+                  color="var(--turquoise)"
                 />
                 <ScoreRing
                   label="Stress"
                   value={todayEntry.stress}
                   caption={STRESS_LABELS[todayEntry.stress - 1] ?? "—"}
-                  color="var(--dot-stress)"
+                  color="var(--turquoise)"
                 />
               </div>
 
