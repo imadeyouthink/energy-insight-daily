@@ -12,7 +12,7 @@ const CATEGORIES = [
 export function PlanView({ bullets, onEdit }: { bullets: string[]; onEdit: () => void }) {
   return (
     <div className="space-y-6">
-      <ul className="space-y-3">
+      <ul className="space-y-5">
         {bullets.map((b, i) => {
           const cat = CATEGORIES[i % CATEGORIES.length]!;
           const Icon = cat.Icon;
