@@ -62,10 +62,7 @@ function PlanPage() {
             />
           </div>
           {hasPlan ? (
-            <PlanView
-              bullets={parsedPlan!.bullets}
-              onEdit={() => navigate({ to: "/check-in" })}
-            />
+            <PlanView bullets={parsedPlan!.bullets} />
           ) : (
             <Button
               asChild
