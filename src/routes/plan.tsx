@@ -38,15 +38,15 @@ function PlanPage() {
     <main className="min-h-screen aurora px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <div className="relative z-0 aurora -mx-5 px-5 pb-36 pt-5">
-          <header className="py-1">
+        <div className="relative z-0 aurora -mx-5 px-5 pb-28 pt-5">
+          <header className="py-2">
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
             </span>
-            <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+            <h1 className="mt-3 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               {hasPlan ? parsedPlan!.headline : "No plan yet today"}
             </h1>
-            <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+            <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
               {hasPlan
                 ? parsedPlan!.recap
                 : "Do your check-in and your plan shows up right here."}
@@ -54,8 +54,8 @@ function PlanPage() {
           </header>
         </div>
 
-        <div className="relative z-10 -mx-5 -mt-10 rounded-t-[28px] bg-plan-sheet px-5 pt-24 pb-32 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.12)]">
-          <div className="absolute -top-20 left-1/2 z-20 -translate-x-1/2">
+        <div className="relative z-10 -mx-5 -mt-14 rounded-t-[28px] bg-plan-sheet px-5 pt-14 pb-32 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.12)]">
+          <div className="absolute -top-24 left-1/2 z-20 -translate-x-1/2">
             <FireflyCompanion
               state={fireflyState}
               className="h-40 w-40 drop-shadow-[0_12px_28px_rgba(0,0,0,0.15)]"
