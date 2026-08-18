@@ -38,7 +38,7 @@ function Dot({
 
   return (
     <div
-      className={`mx-auto rounded-full ${isToday ? "h-2.5 w-2.5" : "h-2 w-2"} ${fillClass} ${
+      className={`mx-auto h-2.5 w-2.5 rounded-full ${fillClass} ${
         isToday ? "ring-1 ring-white shadow-sm" : ""
       }`}
       aria-hidden="true"
