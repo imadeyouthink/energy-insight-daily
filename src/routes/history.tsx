@@ -51,6 +51,15 @@ function HistoryPage() {
             <p className="text-[15px] text-muted-foreground">No check-ins yet.</p>
           ) : (
             <>
+              <section>
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                  Last 7 days
+                </h2>
+                <div className="mt-3 rounded-[1.5rem] bg-white/70 p-4 shadow-[0_8px_28px_-14px_oklch(0.35_0.02_260/0.25)] backdrop-blur-sm">
+                  <TrendSparklines entries={entries} today={todayKey()} />
+                </div>
+              </section>
+              <div className="my-6 h-px bg-border/70" />
               <WeekTrendBars entries={entries} today={todayKey()} />
               <div className="my-6 h-px bg-border/70" />
               <History entries={entries} />
