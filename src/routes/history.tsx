@@ -59,11 +59,11 @@ function HistoryPage() {
                 </div>
               </section>
               <History entries={entries} />
-              <div className="mt-8 rounded-3xl bg-secondary/70 p-5">
-                <p className="text-[15px] font-semibold tracking-tight text-foreground">
+              <div className="mt-8 rounded-[1.75rem] bg-turquoise p-5">
+                <p className="text-[15px] font-semibold tracking-tight text-turquoise-foreground">
                   Patterns take a couple weeks to show up.
                 </p>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
+                <p className="mt-1.5 text-[13px] leading-relaxed text-turquoise-foreground/90">
                   Keep checking in daily — Dunami will start pointing out what's actually
                   driving your energy.
                 </p>
