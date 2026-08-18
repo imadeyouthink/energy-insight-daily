@@ -58,50 +58,26 @@ function useGreeting(): string {
 function Chip({
   label,
   value,
-  status,
   variant,
 }: {
   label: string;
   value: string;
-  status?: MetricStatus;
   variant: "sleep" | "energy" | "stress" | "day";
 }) {
-  const theme = {
-    sleep: {
-      bg: "bg-card-sleep",
-      text: "text-card-sleep-text",
-      shadow: "shadow-card-sleep",
-    },
-    energy: {
-      bg: "bg-card-energy",
-      text: "text-card-energy-text",
-      shadow: "shadow-card-energy",
-    },
-    stress: {
-      bg: "bg-card-stress",
-      text: "text-card-stress-text",
-      shadow: "shadow-card-stress",
-    },
-    day: {
-      bg: "bg-card-day",
-      text: "text-card-day-text",
-      shadow: "shadow-card-day",
-    },
+  const dot = {
+    sleep: "bg-dot-sleep",
+    energy: "bg-dot-energy",
+    stress: "bg-dot-stress",
+    day: "bg-dot-day",
   }[variant];
 
   return (
-    <div
-      className={`flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl px-3.5 py-3 text-center ${theme.bg} ${theme.shadow}`}
-    >
-      <p
-        className={`flex items-center gap-1 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] ${theme.text}`}
-      >
-        {status && <span className={`h-2 w-2 rounded-full ${STATUS_BG[status]}`} />}
+    <div className="flex min-h-[74px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-card-neutral px-3.5 py-3 text-center shadow-card-neutral backdrop-blur-sm">
+      <span className={`h-2 w-2 rounded-full ${dot}`} />
+      <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
         {label}
       </p>
-      <p
-        className={`text-[14px] font-semibold leading-none tracking-tight ${theme.text}`}
-      >
+      <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
         {value}
       </p>
     </div>
