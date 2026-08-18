@@ -203,29 +203,27 @@ function HomePage() {
               <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 Today at a glance
               </h2>
-              <div className="mt-3 grid grid-cols-2 gap-2.5">
-                <Chip
+              <div className="mt-3 grid grid-cols-3 gap-2 rounded-[1.5rem] bg-card-neutral px-3 py-5 shadow-card-neutral backdrop-blur-sm">
+                <ScoreRing
                   label="Sleep"
-                  value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
-                  level={levelUp(todayEntry.sleep)}
+                  value={todayEntry.sleep}
+                  caption={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
+                  color="var(--dot-sleep)"
                 />
-                <Chip
+                <ScoreRing
                   label="Energy"
-                  value={`${todayEntry.energy}/5`}
-                  level={levelUp(todayEntry.energy)}
+                  value={todayEntry.energy}
+                  caption={ENERGY_LABELS[todayEntry.energy - 1] ?? "—"}
+                  color="var(--dot-energy)"
                 />
-                <Chip
+                <ScoreRing
                   label="Stress"
-                  value={`${todayEntry.stress}/5`}
-                  level={levelDown(todayEntry.stress)}
+                  value={todayEntry.stress}
+                  caption={STRESS_LABELS[todayEntry.stress - 1] ?? "—"}
+                  color="var(--dot-stress)"
                 />
-                <Chip
-                  label="Day"
-                  value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
-                  level={levelDown(todayEntry.day_intensity)}
-                />
-
               </div>
+
               {cycle && (
                 <div className="mt-6">
                   <CycleBanner phase={cycle.phase} day={cycle.day} />
