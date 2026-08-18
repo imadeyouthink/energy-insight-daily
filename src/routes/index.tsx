@@ -14,7 +14,7 @@ import { TrendSparklines } from "@/components/energy/TrendSparklines";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { computeCycle } from "@/lib/cycle";
-import { dateLabel, useToday } from "@/hooks/useToday";
+import { useToday } from "@/hooks/useToday";
 
 
 
