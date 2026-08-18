@@ -260,3 +260,16 @@
   background-color: color-mix(in oklab, var(--color-background) 70%, transparent);
   backdrop-filter: saturate(180%) blur(20px);
 }
+
+@keyframes firefly-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@utility firefly-float {
+  animation: firefly-float 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .firefly-float { animation: none; }
+}
