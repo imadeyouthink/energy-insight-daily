@@ -249,7 +249,10 @@ function ProfilePage() {
                   </button>
                 </div>
               </div>
-            </div>
+        </div>
+
+        <ReminderCard />
+
             <Button
               type="submit"
               disabled={busy || !password || !confirm}
