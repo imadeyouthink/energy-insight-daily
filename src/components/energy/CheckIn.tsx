@@ -14,7 +14,6 @@ export type CheckInState = {
 };
 
 const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
-const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -183,14 +182,6 @@ export function CheckIn({
         </Section>
 
         <CycleSetup value={cycleSettings} onSave={onSaveCycle} />
-
-        <Section title="How packed is today?">
-          <ScaleButtons
-            labels={DAY_LABELS}
-            value={state.dayIntensity}
-            onChange={(dayIntensity) => setState((s) => ({ ...s, dayIntensity }))}
-          />
-        </Section>
       </div>
 
       <Button
