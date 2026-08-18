@@ -43,22 +43,20 @@ export function History({ entries }: { entries: DailyEntry[] }) {
               )}
             </div>
             <div className="flex shrink-0 items-center gap-2.5">
-              {CHIPS.map((c) => (
-                <div key={c.key} className="flex flex-col items-center gap-1">
-                  <span
-                    className={cn(
-                      "flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-semibold",
-                      c.bg,
-                      c.text,
-                    )}
-                  >
-                    {e[c.key]}
-                  </span>
-                  <span className="text-[10px] font-medium tracking-tight text-muted-foreground">
-                    {c.label}
-                  </span>
-                </div>
-              ))}
+              {CHIPS.map((c) => {
+                const value = e[c.key];
+                return (
+                  <div key={c.key} className="flex flex-col items-center gap-1">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-turquoise text-[12px] font-semibold text-turquoise-foreground">
+                      {typeof value === "boolean" ? (value ? "Y" : "N") : value}
+                    </span>
+                    <span className="text-[10px] font-medium tracking-tight text-muted-foreground">
+                      {c.label}
+                    </span>
+                  </div>
+                );
+              })}
+
               <ChevronRight
                 aria-hidden
                 className="h-4 w-4 shrink-0 text-muted-foreground"
