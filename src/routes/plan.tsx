@@ -40,9 +40,6 @@ function PlanPage() {
       <div className="mx-auto w-full max-w-md">
         <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
           <header className="py-1">
-            <div className="mb-1 flex justify-center">
-              <FireflyCompanion state={fireflyState} className="h-24 w-24" />
-            </div>
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
             </span>
@@ -54,6 +51,9 @@ function PlanPage() {
                 ? parsedPlan!.recap
                 : "Do your check-in and your plan shows up right here."}
             </p>
+            <div className="mt-3 flex justify-center">
+              <FireflyCompanion state={fireflyState} className="h-24 w-24" />
+            </div>
           </header>
         </div>
 
