@@ -47,25 +47,36 @@ function useGreeting(): string {
   return text;
 }
 
+type Level = "good" | "mid" | "low";
+
+const LEVEL_DOT: Record<Level, string> = {
+  good: "bg-dot-energy",
+  mid: "bg-dot-sleep",
+  low: "bg-dot-stress",
+};
+
+/** Higher is better (sleep, energy) */
+function levelUp(v: number): Level {
+  return v >= 4 ? "good" : v === 3 ? "mid" : "low";
+}
+
+/** Higher is heavier (stress, day intensity) */
+function levelDown(v: number): Level {
+  return v <= 2 ? "good" : v === 3 ? "mid" : "low";
+}
+
 function Chip({
   label,
   value,
-  variant,
+  level,
 }: {
   label: string;
   value: string;
-  variant: "sleep" | "energy" | "stress" | "day";
+  level: Level;
 }) {
-  const dot = {
-    sleep: "bg-dot-sleep",
-    energy: "bg-dot-energy",
-    stress: "bg-dot-stress",
-    day: "bg-dot-day",
-  }[variant];
-
   return (
     <div className="flex min-h-[74px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-card-neutral px-3.5 py-3 text-center shadow-card-neutral backdrop-blur-sm">
-      <span className={`h-2 w-2 rounded-full ${dot}`} />
+      <span className={`h-2 w-2 rounded-full ${LEVEL_DOT[level]}`} />
       <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
         {label}
       </p>
@@ -75,6 +86,7 @@ function Chip({
     </div>
   );
 }
+
 
 
 
@@ -156,23 +168,24 @@ function HomePage() {
                 <Chip
                   label="Sleep"
                   value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
-                  variant="sleep"
+                  level={levelUp(todayEntry.sleep)}
                 />
                 <Chip
                   label="Energy"
                   value={`${todayEntry.energy}/5`}
-                  variant="energy"
+                  level={levelUp(todayEntry.energy)}
                 />
                 <Chip
                   label="Stress"
                   value={`${todayEntry.stress}/5`}
-                  variant="stress"
+                  level={levelDown(todayEntry.stress)}
                 />
                 <Chip
                   label="Day"
                   value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
-                  variant="day"
+                  level={levelDown(todayEntry.day_intensity)}
                 />
+
               </div>
               {cycle && (
                 <div className="mt-3">
