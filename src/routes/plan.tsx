@@ -35,7 +35,7 @@ function PlanPage() {
   const fireflyState = fireflyStateFor(todayEntry);
 
   return (
-    <main className="flex min-h-screen flex-col aurora px-5 pb-40">
+    <main className="flex min-h-screen flex-col aurora px-5">
       <Toaster position="top-center" />
       <div className="mx-auto flex w-full max-w-md flex-grow flex-col">
         <div className="relative z-0 aurora -mx-5 px-5 pb-28 pt-5">
