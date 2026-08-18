@@ -132,7 +132,7 @@ function ProfilePage() {
           >
             <ArrowLeft className="h-4 w-4 text-foreground" />
           </Link>
-          <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
+          <header className="py-1">
             <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               Your profile
             </h1>
