@@ -1,4 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft } from "lucide-react";
+import { z } from "zod";
 
 import { FireflyCompanion, fireflyStateFor } from "@/components/energy/FireflyCompanion";
 import { PlanView } from "@/components/energy/PlanView";
@@ -6,8 +9,16 @@ import { TabBar } from "@/components/energy/TabBar";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { dateLabel, useToday } from "@/hooks/useToday";
+import { fetchEntries } from "@/lib/data";
+import { parsePlan } from "@/lib/plan";
+import { todayKey } from "@/lib/cycle";
+
+const planSearchSchema = z.object({
+  date: z.string().optional(),
+});
 
 export const Route = createFileRoute("/plan")({
+  validateSearch: planSearchSchema,
   head: () => ({
     meta: [
       { title: "Today's plan — Dunami" },
