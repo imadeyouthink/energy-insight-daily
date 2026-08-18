@@ -1,11 +1,4 @@
 import type { DailyEntry } from "@/lib/data";
-import {
-  STATUS_BG,
-  energyStatus,
-  sleepStatus,
-  stressStatus,
-  type MetricStatus,
-} from "@/lib/status";
 
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -20,15 +13,7 @@ function lastSevenDays(today: string): string[] {
   });
 }
 
-function Row({
-  label,
-  points,
-  status,
-}: {
-  label: string;
-  points: (number | null)[];
-  status: (v: number) => MetricStatus;
-}) {
+function Row({ label, points }: { label: string; points: (number | null)[] }) {
   const lastValue = points[points.length - 1] ?? null;
 
   return (
@@ -36,15 +21,25 @@ function Row({
       <span className="text-[11px] font-semibold uppercase leading-none tracking-[0.12em] text-muted-foreground">
         {label}
       </span>
-      <div className="grid h-5 grid-cols-7 items-center">
-        {points.map((v, i) => (
-          <span
-            key={i}
-            className={`mx-auto h-2 w-2 rounded-full ${
-              v == null ? "bg-muted" : STATUS_BG[status(v)]
-            }`}
-          />
-        ))}
+      <div className="grid h-7 grid-cols-7 items-end">
+        {points.map((v, i) => {
+          const isToday = i === points.length - 1;
+          const height = v == null ? 3 : 20 + ((v - 1) / 4) * 80;
+          return (
+            <span key={i} className="flex h-full items-end justify-center">
+              <span
+                className={`w-1.5 rounded-full ${
+                  v == null
+                    ? "bg-foreground/10"
+                    : isToday
+                      ? "bg-foreground"
+                      : "bg-foreground/25"
+                }`}
+                style={{ height: `${height}%` }}
+              />
+            </span>
+          );
+        })}
       </div>
       <span className="text-right text-[13px] font-semibold tabular-nums tracking-tight leading-none text-foreground">
         {lastValue ?? "—"}
@@ -70,9 +65,9 @@ export function TrendSparklines({
 
   return (
     <div className="mt-3 grid grid-cols-[3.5rem_1fr_1.25rem] items-center gap-x-3 gap-y-2.5">
-      <Row label="Sleep" points={pick("sleep")} status={sleepStatus} />
-      <Row label="Energy" points={pick("energy")} status={energyStatus} />
-      <Row label="Stress" points={pick("stress")} status={stressStatus} />
+      <Row label="Sleep" points={pick("sleep")} />
+      <Row label="Energy" points={pick("energy")} />
+      <Row label="Stress" points={pick("stress")} />
 
       <span className="block" />
       <div className="grid h-4 grid-cols-7 items-center">
