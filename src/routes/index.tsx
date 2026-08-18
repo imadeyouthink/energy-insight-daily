@@ -103,36 +103,34 @@ function HomePage() {
 
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-40">
+    <main className="min-h-screen bg-background aurora px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
-          <header className="py-1">
-            <div className="flex items-start justify-between gap-3">
-              <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
-                {dateLabel(today)}
-              </span>
-              <AvatarBubble />
+        <header className="pt-5 pb-6">
+          <div className="flex items-start justify-between gap-3">
+            <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
+              {dateLabel(today)}
+            </span>
+            <AvatarBubble />
+          </div>
+          {needsName ? (
+            <div className="mt-2">
+              <NamePrompt onSkip={skipName} />
             </div>
-            {needsName ? (
-              <div className="mt-2">
-                <NamePrompt onSkip={skipName} />
-              </div>
-            ) : (
-              <>
-                <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-                  {displayName ? `${greeting}, ${displayName}` : greeting}
-                </h1>
-                <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-                  {checkedIn
-                    ? "Here's where today stands."
-                    : "Start with a fifteen-second check-in."}
-                </p>
-              </>
-            )}
-          </header>
+          ) : (
+            <>
+              <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+                {displayName ? `${greeting}, ${displayName}` : greeting}
+              </h1>
+              <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+                {checkedIn
+                  ? "Here's where today stands."
+                  : "Start with a fifteen-second check-in."}
+              </p>
+            </>
+          )}
+        </header>
 
-        </div>
 
         {!checkedIn ? (
           <Link
