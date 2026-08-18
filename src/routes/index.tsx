@@ -48,52 +48,73 @@ function useGreeting(): string {
   return text;
 }
 
-type Level = "good" | "mid" | "low";
 
-const LEVEL_DOT: Record<Level, string> = {
-  good: "bg-dot-energy",
-  mid: "bg-dot-sleep",
-  low: "bg-dot-stress",
-};
-
-/** Higher is better (sleep, energy) */
-function levelUp(v: number): Level {
-  return v >= 4 ? "good" : v === 3 ? "mid" : "low";
-}
-
-/** Higher is heavier (stress, day intensity) */
-function levelDown(v: number): Level {
-  return v <= 2 ? "good" : v === 3 ? "mid" : "low";
-}
-
-function Chip({
+function ScoreRing({
   label,
   value,
-  level,
+  caption,
+  color,
 }: {
   label: string;
-  value: string;
-  level: Level;
+  value: number;
+  caption: string;
+  color: string;
 }) {
+  const size = 84;
+  const stroke = 8;
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const pct = Math.max(0, Math.min(1, value / 5));
+
   return (
-    <div className="flex min-h-[74px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-card-neutral px-3.5 py-3 text-center shadow-card-neutral backdrop-blur-sm">
-      <span className={`h-2 w-2 rounded-full ${LEVEL_DOT[level]}`} />
-      <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
-        {label}
-      </p>
-      <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
-        {value}
-      </p>
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative" style={{ width: size, height: size }}>
+        <svg width={size} height={size} className="-rotate-90">
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={stroke}
+            className="text-black/8"
+          />
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke={color}
+            strokeWidth={stroke}
+            strokeLinecap="round"
+            strokeDasharray={c}
+            strokeDashoffset={c * (1 - pct)}
+            style={{ transition: "stroke-dashoffset 700ms ease" }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-[18px] font-semibold leading-none tracking-tight text-foreground">
+            {value}
+            <span className="text-[11px] font-medium text-muted-foreground">/5</span>
+          </span>
+        </div>
+      </div>
+      <div className="text-center">
+        <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
+          {label}
+        </p>
+        <p className="mt-1 text-[12px] font-semibold leading-none tracking-tight text-foreground">
+          {caption}
+        </p>
+      </div>
     </div>
   );
 }
 
-
-
-
-
 const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
-const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
+const ENERGY_LABELS = ["Drained", "Low", "Steady", "Good", "Buzzing"];
+const STRESS_LABELS = ["Calm", "Easy", "Normal", "Tense", "Frazzled"];
+
 
 function HomePage() {
   const { today, entries, todayEntry, cycleSettings, parsedPlan } = useToday();
@@ -165,29 +186,27 @@ function HomePage() {
               <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 Today at a glance
               </h2>
-              <div className="mt-3 grid grid-cols-2 gap-2.5">
-                <Chip
+              <div className="mt-3 grid grid-cols-3 gap-2 rounded-[1.5rem] bg-card-neutral px-3 py-5 shadow-card-neutral backdrop-blur-sm">
+                <ScoreRing
                   label="Sleep"
-                  value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
-                  level={levelUp(todayEntry.sleep)}
+                  value={todayEntry.sleep}
+                  caption={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
+                  color="var(--dot-sleep)"
                 />
-                <Chip
+                <ScoreRing
                   label="Energy"
-                  value={`${todayEntry.energy}/5`}
-                  level={levelUp(todayEntry.energy)}
+                  value={todayEntry.energy}
+                  caption={ENERGY_LABELS[todayEntry.energy - 1] ?? "—"}
+                  color="var(--dot-energy)"
                 />
-                <Chip
+                <ScoreRing
                   label="Stress"
-                  value={`${todayEntry.stress}/5`}
-                  level={levelDown(todayEntry.stress)}
+                  value={todayEntry.stress}
+                  caption={STRESS_LABELS[todayEntry.stress - 1] ?? "—"}
+                  color="var(--dot-stress)"
                 />
-                <Chip
-                  label="Day"
-                  value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
-                  level={levelDown(todayEntry.day_intensity)}
-                />
-
               </div>
+
               {cycle && (
                 <div className="mt-6">
                   <CycleBanner phase={cycle.phase} day={cycle.day} />
