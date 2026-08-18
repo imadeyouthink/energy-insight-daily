@@ -119,10 +119,7 @@ function HomePage() {
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
         <header className="pt-5 pb-6">
-          <div className="flex items-start justify-between gap-3">
-            <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
-              {dateLabel(today)}
-            </span>
+          <div className="flex items-start justify-end gap-3">
             <AvatarBubble />
           </div>
           {needsName ? (
