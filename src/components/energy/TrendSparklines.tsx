@@ -41,7 +41,7 @@ function Row({
           <span
             key={i}
             className={`mx-auto h-2 w-2 rounded-full ${
-              v == null ? "bg-foreground/10" : STATUS_BG[status(v)]
+              v == null ? "bg-muted" : STATUS_BG[status(v)]
             }`}
           />
         ))}
