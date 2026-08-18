@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
+import { ReminderCard } from "@/components/energy/ReminderCard";
 import { TabBar } from "@/components/energy/TabBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -249,7 +250,10 @@ function ProfilePage() {
                   </button>
                 </div>
               </div>
-            </div>
+        </div>
+
+        <ReminderCard />
+
             <Button
               type="submit"
               disabled={busy || !password || !confirm}
