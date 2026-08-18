@@ -19,10 +19,15 @@ type Props = {
 export function FireflyCompanion({ state, className }: Props) {
   return (
     <span className={`firefly-float inline-block ${className ?? ""}`} aria-hidden="true">
-      {state === "welcome" && <Welcome />}
-      {state === "energised" && <Energised />}
-      {state === "steady" && <Steady />}
-      {state === "resting" && <Resting />}
+      <span className="relative block h-full w-full">
+        <span className="absolute inset-[-12%] rounded-full bg-white/95 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.1)]" />
+        <span className="relative block h-full w-full">
+          {state === "welcome" && <Welcome />}
+          {state === "energised" && <Energised />}
+          {state === "steady" && <Steady />}
+          {state === "resting" && <Resting />}
+        </span>
+      </span>
     </span>
   );
 }
