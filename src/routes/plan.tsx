@@ -65,18 +65,20 @@ function PlanPage() {
       <div className="mx-auto flex w-full max-w-md flex-grow flex-col">
         <div className="relative z-0 aurora -mx-5 px-5 pb-28 pt-5">
           <header className="py-2">
-            {isHistoryView && (
-              <Link
-                to="/history"
-                aria-label="Back to history"
-                className="glass mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70"
-              >
-                <ArrowLeft className="h-4 w-4 text-foreground" />
-              </Link>
-            )}
-            <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
-              {dateLabel(selectedDate)}
-            </span>
+            <div className="flex flex-col items-start gap-3">
+              {isHistoryView && (
+                <Link
+                  to="/history"
+                  aria-label="Back to history"
+                  className="glass inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70"
+                >
+                  <ArrowLeft className="h-4 w-4 text-foreground" />
+                </Link>
+              )}
+              <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
+                {dateLabel(selectedDate)}
+              </span>
+            </div>
             <h1 className="mt-3 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               {hasPlan ? selectedParsedPlan!.headline : "No plan for this day"}
             </h1>
