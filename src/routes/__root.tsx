@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { useAuth } from "../hooks/useAuth";
+import { NotificationRouter } from "../components/energy/NotificationRouter";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -155,6 +156,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <NotificationRouter />
       <AuthGate>
         <Outlet />
       </AuthGate>
