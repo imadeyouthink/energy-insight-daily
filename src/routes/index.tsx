@@ -222,8 +222,7 @@ function HomePage() {
               <section>
                 <Button
                   asChild
-                  variant="outline"
-                  className="glass h-12 w-full rounded-full border-foreground text-[15px] tracking-tight shadow-none"
+                  className="h-12 w-full rounded-full bg-primary text-primary-foreground text-[15px] tracking-tight shadow-primary hover:bg-primary/90"
                 >
                   <Link to="/plan">See today's plan</Link>
                 </Button>
