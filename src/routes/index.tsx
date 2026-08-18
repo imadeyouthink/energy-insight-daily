@@ -59,18 +59,49 @@ function Chip({
   label,
   value,
   status,
+  variant,
 }: {
   label: string;
   value: string;
   status?: MetricStatus;
+  variant: "sleep" | "energy" | "stress" | "day";
 }) {
+  const theme = {
+    sleep: {
+      bg: "bg-card-sleep",
+      text: "text-card-sleep-text",
+      shadow: "shadow-card-sleep",
+    },
+    energy: {
+      bg: "bg-card-energy",
+      text: "text-card-energy-text",
+      shadow: "shadow-card-energy",
+    },
+    stress: {
+      bg: "bg-card-stress",
+      text: "text-card-stress-text",
+      shadow: "shadow-card-stress",
+    },
+    day: {
+      bg: "bg-card-day",
+      text: "text-card-day-text",
+      shadow: "shadow-card-day",
+    },
+  }[variant];
+
   return (
-    <div className="flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl bg-secondary px-3.5 py-3 text-center">
-      <p className="flex items-center gap-1 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
+    <div
+      className={`flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl px-3.5 py-3 text-center ${theme.bg} ${theme.shadow}`}
+    >
+      <p
+        className={`flex items-center gap-1 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] ${theme.text}`}
+      >
         {status && <span className={`h-2 w-2 rounded-full ${STATUS_BG[status]}`} />}
         {label}
       </p>
-      <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
+      <p
+        className={`text-[14px] font-semibold leading-none tracking-tight ${theme.text}`}
+      >
         {value}
       </p>
     </div>
