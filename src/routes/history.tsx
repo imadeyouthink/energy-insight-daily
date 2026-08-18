@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 
 import { History } from "@/components/energy/History";
-import { WeekTrendBars } from "@/components/energy/WeekTrendBars";
 import { TrendSparklines } from "@/components/energy/TrendSparklines";
 import { TabBar } from "@/components/energy/TabBar";
 import { todayKey } from "@/lib/cycle";
@@ -59,8 +58,6 @@ function HistoryPage() {
                   <TrendSparklines entries={entries} today={todayKey()} />
                 </div>
               </section>
-              <div className="my-6 h-px bg-border/70" />
-              <WeekTrendBars entries={entries} today={todayKey()} />
               <div className="my-6 h-px bg-border/70" />
               <History entries={entries} />
               <div className="mt-8 rounded-3xl bg-secondary/70 p-5">
