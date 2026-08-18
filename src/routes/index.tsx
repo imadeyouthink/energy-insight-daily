@@ -8,6 +8,7 @@ import { CycleBanner } from "@/components/energy/CycleBanner";
 import { TabBar } from "@/components/energy/TabBar";
 import { NamePrompt } from "@/components/energy/NamePrompt";
 import { AvatarBubble } from "@/components/energy/AvatarBubble";
+import { FireflyCompanion } from "@/components/energy/FireflyCompanion";
 
 import { TrendSparklines } from "@/components/energy/TrendSparklines";
 import { Button } from "@/components/ui/button";
@@ -129,16 +130,19 @@ function HomePage() {
               <NamePrompt onSkip={skipName} />
             </div>
           ) : (
-            <>
-              <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-                {displayName ? `${greeting}, ${displayName}` : greeting}
-              </h1>
-              <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-                {checkedIn
-                  ? "Here's where today stands."
-                  : "Start with a fifteen-second check-in."}
-              </p>
-            </>
+            <div className="mt-2 flex items-center gap-3">
+              <FireflyCompanion state="welcome" className="h-20 w-20 shrink-0" />
+              <div className="min-w-0">
+                <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+                  {displayName ? `${greeting}, ${displayName}` : greeting}
+                </h1>
+                <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+                  {checkedIn
+                    ? "Here's where today stands."
+                    : "Start with a fifteen-second check-in."}
+                </p>
+              </div>
+            </div>
           )}
         </header>
 
