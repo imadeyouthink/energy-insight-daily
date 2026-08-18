@@ -30,7 +30,7 @@ const statusFor: Record<MetricKey, (v: number) => MetricStatus> = {
 
 function Dot({ value, metric, isToday }: { value: number | null; metric: MetricKey; isToday: boolean }) {
   const status = value == null ? null : statusFor[metric](value);
-  const emptyClass = "bg-muted/60";
+  const emptyClass = "bg-[oklch(0.86_0.01_260)]";
   const fillClass = status ? STATUS_BG[status] : emptyClass;
 
   return (
