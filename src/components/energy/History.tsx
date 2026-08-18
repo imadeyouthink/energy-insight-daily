@@ -24,6 +24,7 @@ export function History({ entries }: { entries: DailyEntry[] }) {
           <Link
             key={e.entry_date}
             to="/plan"
+            search={{ date: e.entry_date }}
             className="flex items-center justify-between gap-3 py-3.5 transition-opacity hover:opacity-80"
           >
             <div className="min-w-0">
