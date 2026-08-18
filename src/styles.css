@@ -131,9 +131,20 @@
   --input: oklch(0.925 0.004 260);
   --ring: oklch(0.18 0 0);
   --shadow-soft: 0 1px 1px oklch(0.2 0.02 260 / 0.04), 0 12px 34px -20px oklch(0.3 0.06 260 / 0.35);
-  --gradient-aurora: radial-gradient(120% 90% at 8% 0%, oklch(0.92 0.07 250 / 0.85) 0%, transparent 55%),
-    radial-gradient(100% 80% at 95% 8%, oklch(0.93 0.06 200 / 0.8) 0%, transparent 60%),
-    radial-gradient(110% 100% at 60% 100%, oklch(0.95 0.05 300 / 0.7) 0%, transparent 60%);
+  --gradient-aurora: linear-gradient(
+    160deg,
+    #cfe8f0 0%,
+    #dcebe4 22%,
+    #eef0e6 45%,
+    #f5efe9 68%,
+    #faf7f3 100%
+  );
+  --dot-sleep: oklch(0.78 0.14 78);
+  --dot-energy: oklch(0.7 0.14 150);
+  --dot-stress: oklch(0.72 0.14 30);
+  --dot-day: oklch(0.68 0.12 255);
+  --card-neutral: oklch(1 0 0 / 0.62);
+  --shadow-card-neutral: 0 8px 22px -12px oklch(0.4 0.02 260 / 0.28);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
