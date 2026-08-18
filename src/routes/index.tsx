@@ -66,34 +66,72 @@ function levelDown(v: number): Level {
   return v <= 2 ? "good" : v === 3 ? "mid" : "low";
 }
 
-function Chip({
+function ScoreRing({
   label,
   value,
-  level,
+  caption,
+  color,
 }: {
   label: string;
-  value: string;
-  level: Level;
+  value: number;
+  caption: string;
+  color: string;
 }) {
+  const size = 84;
+  const stroke = 8;
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const pct = Math.max(0, Math.min(1, value / 5));
+
   return (
-    <div className="flex min-h-[74px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-card-neutral px-3.5 py-3 text-center shadow-card-neutral backdrop-blur-sm">
-      <span className={`h-2 w-2 rounded-full ${LEVEL_DOT[level]}`} />
-      <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
-        {label}
-      </p>
-      <p className="text-[14px] font-semibold leading-none tracking-tight text-foreground">
-        {value}
-      </p>
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative" style={{ width: size, height: size }}>
+        <svg width={size} height={size} className="-rotate-90">
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={stroke}
+            className="text-black/8"
+          />
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke={color}
+            strokeWidth={stroke}
+            strokeLinecap="round"
+            strokeDasharray={c}
+            strokeDashoffset={c * (1 - pct)}
+            style={{ transition: "stroke-dashoffset 700ms ease" }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-[18px] font-semibold leading-none tracking-tight text-foreground">
+            {value}
+            <span className="text-[11px] font-medium text-muted-foreground">/5</span>
+          </span>
+        </div>
+      </div>
+      <div className="text-center">
+        <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
+          {label}
+        </p>
+        <p className="mt-1 text-[12px] font-semibold leading-none tracking-tight text-foreground">
+          {caption}
+        </p>
+      </div>
     </div>
   );
 }
 
-
-
-
-
 const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
-const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
+const ENERGY_LABELS = ["Drained", "Low", "Steady", "Good", "Buzzing"];
+const STRESS_LABELS = ["Calm", "Easy", "Normal", "Tense", "Frazzled"];
+
 
 function HomePage() {
   const { today, entries, todayEntry, cycleSettings, parsedPlan } = useToday();
