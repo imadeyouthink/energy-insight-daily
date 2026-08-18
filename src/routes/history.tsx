@@ -30,10 +30,10 @@ function HistoryPage() {
   const entries = entriesQuery.data ?? [];
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-32">
-      <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
-          <header className="py-1">
+    <main className="flex min-h-screen flex-col aurora px-5">
+      <div className="mx-auto flex w-full max-w-md flex-grow flex-col">
+        <div className="relative z-0 aurora -mx-5 px-5 pb-28 pt-5">
+          <header className="py-2">
             <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               Last 14 days
             </h1>
@@ -43,11 +43,13 @@ function HistoryPage() {
           </header>
         </div>
 
-        {entries.length === 0 ? (
-          <p className="text-[15px] text-muted-foreground">No check-ins yet.</p>
-        ) : (
-          <History entries={entries} />
-        )}
+        <div className="relative z-10 -mx-5 -mt-14 flex-grow rounded-t-[28px] bg-plan-sheet px-5 pt-16 pb-32 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.12)]">
+          {entries.length === 0 ? (
+            <p className="text-[15px] text-muted-foreground">No check-ins yet.</p>
+          ) : (
+            <History entries={entries} />
+          )}
+        </div>
       </div>
       <TabBar />
     </main>
