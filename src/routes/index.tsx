@@ -65,7 +65,7 @@ function Chip({
   status?: MetricStatus;
 }) {
   return (
-    <div className="flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl bg-secondary px-3.5 py-3 text-center">
+    <div className="flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl border border-border bg-background px-3.5 py-3 text-center shadow-[var(--shadow-soft)]">
       <p className="flex items-center gap-1 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-muted-foreground">
         {status && <span className={`h-2 w-2 rounded-full ${STATUS_BG[status]}`} />}
         {label}
