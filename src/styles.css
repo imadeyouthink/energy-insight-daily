@@ -50,6 +50,12 @@
   --shadow-card-stress: var(--shadow-card-stress);
   --shadow-card-day: var(--shadow-card-day);
   --shadow-primary: var(--shadow-primary);
+  --color-dot-sleep: var(--dot-sleep);
+  --color-dot-energy: var(--dot-energy);
+  --color-dot-stress: var(--dot-stress);
+  --color-dot-day: var(--dot-day);
+  --color-card-neutral: var(--card-neutral);
+  --shadow-card-neutral: var(--shadow-card-neutral);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
