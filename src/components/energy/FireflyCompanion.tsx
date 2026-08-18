@@ -20,7 +20,7 @@ export function FireflyCompanion({ state, className }: Props) {
   return (
     <span className={`firefly-float inline-block ${className ?? ""}`} aria-hidden="true">
       <span className="relative block h-full w-full">
-        <span className="absolute inset-[-10%] rounded-full bg-white/65 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]" />
+        <span className="absolute inset-[-18%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0)_70%)]" />
         <span className="relative block h-full w-full">
           {state === "welcome" && <Welcome />}
           {state === "energised" && <Energised />}
