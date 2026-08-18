@@ -56,7 +56,7 @@ function CheckInPage() {
           >
             <ArrowLeft className="h-4 w-4 text-foreground" />
           </Link>
-          <header className="glass rounded-[1.75rem] px-5 py-5 shadow-[0_18px_40px_-28px_oklch(0_0_0/0.45)]">
+          <header className="py-1">
             <span className="inline-flex items-center rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
             </span>
