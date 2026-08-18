@@ -14,7 +14,6 @@ export type CheckInState = {
 };
 
 const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
-const DAY_LABELS = ["Light", "Easy", "Normal", "Busy", "Packed"];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
