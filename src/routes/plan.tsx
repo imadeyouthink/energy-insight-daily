@@ -54,7 +54,7 @@ function PlanPage() {
   const selectedEntry = isHistoryView
     ? (entriesQuery.data ?? []).find((e) => e.entry_date === date) ?? null
     : todayEntry;
-  const selectedDate = isHistoryView ? date! : todayLabel;
+  const selectedDate = isHistoryView ? date! : today;
   const selectedParsedPlan = selectedEntry?.plan ? parsePlan(selectedEntry.plan) : null;
   const hasPlan = !!selectedEntry?.plan && !!selectedParsedPlan;
   const fireflyState = fireflyStateFor(selectedEntry);
