@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 
 import { formatDay, todayKey } from "@/lib/cycle";
 import type { DailyEntry } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
 const CHIPS = [
   { key: "sleep", label: "Slp" },
@@ -42,7 +41,7 @@ export function History({ entries }: { entries: DailyEntry[] }) {
                 </p>
               )}
             </div>
-            <div className="flex shrink-0 items-center gap-2.5">
+            <div className="flex shrink-0 items-center gap-2">
               {CHIPS.map((c) => {
                 const value = e[c.key];
                 return (
