@@ -168,23 +168,24 @@ function HomePage() {
                 <Chip
                   label="Sleep"
                   value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
-                  variant="sleep"
+                  level={levelUp(todayEntry.sleep)}
                 />
                 <Chip
                   label="Energy"
                   value={`${todayEntry.energy}/5`}
-                  variant="energy"
+                  level={levelUp(todayEntry.energy)}
                 />
                 <Chip
                   label="Stress"
                   value={`${todayEntry.stress}/5`}
-                  variant="stress"
+                  level={levelDown(todayEntry.stress)}
                 />
                 <Chip
                   label="Day"
                   value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
-                  variant="day"
+                  level={levelDown(todayEntry.day_intensity)}
                 />
+
               </div>
               {cycle && (
                 <div className="mt-3">
