@@ -48,23 +48,6 @@ function useGreeting(): string {
   return text;
 }
 
-type Level = "good" | "mid" | "low";
-
-const LEVEL_DOT: Record<Level, string> = {
-  good: "bg-dot-energy",
-  mid: "bg-dot-sleep",
-  low: "bg-dot-stress",
-};
-
-/** Higher is better (sleep, energy) */
-function levelUp(v: number): Level {
-  return v >= 4 ? "good" : v === 3 ? "mid" : "low";
-}
-
-/** Higher is heavier (stress, day intensity) */
-function levelDown(v: number): Level {
-  return v <= 2 ? "good" : v === 3 ? "mid" : "low";
-}
 
 function ScoreRing({
   label,
