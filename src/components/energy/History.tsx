@@ -6,10 +6,10 @@ import type { DailyEntry } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 const CHIPS = [
-  { key: "sleep", label: "S", bg: "bg-card-sleep", text: "text-card-sleep-text" },
-  { key: "energy", label: "E", bg: "bg-card-energy", text: "text-card-energy-text" },
-  { key: "stress", label: "St", bg: "bg-card-stress", text: "text-card-stress-text" },
-  { key: "day_intensity", label: "D", bg: "bg-card-day", text: "text-card-day-text" },
+  { key: "sleep", label: "Bed", bg: "bg-plan-bedtime", text: "text-plan-bedtime-foreground" },
+  { key: "energy", label: "Move", bg: "bg-plan-movement", text: "text-plan-movement-foreground" },
+  { key: "stress", label: "Caff", bg: "bg-plan-caffeine", text: "text-plan-caffeine-foreground" },
+  { key: "day_intensity", label: "Food", bg: "bg-plan-food", text: "text-plan-food-foreground" },
 ] as const;
 
 export function History({ entries }: { entries: DailyEntry[] }) {
