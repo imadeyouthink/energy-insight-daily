@@ -19,8 +19,7 @@ export const PHASE_COPY: Record<
   Ovulation: {
     title: "Ovulation phase",
     shortTitle: "Ovulation",
-    description:
-      "Energy and mood often peak. You may feel confident, expressive and strong today.",
+    description: "Energy and mood often peak. You may feel confident, expressive and strong today.",
   },
   Luteal: {
     title: "Luteal phase",
@@ -80,4 +79,3 @@ export function computeCycle(
 
   return { phase, day };
 }
-

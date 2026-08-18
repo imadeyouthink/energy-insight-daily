@@ -95,13 +95,7 @@ function ScaleSlider({
   );
 }
 
-function YesNo({
-  value,
-  onChange,
-}: {
-  value: boolean;
-  onChange: (v: boolean) => void;
-}) {
+function YesNo({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
   return (
     <div className="grid grid-cols-2 gap-1.5 rounded-full bg-secondary p-1">
       {[false, true].map((option) => (
@@ -178,7 +172,10 @@ export function CheckIn({
         </Section>
 
         <Section title="Alcohol last night?">
-          <YesNo value={state.alcohol} onChange={(alcohol) => setState((s) => ({ ...s, alcohol }))} />
+          <YesNo
+            value={state.alcohol}
+            onChange={(alcohol) => setState((s) => ({ ...s, alcohol }))}
+          />
         </Section>
 
         <CycleSetup value={cycleSettings} onSave={onSaveCycle} />
@@ -192,7 +189,9 @@ export function CheckIn({
         {submitting ? "Building your plan…" : "Get today's plan"}
       </Button>
       {state.sleep === null && (
-        <p className="pt-2 text-center text-xs text-muted-foreground">Tap how you slept to continue.</p>
+        <p className="pt-2 text-center text-xs text-muted-foreground">
+          Tap how you slept to continue.
+        </p>
       )}
       <div className="h-6" />
     </div>

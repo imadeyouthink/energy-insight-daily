@@ -6,8 +6,14 @@ import { useProfile } from "@/hooks/useProfile";
 function initials(name: string | null, email: string | null): string {
   const source = name?.trim() || email?.trim() || "";
   if (!source) return "?";
-  const parts = source.replace(/@.*/, "").split(/[\s._-]+/).filter(Boolean);
-  const letters = parts.slice(0, 2).map((p) => p.charAt(0)).join("");
+  const parts = source
+    .replace(/@.*/, "")
+    .split(/[\s._-]+/)
+    .filter(Boolean);
+  const letters = parts
+    .slice(0, 2)
+    .map((p) => p.charAt(0))
+    .join("");
   return (letters || source.charAt(0)).toUpperCase();
 }
 

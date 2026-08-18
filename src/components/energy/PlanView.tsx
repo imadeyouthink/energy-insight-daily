@@ -8,7 +8,6 @@ const CATEGORIES = [
   { label: "Bedtime", Icon: Moon, chip: "bg-plan-bedtime text-plan-bedtime-foreground" },
 ] as const;
 
-
 export function PlanView({ bullets }: { bullets: string[] }) {
   return (
     <div className="space-y-6">
@@ -18,7 +17,9 @@ export function PlanView({ bullets }: { bullets: string[] }) {
           const Icon = cat.Icon;
           return (
             <li key={i} className="space-y-1.5">
-              <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${cat.chip}`}>
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${cat.chip}`}
+              >
                 <Icon aria-hidden className="h-3 w-3" strokeWidth={2.5} />
                 {cat.label}
               </span>

@@ -82,11 +82,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       {
         name: "viewport",
-        content:
-          "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover",
+        content: "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover",
       },
       { title: "Dunami" },
-      { name: "description", content: "A 15-second daily check-in that turns how you feel into a plan." },
+      {
+        name: "description",
+        content: "A 15-second daily check-in that turns how you feel into a plan.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
@@ -111,7 +113,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
-
 
   shellComponent: RootShell,
   component: RootComponent,

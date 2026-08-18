@@ -16,8 +16,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { computeCycle } from "@/lib/cycle";
 import { useToday } from "@/hooks/useToday";
 
-
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -30,7 +28,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Dunami — your 15-second daily check-in" },
       {
         property: "og:description",
-        content: "Turn how you feel today into a short, practical plan for movement, food and rest.",
+        content:
+          "Turn how you feel today into a short, practical plan for movement, food and rest.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -47,7 +46,6 @@ function useGreeting(): string {
   }, []);
   return text;
 }
-
 
 function ScoreRing({
   label,
@@ -115,7 +113,6 @@ const SLEEP_LABELS = ["Terrible", "Poor", "Okay", "Good", "Great"];
 const ENERGY_LABELS = ["Drained", "Low", "Steady", "Good", "Buzzing"];
 const STRESS_LABELS = ["Calm", "Easy", "Normal", "Tense", "Frazzled"];
 
-
 function HomePage() {
   const { today, entries, todayEntry, cycleSettings, parsedPlan } = useToday();
   const checkedIn = !!todayEntry;
@@ -131,9 +128,6 @@ function HomePage() {
     sessionStorage.setItem("dunami:skip-name", "1");
     setSkippedName(true);
   }
-
-
-
 
   return (
     <main className="min-h-screen bg-background aurora px-5 pb-40">
@@ -163,7 +157,6 @@ function HomePage() {
             </div>
           )}
         </header>
-
 
         {!checkedIn ? (
           <Link
@@ -212,7 +205,6 @@ function HomePage() {
                   <CycleBanner phase={cycle.phase} day={cycle.day} />
                 </div>
               )}
-
             </section>
 
             {parsedPlan && (
@@ -225,7 +217,6 @@ function HomePage() {
                 </Button>
               </section>
             )}
-
           </div>
         )}
 
@@ -239,7 +230,6 @@ function HomePage() {
             </div>
           </section>
         )}
-
 
         {checkedIn && (
           <Link

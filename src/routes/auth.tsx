@@ -178,7 +178,9 @@ function AuthPage() {
             className="mt-6 block w-full text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
             onClick={() => setMode(mode === "sign-in" ? "sign-up" : "sign-in")}
           >
-            {mode === "sign-in" ? "New here? Create an account" : "Already have an account? Sign in"}
+            {mode === "sign-in"
+              ? "New here? Create an account"
+              : "Already have an account? Sign in"}
           </button>
         </div>
       </div>

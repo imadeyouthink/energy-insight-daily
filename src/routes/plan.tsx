@@ -29,7 +29,6 @@ export const Route = createFileRoute("/plan")({
 });
 
 function PlanPage() {
-  
   const { today, todayEntry, parsedPlan } = useToday();
   const hasPlan = !!todayEntry?.plan && !!parsedPlan;
   const fireflyState = fireflyStateFor(todayEntry);
@@ -47,9 +46,7 @@ function PlanPage() {
               {hasPlan ? parsedPlan!.headline : "No plan yet today"}
             </h1>
             <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-              {hasPlan
-                ? parsedPlan!.recap
-                : "Do your check-in and your plan shows up right here."}
+              {hasPlan ? parsedPlan!.recap : "Do your check-in and your plan shows up right here."}
             </p>
           </header>
         </div>

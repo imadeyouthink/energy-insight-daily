@@ -28,7 +28,6 @@ export function CycleSetup({ value, onSave, saving }: Props) {
     if (value?.enabled && value?.last_period_start) setIsEditing(false);
   }, [value]);
 
-
   const canSave = Boolean(
     draft.enabled && draft.last_period_start && draft.cycle_length > 0 && draft.period_length > 0,
   );
@@ -97,7 +96,10 @@ export function CycleSetup({ value, onSave, saving }: Props) {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <Label htmlFor="cycle-length" className="text-[12px] font-medium text-muted-foreground">
+              <Label
+                htmlFor="cycle-length"
+                className="text-[12px] font-medium text-muted-foreground"
+              >
                 Cycle length
               </Label>
               <Input
@@ -113,7 +115,10 @@ export function CycleSetup({ value, onSave, saving }: Props) {
               />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="period-length" className="text-[12px] font-medium text-muted-foreground">
+              <Label
+                htmlFor="period-length"
+                className="text-[12px] font-medium text-muted-foreground"
+              >
                 Period length
               </Label>
               <Input
