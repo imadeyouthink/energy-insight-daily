@@ -35,10 +35,10 @@ function PlanPage() {
   const fireflyState = fireflyStateFor(todayEntry);
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-40">
+    <main className="min-h-screen aurora px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
+        <div className="relative z-20 aurora -mx-5 px-5 pb-32 pt-5">
           <header className="py-1">
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
@@ -51,26 +51,31 @@ function PlanPage() {
                 ? parsedPlan!.recap
                 : "Do your check-in and your plan shows up right here."}
             </p>
-            <div className="mt-3 flex justify-center">
-              <FireflyCompanion state={fireflyState} className="h-24 w-24" />
-            </div>
           </header>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+            <FireflyCompanion
+              state={fireflyState}
+              className="h-40 w-40 drop-shadow-[0_12px_28px_rgba(0,0,0,0.15)]"
+            />
+          </div>
         </div>
 
-        {hasPlan ? (
-          <PlanView
-            bullets={parsedPlan!.bullets}
-            onEdit={() => navigate({ to: "/check-in" })}
-          />
-        ) : (
-          <Button
-            asChild
-            variant="outline"
-            className="glass h-12 w-full rounded-full text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
-          >
-            <Link to="/check-in">Do the check-in</Link>
-          </Button>
-        )}
+        <div className="relative z-10 -mx-5 rounded-t-[28px] border-t-[0.5px] border-x-[0.5px] border-b-0 border-white/75 bg-gradient-to-b from-white/55 via-white/30 to-white/10 px-5 pt-28 pb-32 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.15)] backdrop-blur-[24px] saturate-[200%]">
+          {hasPlan ? (
+            <PlanView
+              bullets={parsedPlan!.bullets}
+              onEdit={() => navigate({ to: "/check-in" })}
+            />
+          ) : (
+            <Button
+              asChild
+              variant="outline"
+              className="glass h-12 w-full rounded-full text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
+            >
+              <Link to="/check-in">Do the check-in</Link>
+            </Button>
+          )}
+        </div>
       </div>
       <TabBar />
     </main>
