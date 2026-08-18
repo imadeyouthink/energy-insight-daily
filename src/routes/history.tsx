@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 
 import { History } from "@/components/energy/History";
+import { WeekTrendBars } from "@/components/energy/WeekTrendBars";
 import { TabBar } from "@/components/energy/TabBar";
+import { todayKey } from "@/lib/cycle";
 import { fetchEntries } from "@/lib/data";
 
 export const Route = createFileRoute("/history")({
