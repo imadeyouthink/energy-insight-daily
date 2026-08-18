@@ -1,41 +1,57 @@
-# Daily 8AM check-in reminder (push notifications)
+# Daily 8AM check-in reminder (iOS native app)
 
-## How it works, in plain terms
+Since Dunami is heading to the App Store as a native iOS app (wrapped with Capacitor), the reminder should be a **local notification scheduled on the device**, not a web push. The phone fires it at 8:00 AM local time even with no internet and no backend involved — this is exactly how habit/check-in apps do it, and it needs no server, no VAPID keys, and no Apple Push certificates.
 
-Dunami is a web app, so reminders use **Web Push** — the same mechanism native apps use, delivered by the browser. Three pieces are needed:
+A server-side push (APNs) is only needed if reminders must be changed or triggered remotely. That is out of scope here and noted at the end.
 
-1. The app asks permission and registers a small background worker in the browser.
-2. That subscription is saved in the backend, tied to the user.
-3. A scheduled job runs every 15 minutes, finds users whose local time just hit 8:00 AM and who haven't checked in yet today, and sends them a notification. Tapping it opens the check-in screen.
+## What the user experiences
 
-**Important iOS caveat:** on iPhone, web push only works if the user adds Dunami to the Home Screen (Share > Add to Home Screen) and then allows notifications. Safari in a normal tab cannot receive push. The app will detect this and show a short "Add to Home Screen to enable reminders" hint instead of a broken toggle.
+1. After sign-up (or from Profile), Dunami asks: "Want a morning nudge at 8:00?"
+2. iOS shows the system permission prompt.
+3. Every morning at 8:00 the phone shows: **"Morning check-in"** — "15 seconds to shape your day."
+4. Tapping it opens Dunami directly on the check-in screen.
+5. If they already checked in that morning, the app cancels that day's reminder so they aren't nudged twice.
+
+No streaks, no guilt copy, and the reminder can be turned off or retimed at any moment.
 
 ## What changes in the app
 
-- **Service worker** (`public/sw.js`): receives push events, shows the notification, opens `/check-in` on tap. Registered on app start.
-- **Profile screen**: a new "Daily reminder" glass card matching the existing card style — a toggle for reminders, a time picker defaulting to 08:00, and the iOS Home Screen hint when applicable.
-- **Notification copy**: title "Morning check-in", body "15 seconds to shape your day." No streaks or guilt language.
-- **Skip if already done**: users who already checked in that morning get no notification.
+**New: Capacitor iOS shell**
+- Add Capacitor with an iOS platform and the Local Notifications plugin.
+- App id/name configured for Dunami; the native project is exported to GitHub and built in Xcode when it's App Store time.
+
+**New: reminder service (`src/lib/reminders.ts`)**
+- Request notification permission.
+- Schedule a repeating daily notification at the chosen hour/minute.
+- Cancel/reschedule when the user changes the time or toggles it off.
+- Cancel today's pending one after a successful check-in submit.
+- No-ops safely in the browser preview (web has no local-notification support), so the app keeps working in the editor.
+
+**Profile screen — new "Daily reminder" card**
+- Same glass card treatment as the Name/Email/Password cards.
+- Toggle: Morning reminder on/off.
+- Time picker, defaulting to 08:00.
+- A small line explaining reminders only work in the installed iOS app.
+
+**Deep link into check-in**
+- Notification carries `{ route: "/check-in" }`; a listener in the root route navigates there when the app is opened from the notification.
+
+**Preference storage**
+- Store `reminder_enabled` and `reminder_time` on the existing `profiles` table (new nullable columns, covered by existing owner-scoped RLS) so the setting survives reinstall and follows the account.
+- The device also keeps a local copy so the schedule can be restored on app launch without waiting on the network.
 
 ## Technical details
 
-**Database (new migration)**
-- `push_subscriptions`: `id`, `user_id`, `endpoint` (unique), `p256dh`, `auth`, `created_at`. RLS: owner-only select/insert/delete; GRANTs for `authenticated` and `service_role`.
-- `reminder_settings`: `user_id` (PK), `enabled` (default true), `send_hour_local` (default 8), `send_minute_local` (default 0), `timezone` (IANA string, captured from the browser), `last_sent_on` (date, prevents duplicates). Same RLS/GRANT pattern.
+- `@capacitor/core`, `@capacitor/cli`, `@capacitor/ios`, `@capacitor/local-notifications`; `capacitor.config.ts` at the project root pointing at the built web assets, with the preview server URL for hot-reload during development.
+- Schedule uses `LocalNotifications.schedule` with `schedule: { on: { hour, minute }, allowWhileIdle: true }` for a daily repeat, fixed notification id so rescheduling replaces rather than stacks.
+- Permission state checked via `checkPermissions()` before scheduling; if denied, the Profile card shows a "Enable notifications in iOS Settings" hint instead of silently failing.
+- On app resume, re-assert the schedule and clear it for the day if a `daily_entries` row already exists for today.
+- Migration: `ALTER TABLE public.profiles ADD COLUMN reminder_enabled boolean NOT NULL DEFAULT true, ADD COLUMN reminder_time time NOT NULL DEFAULT '08:00'`.
 
-**Secrets**
-- VAPID key pair (`VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`) generated and stored as backend secrets. The public key is fetched by the client through a small server function.
-- `CRON_SECRET` to authenticate the scheduler.
+## Going to the App Store (later, not in this change)
 
-**Client**
-- `src/lib/push.ts`: register the service worker, request permission, `pushManager.subscribe` with the VAPID public key, persist via a server function, and detect standalone/iOS support.
-- `src/lib/push.functions.ts`: `savePushSubscription`, `removePushSubscription`, `getReminderSettings`, `updateReminderSettings` — all behind `requireSupabaseAuth`.
+Export the project to GitHub, `git pull`, `npm install`, `npx cap add ios`, `npx cap sync`, then open in Xcode on a Mac to run on a device and submit. An Apple Developer account is required. Notification permission strings are configured in the iOS project at that point.
 
-**Scheduled sending**
-- Public server route `src/routes/api/public/send-reminders.ts`, guarded by a `CRON_SECRET` header check. For each enabled subscriber it computes local time from their stored timezone, sends when it is within the current window, skips anyone with a `daily_entries` row for today, updates `last_sent_on`, and deletes subscriptions the push service reports as expired (404/410).
-- Encryption/signing done with a Worker-compatible pure-JS web-push library (Web Crypto based, no Node-only deps).
-- `pg_cron` + `pg_net` job every 15 minutes calling that route on the stable project URL with the secret header.
-
-## Not included
-- Native iOS app / APNs (would require a real app build).
-- Email or SMS fallback.
+## Out of scope
+- Remote/server-triggered push (APNs + push certificates) — only needed for messages the backend initiates.
+- Android build.
