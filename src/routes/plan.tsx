@@ -35,9 +35,9 @@ function PlanPage() {
   const fireflyState = fireflyStateFor(todayEntry);
 
   return (
-    <main className="min-h-screen aurora px-5 pb-40">
+    <main className="flex min-h-screen flex-col aurora px-5 pb-40">
       <Toaster position="top-center" />
-      <div className="mx-auto w-full max-w-md">
+      <div className="mx-auto flex w-full max-w-md flex-grow flex-col">
         <div className="relative z-0 aurora -mx-5 px-5 pb-28 pt-5">
           <header className="py-2">
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
@@ -54,7 +54,7 @@ function PlanPage() {
           </header>
         </div>
 
-        <div className="relative z-10 -mx-5 -mt-14 rounded-t-[28px] bg-plan-sheet px-5 pt-16 pb-32 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.12)]">
+        <div className="relative z-10 -mx-5 -mt-14 flex-grow rounded-t-[28px] bg-plan-sheet px-5 pt-16 pb-32 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.12)]">
           <div className="absolute -top-20 left-1/2 z-20 -translate-x-1/2">
             <FireflyCompanion
               state={fireflyState}
