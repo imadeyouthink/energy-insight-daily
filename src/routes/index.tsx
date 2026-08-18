@@ -225,7 +225,7 @@ function HomePage() {
         {checkedIn && (
           <Link
             to="/check-in"
-            className="mt-6 block text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
+            className="mt-6 block text-center text-[13px] font-bold tracking-tight text-black"
           >
             Edit today's check-in
           </Link>
