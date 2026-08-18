@@ -128,7 +128,7 @@ function ProfilePage() {
           <Link
             to="/"
             aria-label="Back to home"
-            className="glass mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70"
+            className="glass mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70 shadow-[0_8px_22px_-12px_oklch(0_0_0/0.35)]"
           >
             <ArrowLeft className="h-4 w-4 text-foreground" />
           </Link>
@@ -143,8 +143,8 @@ function ProfilePage() {
         </div>
 
         <div className="space-y-4">
-          <form onSubmit={saveName} className="glass space-y-3 rounded-[1.75rem] px-5 py-5">
-            <Label htmlFor="name" className="text-[12px] font-medium text-muted-foreground">
+          <form onSubmit={saveName} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
+            <Label htmlFor="name" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Name
             </Label>
             <Input
@@ -152,72 +152,78 @@ function ProfilePage() {
               type="text"
               maxLength={40}
               placeholder="Your name"
-              className="rounded-xl text-[13px]"
+              className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Button
               type="submit"
-              variant="outline"
               disabled={busy || !name.trim()}
-              className="h-11 w-full rounded-full border-foreground/10 bg-foreground text-[15px] font-medium tracking-tight text-background hover:bg-foreground/90 hover:text-background"
+              className="h-11 w-full rounded-full bg-foreground text-[15px] font-medium tracking-tight text-background shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)] transition-colors hover:bg-foreground/90 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
             >
               Save name
             </Button>
           </form>
 
-          <form onSubmit={saveEmail} className="glass space-y-3 rounded-[1.75rem] px-5 py-5">
-            <Label htmlFor="email" className="text-[12px] font-medium text-muted-foreground">
+          <form onSubmit={saveEmail} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
+            <Label htmlFor="email" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Email
             </Label>
             <Input
               id="email"
               type="email"
               autoComplete="email"
-              className="rounded-xl text-[13px]"
+              className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Button
               type="submit"
-              variant="outline"
               disabled={busy || !email.trim() || email.trim() === user?.email}
-              className="glass h-11 w-full rounded-full text-[15px] tracking-tight"
+              className="h-11 w-full rounded-full bg-foreground text-[15px] font-medium tracking-tight text-background shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)] transition-colors hover:bg-foreground/90 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
             >
               Update email
             </Button>
           </form>
 
-          <form onSubmit={savePassword} className="glass space-y-3 rounded-[1.75rem] px-5 py-5">
-            <Label htmlFor="password" className="text-[12px] font-medium text-muted-foreground">
-              New password
+          <form onSubmit={savePassword} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
+            <Label htmlFor="password" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Password
             </Label>
-            <Input
-              id="password"
-              type="password"
-              autoComplete="new-password"
-              minLength={6}
-              className="rounded-xl text-[13px]"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Label htmlFor="confirm" className="text-[12px] font-medium text-muted-foreground">
-              Confirm password
-            </Label>
-            <Input
-              id="confirm"
-              type="password"
-              autoComplete="new-password"
-              minLength={6}
-              className="rounded-xl text-[13px]"
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
-            />
+            <div className="space-y-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="password" className="text-[12px] font-medium text-muted-foreground">
+                  New password
+                </Label>
+                <Input
+                  id="password"
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={6}
+                  className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="confirm" className="text-[12px] font-medium text-muted-foreground">
+                  Confirm password
+                </Label>
+                <Input
+                  id="confirm"
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={6}
+                  className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
+                  value={confirm}
+                  onChange={(e) => setConfirm(e.target.value)}
+                />
+              </div>
+            </div>
             <Button
               type="submit"
-              variant="outline"
               disabled={busy || !password || !confirm}
-              className="glass h-11 w-full rounded-full text-[15px] tracking-tight"
+              className="h-11 w-full rounded-full bg-foreground text-[15px] font-medium tracking-tight text-background shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)] transition-colors hover:bg-foreground/90 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
             >
               Update password
             </Button>
@@ -227,7 +233,7 @@ function ProfilePage() {
         <button
           type="button"
           onClick={handleSignOut}
-          className="mt-6 block w-full text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
+          className="mt-10 w-full text-center text-[13px] font-bold tracking-tight text-coral transition-opacity hover:opacity-80"
         >
           Sign out
         </button>
