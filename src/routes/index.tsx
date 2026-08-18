@@ -189,21 +189,25 @@ function HomePage() {
                   label="Sleep"
                   value={SLEEP_LABELS[todayEntry.sleep - 1] ?? "—"}
                   status={sleepStatus(todayEntry.sleep)}
+                  variant="sleep"
                 />
                 <Chip
                   label="Energy"
                   value={`${todayEntry.energy}/5`}
                   status={energyStatus(todayEntry.energy)}
+                  variant="energy"
                 />
                 <Chip
                   label="Stress"
                   value={`${todayEntry.stress}/5`}
                   status={stressStatus(todayEntry.stress)}
+                  variant="stress"
                 />
                 <Chip
                   label="Day"
                   value={DAY_LABELS[todayEntry.day_intensity - 1] ?? "—"}
                   status={dayStatus(todayEntry.day_intensity)}
+                  variant="day"
                 />
               </div>
               {cycle && (
