@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 
+import { FireflyCompanion, fireflyStateFor } from "@/components/energy/FireflyCompanion";
 import { PlanView } from "@/components/energy/PlanView";
 import { TabBar } from "@/components/energy/TabBar";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ function PlanPage() {
   const navigate = useNavigate();
   const { today, todayEntry, parsedPlan } = useToday();
   const hasPlan = !!todayEntry?.plan && !!parsedPlan;
+  const fireflyState = fireflyStateFor(todayEntry);
 
   return (
     <main className="min-h-screen bg-background px-5 pb-40">
@@ -38,6 +40,9 @@ function PlanPage() {
       <div className="mx-auto w-full max-w-md">
         <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
           <header className="py-1">
+            <div className="mb-1 flex justify-center">
+              <FireflyCompanion state={fireflyState} className="h-24 w-24" />
+            </div>
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
             </span>
