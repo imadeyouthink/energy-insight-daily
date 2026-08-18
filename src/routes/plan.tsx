@@ -44,7 +44,7 @@ function PlanPage() {
   const today = todayKey();
   const isHistoryView = !!date && date !== today;
 
-  const { today: todayLabel, todayEntry, parsedPlan: todayParsedPlan } = useToday();
+  const { todayEntry } = useToday();
   const entriesQuery = useQuery({
     queryKey: ["entries"],
     queryFn: () => fetchEntries(14),
