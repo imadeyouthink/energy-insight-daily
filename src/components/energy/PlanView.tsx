@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Moon, Utensils, Coffee } from "lucide-react";
 
 const CATEGORIES = [
@@ -9,7 +9,7 @@ const CATEGORIES = [
 ] as const;
 
 
-export function PlanView({ bullets, onEdit }: { bullets: string[]; onEdit: () => void }) {
+export function PlanView({ bullets }: { bullets: string[] }) {
   return (
     <div className="space-y-6">
       <ul className="space-y-5">
@@ -28,13 +28,12 @@ export function PlanView({ bullets, onEdit }: { bullets: string[]; onEdit: () =>
         })}
       </ul>
 
-      <Button
-        variant="outline"
-        className="glass mt-2 h-12 w-full rounded-full text-[15px] tracking-tight shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)]"
-        onClick={onEdit}
+      <Link
+        to="/check-in"
+        className="mt-2 block text-center text-[13px] font-bold tracking-tight text-black"
       >
         Edit today's check-in
-      </Button>
+      </Link>
     </div>
   );
 }
