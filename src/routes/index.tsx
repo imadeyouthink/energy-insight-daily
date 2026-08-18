@@ -130,7 +130,7 @@ function HomePage() {
             <div className="mt-2 flex flex-col items-center gap-3">
               <FireflyCompanion state="welcome" className="h-28 w-28 shrink-0" />
               <div className="min-w-0">
-                <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+                <h1 className="text-center text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
                   {displayName ? `${greeting}, ${displayName}` : greeting}
                 </h1>
                 <p className="mt-1 text-center text-[15px] leading-relaxed tracking-tight text-muted-foreground">
