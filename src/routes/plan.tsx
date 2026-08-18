@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { FireflyCompanion, fireflyStateFor } from "@/components/energy/FireflyCompanion";
 import { PlanView } from "@/components/energy/PlanView";
