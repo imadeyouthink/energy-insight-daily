@@ -39,14 +39,14 @@ function PlanPage() {
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
         <div className="relative z-0 aurora -mx-5 px-5 pb-28 pt-5">
-          <header className="py-1">
+          <header className="py-2">
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
               {dateLabel(today)}
             </span>
-            <h1 className="mt-2 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
+            <h1 className="mt-3 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               {hasPlan ? parsedPlan!.headline : "No plan yet today"}
             </h1>
-            <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
+            <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
               {hasPlan
                 ? parsedPlan!.recap
                 : "Do your check-in and your plan shows up right here."}
