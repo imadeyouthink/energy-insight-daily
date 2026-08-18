@@ -121,10 +121,10 @@ function ProfilePage() {
   }
 
   return (
-    <main className="min-h-screen bg-background px-5 pb-40">
+    <main className="min-h-screen aurora px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 mb-5 px-5 pb-6 pt-5">
+        <div className="aurora -mx-5 mb-4 px-5 pb-5 pt-5">
           <Link
             to="/"
             aria-label="Back to home"
@@ -142,7 +142,7 @@ function ProfilePage() {
           </header>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           <form onSubmit={saveName} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
             <Label htmlFor="name" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Name
