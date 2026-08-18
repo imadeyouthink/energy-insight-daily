@@ -59,8 +59,6 @@ function HistoryPage() {
                 </div>
               </section>
               <div className="my-6 h-px bg-border/70" />
-              <WeekTrendBars entries={entries} today={todayKey()} />
-              <div className="my-6 h-px bg-border/70" />
               <History entries={entries} />
               <div className="mt-8 rounded-3xl bg-secondary/70 p-5">
                 <p className="text-[15px] font-semibold tracking-tight text-foreground">
