@@ -143,27 +143,25 @@ function ProfilePage() {
         </div>
 
         <div className="space-y-3">
-          <form onSubmit={saveName} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
-            <Label htmlFor="name" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Name
-            </Label>
+          <form onSubmit={saveName} className="relative">
             <Input
               id="name"
               type="text"
               maxLength={40}
               placeholder="Your name"
-              className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
+              className="h-12 border-0 border-b border-white/70 bg-transparent px-0 text-[17px] font-medium tracking-tight text-foreground placeholder:text-muted-foreground/70 focus-visible:bg-transparent focus-visible:ring-0 focus-visible:border-white"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Button
               type="submit"
               disabled={busy || !name.trim()}
-              className="h-11 w-full rounded-full bg-foreground text-[15px] font-medium tracking-tight text-background shadow-[0_8px_24px_-12px_oklch(0_0_0/0.35)] transition-colors hover:bg-foreground/90 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
+              className="absolute right-0 top-1/2 h-8 -translate-y-1/2 rounded-full bg-foreground px-4 text-[13px] font-medium tracking-tight text-background shadow-[0_6px_18px_-10px_oklch(0_0_0/0.35)] transition-colors hover:bg-foreground/90 disabled:bg-transparent disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
             >
-              Save name
+              Save
             </Button>
           </form>
+
 
           <form onSubmit={saveEmail} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
             <Label htmlFor="email" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
