@@ -188,7 +188,7 @@ function HomePage() {
 
               </div>
               {cycle && (
-                <div className="mt-3">
+                <div className="mt-6">
                   <CycleBanner phase={cycle.phase} day={cycle.day} />
                 </div>
               )}
