@@ -1,9 +1,7 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-import { supabase } from "@/integrations/supabase/client";
 import { useProfile } from "@/hooks/useProfile";
 
 import { CycleBanner } from "@/components/energy/CycleBanner";
@@ -95,21 +93,12 @@ function HomePage() {
     () => typeof window !== "undefined" && sessionStorage.getItem("dunami:skip-name") === "1",
   );
   const needsName = !displayName && !skippedName;
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   function skipName() {
     sessionStorage.setItem("dunami:skip-name", "1");
     setSkippedName(true);
   }
 
-
-  async function handleSignOut() {
-    await queryClient.cancelQueries();
-    queryClient.clear();
-    await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
-  }
 
 
 
@@ -229,14 +218,6 @@ function HomePage() {
             Edit today's check-in
           </Link>
         )}
-
-        <button
-          type="button"
-          onClick={handleSignOut}
-          className="mt-4 block w-full text-center text-[13px] font-medium tracking-tight text-muted-foreground underline underline-offset-4"
-        >
-          Sign out
-        </button>
       </div>
       <TabBar />
     </main>
