@@ -1,4 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft } from "lucide-react";
+import { z } from "zod";
 
 import { FireflyCompanion, fireflyStateFor } from "@/components/energy/FireflyCompanion";
 import { PlanView } from "@/components/energy/PlanView";
@@ -6,8 +9,16 @@ import { TabBar } from "@/components/energy/TabBar";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { dateLabel, useToday } from "@/hooks/useToday";
+import { fetchEntries } from "@/lib/data";
+import { parsePlan } from "@/lib/plan";
+import { todayKey } from "@/lib/cycle";
+
+const planSearchSchema = z.object({
+  date: z.string().optional(),
+});
 
 export const Route = createFileRoute("/plan")({
+  validateSearch: planSearchSchema,
   head: () => ({
     meta: [
       { title: "Today's plan — Dunami" },
@@ -29,9 +40,24 @@ export const Route = createFileRoute("/plan")({
 });
 
 function PlanPage() {
-  const { today, todayEntry, parsedPlan } = useToday();
-  const hasPlan = !!todayEntry?.plan && !!parsedPlan;
-  const fireflyState = fireflyStateFor(todayEntry);
+  const { date } = Route.useSearch();
+  const today = todayKey();
+  const isHistoryView = !!date && date !== today;
+
+  const { todayEntry } = useToday();
+  const entriesQuery = useQuery({
+    queryKey: ["entries"],
+    queryFn: () => fetchEntries(14),
+    enabled: isHistoryView,
+  });
+
+  const selectedEntry = isHistoryView
+    ? (entriesQuery.data ?? []).find((e) => e.entry_date === date) ?? null
+    : todayEntry;
+  const selectedDate = isHistoryView ? date! : today;
+  const selectedParsedPlan = selectedEntry?.plan ? parsePlan(selectedEntry.plan) : null;
+  const hasPlan = !!selectedEntry?.plan && !!selectedParsedPlan;
+  const fireflyState = fireflyStateFor(selectedEntry);
 
   return (
     <main className="flex min-h-screen flex-col aurora px-5">
@@ -39,14 +65,25 @@ function PlanPage() {
       <div className="mx-auto flex w-full max-w-md flex-grow flex-col">
         <div className="relative z-0 aurora -mx-5 px-5 pb-28 pt-5">
           <header className="py-2">
+            {isHistoryView && (
+              <Link
+                to="/history"
+                aria-label="Back to history"
+                className="glass mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/70"
+              >
+                <ArrowLeft className="h-4 w-4 text-foreground" />
+              </Link>
+            )}
             <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground">
-              {dateLabel(today)}
+              {dateLabel(selectedDate)}
             </span>
             <h1 className="mt-3 text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
-              {hasPlan ? parsedPlan!.headline : "No plan yet today"}
+              {hasPlan ? selectedParsedPlan!.headline : "No plan for this day"}
             </h1>
             <p className="mt-2 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
-              {hasPlan ? parsedPlan!.recap : "Do your check-in and your plan shows up right here."}
+              {hasPlan
+                ? selectedParsedPlan!.recap
+                : "There was no check-in for this day, so no plan was generated."}
             </p>
           </header>
         </div>
@@ -59,7 +96,7 @@ function PlanPage() {
             />
           </div>
           {hasPlan ? (
-            <PlanView bullets={parsedPlan!.bullets} />
+            <PlanView bullets={selectedParsedPlan!.bullets} />
           ) : (
             <Button
               asChild
