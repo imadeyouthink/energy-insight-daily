@@ -198,29 +198,49 @@ function ProfilePage() {
                 <Label htmlFor="password" className="text-[12px] font-medium text-muted-foreground">
                   New password
                 </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  autoComplete="new-password"
-                  minLength={6}
-                  className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="new-password"
+                    minLength={6}
+                    className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 pr-11 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((s) => !s)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute inset-y-0 right-0 flex items-center justify-center px-3 text-muted-foreground transition-opacity hover:opacity-70"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="confirm" className="text-[12px] font-medium text-muted-foreground">
                   Confirm password
                 </Label>
-                <Input
-                  id="confirm"
-                  type="password"
-                  autoComplete="new-password"
-                  minLength={6}
-                  className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
-                  value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
-                />
+                <div className="relative">
+                  <Input
+                    id="confirm"
+                    type={showConfirm ? "text" : "password"}
+                    autoComplete="new-password"
+                    minLength={6}
+                    className="h-11 rounded-[14px] border border-white/70 bg-white/50 px-4 pr-11 text-[13px] text-foreground placeholder:text-muted-foreground focus-visible:border-white focus-visible:bg-white/70 focus-visible:ring-0"
+                    value={confirm}
+                    onChange={(e) => setConfirm(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirm((s) => !s)}
+                    aria-label={showConfirm ? "Hide confirm password" : "Show confirm password"}
+                    className="absolute inset-y-0 right-0 flex items-center justify-center px-3 text-muted-foreground transition-opacity hover:opacity-70"
+                  >
+                    {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
             </div>
             <Button
