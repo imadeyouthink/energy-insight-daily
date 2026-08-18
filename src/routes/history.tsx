@@ -64,8 +64,8 @@ function HistoryPage() {
                   Patterns take a couple weeks to show up.
                 </p>
                 <p className="mt-1.5 text-[13px] leading-relaxed text-turquoise-foreground/90">
-                  Keep checking in daily — Dunami will start pointing out what's actually
-                  driving your energy.
+                  Keep checking in daily — Dunami will start pointing out what's actually driving
+                  your energy.
                 </p>
               </div>
             </>
@@ -76,4 +76,3 @@ function HistoryPage() {
     </main>
   );
 }
-

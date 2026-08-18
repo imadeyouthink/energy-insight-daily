@@ -13,7 +13,7 @@ export function parsePlan(text: string): ParsedPlan {
         line
           .replace(/^([-*•]|\d+\.)\s+/, "")
           .replace(/\*\*/g, "")
-          .replace(/^(Movement|Food|Caffeine|Bedtime)\s*[:\-]\s*/i, ""),
+          .replace(/^(Movement|Food|Caffeine|Bedtime)\s*[:-]\s*/i, ""),
       );
     } else {
       rest.push(line.replace(/^#+\s*/, "").replace(/\*\*/g, ""));

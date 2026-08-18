@@ -152,10 +152,15 @@ function ProfilePage() {
           </div>
         </header>
 
-
         <div className="space-y-3">
-          <form onSubmit={saveName} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
-            <Label htmlFor="name" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+          <form
+            onSubmit={saveName}
+            className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5"
+          >
+            <Label
+              htmlFor="name"
+              className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Name
             </Label>
             <Input
@@ -176,8 +181,14 @@ function ProfilePage() {
             </Button>
           </form>
 
-          <form onSubmit={saveEmail} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
-            <Label htmlFor="email" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+          <form
+            onSubmit={saveEmail}
+            className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5"
+          >
+            <Label
+              htmlFor="email"
+              className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Email
             </Label>
             <Input
@@ -197,8 +208,14 @@ function ProfilePage() {
             </Button>
           </form>
 
-          <form onSubmit={savePassword} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
-            <Label htmlFor="password" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+          <form
+            onSubmit={savePassword}
+            className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5"
+          >
+            <Label
+              htmlFor="password"
+              className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Password
             </Label>
             <div className="space-y-3">
@@ -250,9 +267,9 @@ function ProfilePage() {
                   </button>
                 </div>
               </div>
-        </div>
+            </div>
 
-        <ReminderCard />
+            <ReminderCard />
 
             <Button
               type="submit"

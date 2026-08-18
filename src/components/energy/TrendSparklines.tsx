@@ -1,10 +1,5 @@
 import type { DailyEntry } from "@/lib/data";
-import {
-  sleepStatus,
-  energyStatus,
-  stressStatus,
-  STATUS_BG,
-} from "@/lib/status";
+import { sleepStatus, energyStatus, stressStatus, STATUS_BG } from "@/lib/status";
 import type { MetricStatus } from "@/lib/status";
 
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -28,7 +23,15 @@ const statusFor: Record<MetricKey, (v: number) => MetricStatus> = {
   stress: stressStatus,
 };
 
-function Dot({ value, metric, isToday }: { value: number | null; metric: MetricKey; isToday: boolean }) {
+function Dot({
+  value,
+  metric,
+  isToday,
+}: {
+  value: number | null;
+  metric: MetricKey;
+  isToday: boolean;
+}) {
   const status = value == null ? null : statusFor[metric](value);
   const emptyClass = "bg-[oklch(0.86_0.01_260)]";
   const fillClass = status ? STATUS_BG[status] : emptyClass;
@@ -71,13 +74,7 @@ function Row({
   );
 }
 
-export function TrendSparklines({
-  entries,
-  today,
-}: {
-  entries: DailyEntry[];
-  today: string;
-}) {
+export function TrendSparklines({ entries, today }: { entries: DailyEntry[]; today: string }) {
   const days = lastSevenDays(today);
   const byDate = new Map(entries.map((e) => [e.entry_date, e]));
   const pick = (key: MetricKey) =>
