@@ -12,6 +12,7 @@ import {
   type DailyEntry,
 } from "@/lib/data";
 import { generatePlan, parsePlan } from "@/lib/plan.functions";
+import { readLocalPrefs, skipTodaysReminder } from "@/lib/reminders";
 
 export const DEFAULT_CHECKIN: CheckInState = {
   sleep: null,
@@ -76,7 +77,10 @@ export function useToday() {
       };
       return saveEntry(entry);
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["entries"] }),
+    onSuccess: () => {
+      void skipTodaysReminder(readLocalPrefs());
+      queryClient.invalidateQueries({ queryKey: ["entries"] });
+    },
     onError: (error: Error) => toast.error(error.message || "Couldn't build your plan."),
   });
 
