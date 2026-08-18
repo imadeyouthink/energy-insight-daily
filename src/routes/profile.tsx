@@ -124,7 +124,7 @@ function ProfilePage() {
     <main className="min-h-screen aurora px-5 pb-40">
       <Toaster position="top-center" />
       <div className="mx-auto w-full max-w-md">
-        <div className="aurora -mx-5 mb-4 px-5 pb-5 pt-5">
+        <header className="pt-5 pb-5">
           <Link
             to="/"
             aria-label="Back to home"
@@ -132,15 +132,16 @@ function ProfilePage() {
           >
             <ArrowLeft className="h-4 w-4 text-foreground" />
           </Link>
-          <header className="py-1">
+          <div className="py-1">
             <h1 className="text-[30px] font-semibold leading-[1.05] tracking-[-0.035em] text-foreground">
               Your profile
             </h1>
             <p className="mt-1 text-[15px] leading-relaxed tracking-tight text-muted-foreground">
               Update your name, email and password.
             </p>
-          </header>
-        </div>
+          </div>
+        </header>
+
 
         <div className="space-y-3">
           <form onSubmit={saveName} className="glass-sheet space-y-3 rounded-xl border-[0.5px] border-white/70 px-5 py-5">
