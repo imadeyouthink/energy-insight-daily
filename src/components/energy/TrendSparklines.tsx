@@ -1,4 +1,6 @@
 import type { DailyEntry } from "@/lib/data";
+import { sleepStatus, energyStatus, stressStatus, STATUS_FILL } from "@/lib/status";
+import type { MetricStatus } from "@/lib/status";
 
 const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -13,34 +15,91 @@ function lastSevenDays(today: string): string[] {
   });
 }
 
-function Row({ label, points }: { label: string; points: (number | null)[] }) {
+type MetricKey = "sleep" | "energy" | "stress";
+
+const statusFor: Record<MetricKey, (v: number) => MetricStatus> = {
+  sleep: sleepStatus,
+  energy: energyStatus,
+  stress: stressStatus,
+};
+
+function Row({
+  label,
+  points,
+  metric,
+}: {
+  label: string;
+  points: (number | null)[];
+  metric: MetricKey;
+}) {
   const lastValue = points[points.length - 1] ?? null;
+  const width = 160;
+  const height = 40;
+  const paddingX = 8;
+  const paddingY = 6;
+  const plotWidth = width - paddingX * 2;
+  const plotHeight = height - paddingY * 2;
+
+  const coords = points.map((v, i) => {
+    if (v == null) return null;
+    const x = paddingX + (i / 6) * plotWidth;
+    const y = paddingY + plotHeight - ((v - 1) / 4) * plotHeight;
+    return { x, y, v, i };
+  });
+
+  const segments: string[] = [];
+  let current: string[] = [];
+  for (const c of coords) {
+    if (c == null) {
+      if (current.length > 1) {
+        segments.push(current.join(" "));
+      }
+      current = [];
+    } else {
+      current.push(`${c.x},${c.y}`);
+    }
+  }
+  if (current.length > 1) {
+    segments.push(current.join(" "));
+  }
 
   return (
     <div className="contents">
       <span className="text-[11px] font-semibold uppercase leading-none tracking-[0.12em] text-muted-foreground">
         {label}
       </span>
-      <div className="grid h-7 grid-cols-7 items-end">
-        {points.map((v, i) => {
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        className="h-7 w-full overflow-visible"
+        preserveAspectRatio="none"
+      >
+        {segments.map((seg, idx) => (
+          <polyline
+            key={idx}
+            points={seg}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            vectorEffect="non-scaling-stroke"
+            className="text-foreground/20"
+          />
+        ))}
+        {coords.map((c, i) => {
+          if (!c) return null;
           const isToday = i === points.length - 1;
-          const height = v == null ? 3 : 20 + ((v - 1) / 4) * 80;
+          const status = statusFor[metric](c.v);
           return (
-            <span key={i} className="flex h-full items-end justify-center">
-              <span
-                className={`w-1.5 rounded-full ${
-                  v == null
-                    ? "bg-foreground/10"
-                    : isToday
-                      ? "bg-foreground"
-                      : "bg-foreground/25"
-                }`}
-                style={{ height: `${height}%` }}
-              />
-            </span>
+            <circle
+              key={i}
+              cx={c.x}
+              cy={c.y}
+              r={isToday ? 4 : 2.5}
+              className={`${STATUS_FILL[status]} ${isToday ? "stroke-white stroke-2" : ""}`}
+              vectorEffect="non-scaling-stroke"
+            />
           );
         })}
-      </div>
+      </svg>
       <span className="text-right text-[13px] font-semibold tabular-nums tracking-tight leading-none text-foreground">
         {lastValue ?? "—"}
       </span>
@@ -57,7 +116,7 @@ export function TrendSparklines({
 }) {
   const days = lastSevenDays(today);
   const byDate = new Map(entries.map((e) => [e.entry_date, e]));
-  const pick = (key: "sleep" | "energy" | "stress") =>
+  const pick = (key: MetricKey) =>
     days.map((d) => {
       const entry = byDate.get(d);
       return entry ? (entry[key] as number) : null;
@@ -65,9 +124,9 @@ export function TrendSparklines({
 
   return (
     <div className="mt-3 grid grid-cols-[3.5rem_1fr_1.25rem] items-center gap-x-3 gap-y-2.5">
-      <Row label="Sleep" points={pick("sleep")} />
-      <Row label="Energy" points={pick("energy")} />
-      <Row label="Stress" points={pick("stress")} />
+      <Row label="Sleep" points={pick("sleep")} metric="sleep" />
+      <Row label="Energy" points={pick("energy")} metric="energy" />
+      <Row label="Stress" points={pick("stress")} metric="stress" />
 
       <span className="block" />
       <div className="grid h-4 grid-cols-7 items-center">
